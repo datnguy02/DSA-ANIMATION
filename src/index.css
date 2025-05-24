@@ -13,4 +13,5 @@ body {
 @theme {
   --color-main: #e8e8e8;
   --color-primary: #00334E;
+  --color-test: red;
 }
