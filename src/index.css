@@ -2,11 +2,15 @@
 @import "tailwindcss";
 
 * {
-  margin: 0;
   box-sizing: border-box;
   font-family: "Encode Sans", system-ui;
 }
 
 body {
   background-color: #e8e8e8;
+}
+
+@theme {
+  --color-main: #e8e8e8;
+  --color-primary: #00334E;
 }
