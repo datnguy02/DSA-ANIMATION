@@ -18,7 +18,11 @@ const BstNode = ({data, x, y, animeDuration, moveAmount, angle}) => {
     }, []);
 
     return (
-        <g transform={`translate(${x}, ${y}) rotate(${angle})`} ref={node}>
+        <g transform={`translate(${x}, ${y}) rotate(${angle})`} 
+            ref={node}
+            className="transform-fill"
+            transformOrigin="center"
+        >
             <circle
               r={bst_node.node_radius}  
               fill={bst_node.node_bg}
