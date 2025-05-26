@@ -11,7 +11,13 @@ const HeroAnimation = () => {
     const animeDuration = 1;
 
     return (
-        <svg viewBox="0 0 1200 1200" className="w-[18rem] sm:w-[30em] md:w-[33em] lg:w-[1080] h-auto" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 1200 1200" 
+            width={1200}
+            height={1200}
+            preserveAspectRatio="xMidyMid meet"
+            className="h-full w-full"    
+            xmlns="http://www.w3.org/2000/svg"
+        >
             <SinglyListNode 
                 data={30} 
                 x={180} 
