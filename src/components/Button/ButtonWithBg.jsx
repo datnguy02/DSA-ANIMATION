@@ -8,6 +8,7 @@ const ButtonWithBg = ({text}) => {
                             py-[0.5em]
                             px-[3em]
                             rounded-[2em]
+                            self-center
             ">
                 {text}
             </button>;

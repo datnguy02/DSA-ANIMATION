@@ -7,13 +7,13 @@ const DsCard = ({name, type, difficulty, img, bg}) => {
                     background: bg
                 }
             }
-            className="p-[2em] rounded-[1em] flex flex-col gap-[2rem] justify-end items-center"
+            className="p-[1.5em] rounded-[1em] flex flex-col justify-end"
         >
             {img}
-            <div>
-                <Title title={`${name}`} fontSize="1.5rem"/>
-                <Title title={`Type: ${type}`}/>
-                <Title title={`Difficulty: ${difficulty}`}/>
+            <div className="self-start">
+                <Title title={`${name}`} fontSize="1.5rem" color="white"/>
+                <Title title={`Type: ${type}`} color="white"/>
+                <Title title={`Difficulty: ${difficulty}`} color="white"/>
             </div>
         </div>
     );

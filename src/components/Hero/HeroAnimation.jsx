@@ -2,7 +2,6 @@ import BstNode from "./Node/BstNode";
 import SinglyListNode from "./Node/SinglyListNode";
 import ArrayNode from "./Node/ArrayNode";
 import DoublyListNode from "./Node/DoublyListNode";
-import StackNode from "./Node/StackNode";
 import NullNode from "./Node/NullNode";
 import { null_node_bst, null_node_sll } from "../UI/style";
 
@@ -11,11 +10,11 @@ const HeroAnimation = () => {
     const animeDuration = 1;
 
     return (
-        <svg viewBox="0 0 1200 1200" 
+        <svg viewBox="0 0 1200 1200"  
             width={1200}
             height={1200}
-            preserveAspectRatio="xMidyMid meet"
-            className="h-full w-full"    
+            className="w-[18rem] h-auto md:w-[27rem] lg:w-[30rem]"
+           
             xmlns="http://www.w3.org/2000/svg"
         >
             <SinglyListNode 
@@ -117,17 +116,32 @@ const HeroAnimation = () => {
                 cy={1080}
                 fill="#808080"
             />
-            <StackNode
-                data={7}
-                x={540}
+             <NullNode
+                color={null_node_sll.text}
+                bg={null_node_sll.bg}
+                x={400}
                 y={1000}
                 angle={0}
+                moveAmount={0}
+                animeDuration={animeDuration}
             />
-            <StackNode
-                data={8}
-                x={360}
-                y={950}
-                angle={-30}
+             <NullNode
+                color={null_node_bst.text}
+                bg={null_node_bst.bg}
+                x={550}
+                y={1000}
+                angle={0}
+                moveAmount={0}
+                animeDuration={animeDuration}
+            />
+             <NullNode
+                color={null_node_sll.text}
+                bg={null_node_sll.bg}
+                x={450}
+                y={920}
+                angle={0}
+                moveAmount={0}
+                animeDuration={animeDuration}
             />
         </svg>
     );

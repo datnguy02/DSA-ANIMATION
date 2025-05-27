@@ -1,9 +1,10 @@
-const Title = ({title, fontSize}) => {
+const Title = ({title, fontSize, color}) => {
     return (
-            <h1 className="font-bold text-white"
+            <h1 className="font-bold"
                 style={
                     {
-                        fontSize: fontSize
+                        fontSize: fontSize,
+                        color: color,
                     }
                 }
             >
