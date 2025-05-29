@@ -1,15 +1,88 @@
 import { Node } from "./node";
+import { node_size } from "../../../../assets/size/sll_size";
+import colorway from "../../../../assets/color-style/sllStyle";
 
 export class LinkedList {
     constructor () {
         this._head = null;
         this._tail = null;
         this._nElement = 0;
-        this._GAP = 100;
+        this._GAP = node_size["GAP"];
         this._x = 20;
-        this._y = 0;
+        this._y = 300;
         this._startX = 300;
-        this._startY = 0;
+        this._startY = 300;
+        this._WIDTH = node_size["WIDTH"];
+        this._HEIGHT = node_size["HEIGHT"];
+        this._HEAD_WIDTH = node_size["REF_NODE_WIDTH"];
+        this._HEAD_HEIGHT = node_size["REF_NODE_HEIGHT"];
+        this._BG = colorway["LIST_BG"];
+        this._HEAD_BG = colorway["HEAD_BG"];
+        this._TAIL_BG = colorway["TAIL_BG"];
+        this._STROKE = colorway["NODE_BORDER"];
+        this._STROKE_WIDTH = node_size["STROKE_WIDTH"];
+        this._ROUNED = node_size["NODE_BORDER_RAD"];
+        this._REF_LINE_COLOR = colorway["REF_LINE"];
+        this._REF_LINE_THICKNESS = node_size["STROKE_WIDTH"]
+        this._REF_NODE_ROUNDED = node_size["REF_NODE_RAD"]
+    }
+
+    get REF_NODE_ROUNDED() {
+        return this._REF_NODE_ROUNDED;
+    }
+
+    get REF_LINE_THICKNESS() {
+        return this._REF_LINE_THICKNESS;
+    }
+
+    get REF_LINE_COLOR() {
+        return this._REF_LINE_COLOR;
+    }
+
+
+    get REF_LINE_WIDTH() {
+        return (this.WIDTH - this.HEAD_WIDTH)/2  + this.GAP;
+    }
+
+    get ROUNDED() {
+        return this._ROUNED;
+    }
+
+
+    get STROKE() {
+        return this._STROKE;
+    }
+
+    get STROKE_WIDTH() {
+        return this._STROKE_WIDTH;
+    }
+
+    get BG() {
+        return this._BG;
+    }
+
+    get HEAD_BG() {
+        return this._HEAD_BG;
+    }
+
+    get TAIL_BG() {
+        return this._TAIL_BG;
+    }
+
+    get HEAD_WIDTH() {
+        return this._HEAD_WIDTH;
+    }
+
+    get HEAD_HEIGHT() {
+        return this._HEAD_HEIGHT;
+    }
+
+    get WIDTH() {
+        return this._WIDTH;
+    }
+
+    get HEIGHT() {
+        return this._HEIGHT;
     }
 
     get x() {

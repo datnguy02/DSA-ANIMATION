@@ -8,14 +8,8 @@ const node_size = {
     NODE_BORDER_RAD: 20,
     REF_NODE_RAD: 10,
     REF_LINE_WIDTH: 8,
+    GAP: 100,
 };
 
-const list_size = {
-    GAP: 200,
-    POS: {
-        x: 300,
-        y: 300
-    }
-};
 
-export {node_size, list_size}
+export {node_size}

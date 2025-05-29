@@ -1,5 +1,7 @@
 import Node from "./Node";
-import RefNode from "./RefNode.jsx"
+import HeadRef from "./HeadRef";
+import TailRef from "./TailRef";
+
 const getNodeList = (list) => {
     let current = list.head;
     const res = [];
@@ -19,9 +21,9 @@ const SinglyLinkedList = ({operation}) => {
 
     return (
         <svg 
-            viewBox="0 0 2800 1100" 
-            width={1600}
-            height={900}    
+            viewBox="0 0 1800 1800" 
+            width={1300}
+            height={700}    
             preserveAspectRatio="xMidYMid meet"
 
         >
@@ -29,22 +31,18 @@ const SinglyLinkedList = ({operation}) => {
                  transform={`translate(${list.x}, ${list.y})`}
             >
                 <rect
-                    width={list.head.WIDTH}
-                    height={list.head.HEIGHT}
-                    fill={list.head.BG}
-                    rx={list.head.BORDER_RAD}
-                    stroke={list.head.STROKE}
-                    strokeWidth={list.head.STROKE_WIDTH}
+                    width={list.WIDTH}
+                    height={list.HEIGHT}
+                    fill={list.BG}
+                    stroke={list.STROKE}
+                    strokeWidth={list.STROKE_WIDTH}
+                    rx={list.ROUNDED}
                 />
-                <RefNode
-                    name="Head"
-                    isTop={true}
-                    node={list.head}
+                <HeadRef
+                    list={list}
                 />
-                <RefNode
-                    name="Tail"
-                    isTop={false}
-                    node={list.head}
+                <TailRef
+                    list={list}
                 />
             </g>
             {nodeList}    

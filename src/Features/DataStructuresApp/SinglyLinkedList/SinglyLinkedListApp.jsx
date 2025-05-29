@@ -4,7 +4,7 @@ import SinglyLinkedList from "./SinglyLinkedList";
 import { useState } from "react";
 
 const initialList = new LinkedList();
-for (let i = 0; i < 3; i++) {
+for (let i = 0; i < 5; i++) {
     initialList.insertFirst(Math.round((Math.random() * 10000) % 100));
 }
 

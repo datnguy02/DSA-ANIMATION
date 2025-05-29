@@ -35,7 +35,7 @@ const Node = ({node}) => {
             </g>
             <RefNode
                 node={node}
-                name="next"
+                name="Next"
                 isTop={false}
                 isTail={false}
                 isListEmpty={false}

@@ -1,0 +1,71 @@
+const NULL_NODE_WIDTH = 100;
+const NULL_NOE_HEIGHT = 50;
+const NULL_NODE_ROUNDED = 10;
+
+
+const TailRef = ({list}) => {
+    let ref_line2_width
+    if (!list.isEmpty()) {
+         ref_line2_width = (list.tail.x + list.tail.WIDTH/2) 
+                                - (list.x + list.WIDTH/2);
+    }
+
+    return (
+       <g transform={`translate(${list.WIDTH/2 - list.HEAD_WIDTH/2}, ${list.HEIGHT/2 + list.HEAD_HEIGHT/3})`}>
+                <rect
+                    width={list.HEAD_WIDTH}
+                    height={list.HEAD_HEIGHT}
+                    fill={list.HEAD_BG}
+                    rx={list.REF_NODE_ROUNDED}
+                />
+                <text 
+                    fill="white"
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                    x={list.HEAD_WIDTH/2}
+                    y={list.HEAD_HEIGHT/2}
+                    fontWeight="bold"
+                    fontSize={28}
+                >
+                    Tail
+                </text>
+                <path
+                    d={`M${list.HEAD_WIDTH} ${list.HEAD_HEIGHT/2} L${list.HEAD_WIDTH + list.REF_LINE_WIDTH} ${list.HEAD_HEIGHT/2}`}
+                    stroke={list.REF_LINE_COLOR}
+                    strokeWidth={list.REF_LINE_THICKNESS}
+                    strokeLinecap="round"
+                    opacity={list.isEmpty() ? 1 : 0}
+                />
+                <path
+                    d={`M${list.HEAD_WIDTH/2} ${list.HEAD_HEIGHT} L${list.HEAD_WIDTH/2} 250 L${list.HEAD_WIDTH/2 + ref_line2_width} 250  L${list.HEAD_WIDTH/2 + ref_line2_width} ${list.HEAD_HEIGHT}`}
+                    strokeLinecap="round"
+                    strokeWidth={list.REF_LINE_THICKNESS}
+                    stroke={list.REF_LINE_COLOR}
+                    fill="none"
+                    opacity={list.isEmpty() ? 0 : 1}
+                    strokeLinejoin="round"
+                />
+                <g transform={`translate(${list.HEAD_WIDTH + list.REF_LINE_WIDTH}, ${list.HEAD_HEIGHT/2 - NULL_NOE_HEIGHT/2})`}>
+                    <rect
+                        width={NULL_NODE_WIDTH}
+                        height={NULL_NOE_HEIGHT}
+                        fill={list.HEAD_BG}
+                        rx={NULL_NODE_ROUNDED}
+                    />
+                    <text
+                        textAnchor="middle"
+                        dominantBaseline="middle"
+                        fontWeight="bold"
+                        x={NULL_NODE_WIDTH/2}
+                        y={NULL_NOE_HEIGHT/2}
+                        fill="white"
+                        fontSize={28}    
+                    >
+                            Null
+                    </text>
+                </g>
+        </g>
+    );
+};
+
+export default TailRef

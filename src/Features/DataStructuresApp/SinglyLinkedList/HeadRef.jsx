@@ -2,38 +2,38 @@ const NULL_NODE_WIDTH = 100;
 const NULL_NOE_HEIGHT = 50;
 const NULL_NODE_ROUNDED = 10;
 
-const RefNode = ({node, name}) => {
-    return (
-         <g transform={`translate(${node.WIDTH/2 - node.REF_NODE_WIDTH/2}, ${node.HEIGHT/2 + node.REF_NODE_HEIGHT/3})`}>
-                <rect
-                    width={node.REF_NODE_WIDTH}
-                    height={node.REF_NODE_HEIGHT}
-                    fill={node.REF_NODE_BG}
-                    rx={node.REF_NODE_RAD}
 
+const HeadRef = ({list}) => {
+    return (
+       <g transform={`translate(${list.WIDTH/2 - list.HEAD_WIDTH/2}, ${list.HEIGHT/2 - list.HEAD_HEIGHT})`}>
+                <rect
+                    width={list.HEAD_WIDTH}
+                    height={list.HEAD_HEIGHT}
+                    fill={list.HEAD_BG}
+                    rx={list.REF_NODE_ROUNDED}
                 />
                 <text 
                     fill="white"
                     textAnchor="middle"
                     dominantBaseline="middle"
-                    x={node.REF_NODE_WIDTH/2}
-                    y={node.REF_NODE_HEIGHT/2}
+                    x={list.HEAD_WIDTH/2}
+                    y={list.HEAD_HEIGHT/2}
                     fontWeight="bold"
                     fontSize={28}
                 >
-                    {name}
+                    Head
                 </text>
                 <path
-                    d={`M${node.REF_NODE_WIDTH} ${node.REF_NODE_HEIGHT/2} L${node.REF_NODE_WIDTH + node.REF_LINE_WIDTH} ${node.REF_NODE_HEIGHT/2}`}
-                    stroke={node.REF_LINE_COLOR}
-                    strokeWidth={node.REF_LINE_THICKNESS}
+                    d={`M${list.HEAD_WIDTH} ${list.HEAD_HEIGHT/2} L${list.HEAD_WIDTH + list.REF_LINE_WIDTH} ${list.HEAD_HEIGHT/2}`}
+                    stroke={list.REF_LINE_COLOR}
+                    strokeWidth={list.REF_LINE_THICKNESS}
                     strokeLinecap="round"
                 />
-                <g transform={`translate(${node.REF_NODE_WIDTH + node.REF_LINE_WIDTH}, ${node.REF_NODE_HEIGHT/2 - NULL_NOE_HEIGHT/2})`}>
+                <g transform={`translate(${list.HEAD_WIDTH + list.REF_LINE_WIDTH}, ${list.HEAD_HEIGHT/2 - NULL_NOE_HEIGHT/2})`}>
                     <rect
                         width={NULL_NODE_WIDTH}
                         height={NULL_NOE_HEIGHT}
-                        fill={node.REF_NODE_BG}
+                        fill={list.HEAD_BG}
                         rx={NULL_NODE_ROUNDED}
                     />
                     <text
@@ -43,7 +43,7 @@ const RefNode = ({node, name}) => {
                         x={NULL_NODE_WIDTH/2}
                         y={NULL_NOE_HEIGHT/2}
                         fill="white"
-                        fontSize={26}    
+                        fontSize={28}    
                     >
                             Null
                     </text>
@@ -52,4 +52,4 @@ const RefNode = ({node, name}) => {
     );
 };
 
-export default RefNode
+export default HeadRef
