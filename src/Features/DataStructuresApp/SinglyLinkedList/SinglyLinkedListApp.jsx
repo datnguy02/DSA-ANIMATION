@@ -4,9 +4,11 @@ import SinglyLinkedList from "./SinglyLinkedList";
 import { useState } from "react";
 
 const initialList = new LinkedList();
-for (let i = 0; i < 5; i++) {
-    initialList.insertFirst(Math.random() % 100);
+for (let i = 0; i < 3; i++) {
+    initialList.insertFirst(Math.round((Math.random() * 10000) % 100));
 }
+
+console.log(initialList);
 
 const SinglyLinkedListApp = () => {
     const [operation, setOperation] = useState({
@@ -16,7 +18,7 @@ const SinglyLinkedListApp = () => {
     return (
         <>
             <div    
-                className="w-screen h-screen"
+                className="w-screen h-screen flex justify-center items-start"
                 style={
                     {
                         backgroundColor: colorway["BG"]

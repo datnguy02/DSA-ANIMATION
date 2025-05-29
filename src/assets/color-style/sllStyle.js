@@ -8,6 +8,7 @@ const colorway = {
     NULL_NODE_BG: "477186",
     NULL_NODE_TEXT: "white",
     NODE_REF_TEXT: "white",
+    REF_LINE: "#477186",
     LIST_BG: "#113C51",
     HEAD_BG: "#477186",
     TAIL_BG: "#477186",
