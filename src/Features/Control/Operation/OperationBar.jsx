@@ -46,7 +46,7 @@ const OperationBar = ({name, onStart}) => {
                     {
                         backgroundColor: style.BG,
                         color: style.TEXT,
-                        border: `0.2em solid ${style["START_BUTTON_BG"]}`
+                        border: `0.4em solid ${style["START_BUTTON_BG"]}`
                     }
                 }
                 ref={bar}

@@ -5,7 +5,7 @@ import SinglyLinkedList from "./SinglyLinkedList";
 import { useState } from "react";
 
 const initialList = new LinkedList();
-for (let i = 0; i < 5; i++) {
+for (let i = 0; i < 3; i++) {
     initialList.insertFirst(Math.round((Math.random() * 10000) % 100));
 }
 
@@ -13,20 +13,29 @@ for (let i = 0; i < 5; i++) {
 const SinglyLinkedListApp = () => {
     const [operation, setOperation] = useState({
                                                 list: initialList,
-                                                operationName: "None"
+                                                name: "None"
                                                 });
 
+
+    // This function will be passed down to the operation bar
     const handleStart = (state) => {
         const operationName = state.operationName;
-        if (operationName === "Insert(i)") {
-            // TODO 
-            operation.list.insertAt(state["value"], state["index"]),
+        const newList = operation.list.clone();
+        if (operationName === "insert(i)") {
+            newList.insertAt(state["value"], state["index"]);
             setOperation({
-                list: operation.list,
-                operationName: "insert(i)"
+                list: newList,
+                name: "insert(i)"
             });
-
         }
+        else if (operationName === "insertfirst") {
+            newList.insertAt(state["value"], 0);
+            setOperation({
+                list: newList,
+                name: "insertfirst",
+            })
+        }
+        
     }
     return (
         <>

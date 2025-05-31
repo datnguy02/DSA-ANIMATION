@@ -10,6 +10,14 @@ export class Node {
         this._x = x;
         this._y = y;
 
+        this._domNode = null;
+        this._nodeContainer = null;
+        this._dataContainer = null;
+        this._dataText = null;
+        this._nextRef = null;
+        this._nextRefText = null;
+        this._refLine = null;
+
         // style of node
         this._WIDTH = node_size["WIDTH"];
         this._HEIGHT = node_size["HEIGHT"];
@@ -26,6 +34,57 @@ export class Node {
         this._GAP = node_size["GAP"];
         if (next == undefined)
             this._next = null;
+    }
+
+    get refLine() {
+        return this._refLine;
+    }
+
+    set refLine(line) {
+        this._refLine= line;
+    }
+
+    get nextRefText() {
+        return this._nextRefText;
+    }
+
+    set nextRefText(node) {
+        this._nextRefText = node;
+    }
+
+
+    get dataText() {
+        return this._dataText
+    }
+
+    set dataText(node) {
+        this._dataText = node;
+    }
+
+    get nextRef() {
+        return this._nextRef
+    }
+
+    set nextRef(node) {
+        this._nextRef = node;
+    }
+
+    get dataContainer() {
+        return this._dataContainer
+    }
+
+    set dataContainer(node) {
+        this._dataContainer = node;
+    }
+
+
+
+    get domNode() {
+        return this._domNode;
+    }
+
+    set domNode(node) {
+        this._domNode = node;
     }
 
     get GAP() {

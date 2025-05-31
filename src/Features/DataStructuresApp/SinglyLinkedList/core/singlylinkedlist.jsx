@@ -23,7 +23,71 @@ export class LinkedList {
         this._ROUNED = node_size["NODE_BORDER_RAD"];
         this._REF_LINE_COLOR = colorway["REF_LINE"];
         this._REF_LINE_THICKNESS = node_size["STROKE_WIDTH"]
-        this._REF_NODE_ROUNDED = node_size["REF_NODE_RAD"]
+        this._REF_NODE_ROUNDED = node_size["REF_NODE_RAD"];
+        this._tailLineY = null;
+        this._tailLineX = null;
+        this._headRef = null;
+        this._tailRef = null;
+        this._headRefTetxt = null;
+        this._tailRefText = null;
+        this._headLine = null;
+    }
+
+    get headLine() {
+        return this._headLine;
+    }
+
+    set headLine(line) {
+        this._headLine = line;
+    }
+
+    get headRef() {
+        return this._headRef;
+    }
+
+    set headRef(node) {
+        this._headRef = node;
+    }
+
+    get tailRef() {
+        return this._tailRef;
+    }
+
+    set tailRef(tail) {
+        this._tailRef = tail;
+    }
+
+    get tailRefText() {
+        return this._tailRefText;
+    }
+
+    set tailRefText(node) {
+        this._tailRefText = node;
+    } 
+
+    get headRefText() {
+        return this._headRefTetxt;
+    }
+
+    set headRefText(node) {
+        this._headRefTetxt = node;
+    }
+
+
+    get tailLineX() {
+        return this._tailLineX;
+    }
+
+    set tailLineX(line) {
+        this._tailLineX = line;
+    }
+
+    get tailLineY() {
+        return this._tailLineY;
+    }
+
+    set tailLineY(line) {
+        this._tailLineY = line;
     }
 
     get REF_NODE_ROUNDED() {
@@ -208,6 +272,17 @@ export class LinkedList {
             current.x = current.x + amountX;
             current = current.next;
         }
+    }
+
+    clone() {
+        let current = this.head;
+        const list = new LinkedList();
+        let i = 0;
+        while (current != null) {
+            list.insertAt(current.value, i++);
+            current = current.next;
+        }
+        return list;
     }
 }
 

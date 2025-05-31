@@ -9,12 +9,13 @@ const ControlButton = ({name, style, onStart, inputNameList, inputValList, metho
                     }
                     onClick={() => {
                         let state = {
-                            operationName: methodName,
+                            operationName: methodName.toLowerCase(),
                         };
                         let n = inputNameList.length;
                         for (let i = 0; i < n; i++) {
                             state[inputNameList[i].toLowerCase()] = inputValList[i];
                         }
+
                         onStart(state);
         
                     }}
