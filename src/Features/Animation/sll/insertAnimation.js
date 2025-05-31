@@ -5,7 +5,7 @@ const moveNodeToRight = (tl, startNode) => {
     let node = startNode;
     tl.to(node.domNode, {});
     while (node != null) {
-        tl.fromTo(node.domNodeContainer, {
+        tl.fromTo(node.nodeContainer, {
             attr: {
                 transform: `translate(${node.x - node.GAP - node.WIDTH}, ${node.y})`
             }
@@ -22,9 +22,8 @@ const moveNodeToRight = (tl, startNode) => {
 const insertFirstAnimation = (tl, list) => {
     const newNode = list.head;
 
-    console.log(list.domTailLineY);
     moveNodeToRight(tl, list.head.next)
-    .fromTo(list.head.domNodeContainer, {
+    .fromTo(list.head.nodeContainer, {
         attr: {
             transform: `translate(${newNode.x}, ${newNode.y  + FADE_IN_AMOUNT})`
         }

@@ -1,9 +1,17 @@
+import { useContext } from "react";
+import { TailLineXContext, TailLineYContext, TailRefContext, TailRefTextContext } from "../../../context/sll/headRefContext";
+
 const NULL_NODE_WIDTH = 100;
 const NULL_NOE_HEIGHT = 50;
 const NULL_NODE_ROUNDED = 10;
 
 
 const TailRef = ({list}) => {
+    const domtailRef = useContext(TailRefContext);
+    const domTailLineX = useContext(TailLineXContext);
+    const domTailLineY = useContext(TailLineYContext);
+    const domTailText = useContext(TailRefTextContext);
+
     let ref_line2_width
     if (!list.isEmpty()) {
          ref_line2_width = (list.tail.x + list.tail.WIDTH/2) 
@@ -17,6 +25,7 @@ const TailRef = ({list}) => {
                     height={list.HEAD_HEIGHT}
                     fill={list.HEAD_BG}
                     rx={list.REF_NODE_ROUNDED}
+                    ref={domtailRef}
                 />
                 <text 
                     fill="white"
@@ -26,6 +35,7 @@ const TailRef = ({list}) => {
                     y={list.HEAD_HEIGHT/2}
                     fontWeight="bold"
                     fontSize={28}
+                    ref={domTailText}
                 >
                     Tail
                 </text>
@@ -35,6 +45,7 @@ const TailRef = ({list}) => {
                     strokeWidth={list.REF_LINE_THICKNESS}
                     strokeLinecap="round"
                     opacity={list.isEmpty() ? 1 : 0}
+                    ref={domTailLineX}
                 />
                 <path
                     d={`M${list.HEAD_WIDTH/2} ${list.HEAD_HEIGHT} L${list.HEAD_WIDTH/2} 250 L${list.HEAD_WIDTH/2 + ref_line2_width} 250  L${list.HEAD_WIDTH/2 + ref_line2_width} ${list.HEAD_HEIGHT}`}
@@ -44,6 +55,7 @@ const TailRef = ({list}) => {
                     fill="none"
                     opacity={list.isEmpty() ? 0 : 1}
                     strokeLinejoin="round"
+                    ref={domTailLineY}
                 />
                 <g transform={`translate(${list.HEAD_WIDTH + list.REF_LINE_WIDTH}, ${list.HEAD_HEIGHT/2 - NULL_NOE_HEIGHT/2})`}>
                     <rect

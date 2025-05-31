@@ -4,6 +4,7 @@ import TailRef from "./TailRef";
 import gsap from "gsap/gsap-core";
 import { useEffect, useRef } from "react";
 import { insertFirstAnimation } from "../../Animation/sll/insertAnimation";
+import { HeadLineContext, HeadRefContext, HeadRefTextContext, TailLineXContext, TailLineYContext, TailRefContext, TailRefTextContext } from "../../../context/sll/headRefContext";
 
 const getNodeList = (list) => {
     let current = list.head;
@@ -27,6 +28,8 @@ const SinglyLinkedList = ({operation}) => {
     const domTailLineX = useRef(null);
     const domTailLineY = useRef(null);
     const domHeadLine = useRef(null);
+    const domHeadText = useRef(null);
+    const domTailText = useRef(null);
 
     useEffect(() => {
         list.headRef = domHead.current;
@@ -34,10 +37,14 @@ const SinglyLinkedList = ({operation}) => {
         list.headLine = domHeadLine.current;
         list.tailLineX = domTailLineX.current;
         list.tailLineY = domTailLineY.current;
+        list.headRefText = domHeadText.current;
+        list.tailRefText = domTailText.current;
+
+        console.log(list.tailLineY)
 
         tl.current = gsap.timeline({
             defaults: {
-                duration: 0.5,
+                duration: 1,
             }
         });
 
@@ -60,25 +67,40 @@ const SinglyLinkedList = ({operation}) => {
             height={700}    
             preserveAspectRatio="xMidYMid meet"
         >
-            <g
-                 transform={`translate(${list.x}, ${list.y})`}
-            >
-                <rect
-                    width={list.WIDTH}
-                    height={list.HEIGHT}
-                    fill={list.BG}
-                    stroke={list.STROKE}
-                    strokeWidth={list.STROKE_WIDTH}
-                    rx={list.ROUNDED}
-                />
-                <HeadRef
-                    list={list}
-                />
-                <TailRef
-                    list={list}
-                />
-            </g>
-            {nodeList}    
+                <g
+                    transform={`translate(${list.x}, ${list.y})`}
+                >
+                            <rect
+                                width={list.WIDTH}
+                                height={list.HEIGHT}
+                                fill={list.BG}
+                                stroke={list.STROKE}
+                                strokeWidth={list.STROKE_WIDTH}
+                                rx={list.ROUNDED}
+                            />
+                            <HeadRefContext value={domHead}>
+                                <HeadLineContext value={domHeadLine}>
+                                    <HeadRefTextContext value={domHeadText}>
+                                        <HeadRef
+                                            list={list}
+                                        />
+                                    </HeadRefTextContext>
+                                </HeadLineContext>
+                            </HeadRefContext>
+
+                            <TailRefContext value={domTail}>
+                                <TailRefTextContext value={domTailText}>
+                                    <TailLineXContext value={domTailLineX}>
+                                        <TailLineYContext value={domTailLineY}>
+                                             <TailRef
+                                                list={list}
+                                            />
+                                        </TailLineYContext>
+                                    </TailLineXContext>
+                                </TailRefTextContext>
+                            </TailRefContext>
+                </g>
+                {nodeList}    
         </svg>
     );
 };
