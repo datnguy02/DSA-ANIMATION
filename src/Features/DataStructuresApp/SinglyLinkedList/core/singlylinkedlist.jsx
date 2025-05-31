@@ -8,7 +8,6 @@ export class LinkedList {
         this._tail = null;
         this._nElement = 0;
         this._GAP = node_size["GAP"];
-        this._x = 20;
         this._y = 300;
         this._startX = 300;
         this._startY = 300;
@@ -86,7 +85,7 @@ export class LinkedList {
     }
 
     get x() {
-        return this._x;
+        return this.startX - this.GAP - this.WIDTH;
     }
 
     set x(xPos) {

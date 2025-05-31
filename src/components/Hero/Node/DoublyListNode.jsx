@@ -1,3 +1,4 @@
+import { useGSAP } from "@gsap/react";
 import { dbll_node } from "../../UI/style";
 import { gsap } from "gsap/gsap-core";
 import { useRef, useEffect } from "react";
@@ -6,7 +7,7 @@ import { useRef, useEffect } from "react";
 const DoublyListNode = ({x, y, data, angle, animeDuration, moveAmount}) => {
     const node = useRef(null);
 
-    useEffect(() => {
+    useGSAP(() => {
         gsap.to(node.current, {
             attr: {
                 transform: `translate(${x}, ${y + moveAmount}) rotate(${angle})`,

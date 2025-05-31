@@ -23,7 +23,7 @@ export class Node {
         this._STROKE_WIDTH = node_size["STROKE_WIDTH"];
         this._REF_LINE_THICKNESS = node_size["REF_LINE_WIDTH"];
         this._REF_LINE_COLOR = colorway["REF_LINE"];
-        this._GAP = 100;
+        this._GAP = node_size["GAP"];
         if (next == undefined)
             this._next = null;
     }
