@@ -12,12 +12,6 @@ const TailRef = ({list}) => {
     const domTailLineY = useContext(TailLineYContext);
     const domTailText = useContext(TailRefTextContext);
 
-    let ref_line2_width
-    if (!list.isEmpty()) {
-         ref_line2_width = (list.tail.x + list.tail.WIDTH/2) 
-                                - (list.x + list.WIDTH/2);
-    }
-
     return (
        <g transform={`translate(${list.WIDTH/2 - list.HEAD_WIDTH/2}, ${list.HEIGHT/2 + list.HEAD_HEIGHT/3})`}>
                 <rect
@@ -48,7 +42,7 @@ const TailRef = ({list}) => {
                     ref={domTailLineX}
                 />
                 <path
-                    d={`M${list.HEAD_WIDTH/2} ${list.HEAD_HEIGHT} L${list.HEAD_WIDTH/2} 250 L${list.HEAD_WIDTH/2 + ref_line2_width} 250  L${list.HEAD_WIDTH/2 + ref_line2_width} ${list.HEAD_HEIGHT}`}
+                    d={list.getTailLineYWidthAttr(0)}
                     strokeLinecap="round"
                     strokeWidth={list.REF_LINE_THICKNESS}
                     stroke={list.REF_LINE_COLOR}
@@ -57,7 +51,9 @@ const TailRef = ({list}) => {
                     strokeLinejoin="round"
                     ref={domTailLineY}
                 />
-                <g transform={`translate(${list.HEAD_WIDTH + list.REF_LINE_WIDTH}, ${list.HEAD_HEIGHT/2 - NULL_NOE_HEIGHT/2})`}>
+                <g transform={`translate(${list.HEAD_WIDTH + list.REF_LINE_WIDTH}, ${list.HEAD_HEIGHT/2 - NULL_NOE_HEIGHT/2})`}
+                      opacity={list.isEmpty() ? 1 : 0}
+                >
                     <rect
                         width={NULL_NODE_WIDTH}
                         height={NULL_NOE_HEIGHT}

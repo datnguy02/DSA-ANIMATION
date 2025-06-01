@@ -12,6 +12,14 @@ const colorway = {
     LIST_BG: "#113C51",
     HEAD_BG: "#477186",
     TAIL_BG: "#477186",
+    HEAD_CONTROL_BG: "#dbd8e3",
+    HEAD_CONTROL_TEXT: "#5c5470",
+
+    // style when node is visited
+    NODE_CURRENT_VISIT_BG: "#5c5470",
+    REF_CURRENT_VISIT_BG: "#dbd8e3",
+    NODE_CURRENT_VISIT_STROKE: "#dbd8e3",
+    NODE_CURRENT_VISIT_TEXT: "#5c5470"
 };
 
 export default colorway;

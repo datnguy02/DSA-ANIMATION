@@ -6,10 +6,12 @@ export class Node {
         this._val = val;
         this._next = next;
         this._id = id;
+
         // coordinate of node
         this._x = x;
         this._y = y;
 
+        // dom Element reference
         this._domNode = null;
         this._nodeContainer = null;
         this._dataContainer = null;
@@ -18,22 +20,48 @@ export class Node {
         this._nextRefText = null;
         this._refLine = null;
 
-        // style of node
+        // size of node
         this._WIDTH = node_size["WIDTH"];
         this._HEIGHT = node_size["HEIGHT"];
-        this._BG = colorway["NODE_BG"];
         this._BORDER_RAD = node_size["NODE_BORDER_RAD"];
         this._REF_NODE_WIDTH = node_size["REF_NODE_WIDTH"];
         this._REF_NODE_HEIGHT = node_size["REF_NODE_HEIGHT"];
-        this._REF_NODE_BG = colorway["NODE_REF_BG"];
         this._REF_NODE_RAD = node_size["REF_NODE_RAD"];
-        this._STROKE = colorway["NODE_BORDER"];
         this._STROKE_WIDTH = node_size["STROKE_WIDTH"];
         this._REF_LINE_THICKNESS = node_size["REF_LINE_WIDTH"];
-        this._REF_LINE_COLOR = colorway["REF_LINE"];
         this._GAP = node_size["GAP"];
+
+        // styling
+        this._BG = colorway["NODE_BG"];
+        this._REF_NODE_BG = colorway["NODE_REF_BG"];
+        this._STROKE = colorway["NODE_BORDER"];
+        this._REF_LINE_COLOR = colorway["REF_LINE"];
+
+        this._NORMAL_STYLE = {
+            BG: colorway["NODE_BG"],
+            STROKE: colorway["NODE_REF_BG"],
+            REF_BG: colorway["NODE_REF_BG"],
+            TEXT: "white",
+        };
+
+        this._CURRENT_VISIT_STYLE = {
+            BG: colorway["NODE_CURRENT_VISIT_BG"],
+            STROKE: colorway["NODE_CURRENT_VISIT_STROKE"],
+            REF_BG: colorway["REF_CURRENT_VISIT_BG"],
+            TEXT: colorway["NODE_CURRENT_VISIT_TEXT"]
+        };
+
+
         if (next == undefined)
             this._next = null;
+    }
+
+    get CURRENT_VISIT_STYLE() {
+        return this._CURRENT_VISIT_STYLE;
+    }
+
+    get NORMAL_STYLE() {
+        return this._NORMAL_STYLE;
     }
 
     get refLine() {
@@ -174,6 +202,19 @@ export class Node {
 
     set next(n) {
         this._next = n;
+    }
+
+    getRefLineAttr(amountX, amountY) {
+        return `M${this.REF_NODE_WIDTH} ${this.REF_NODE_HEIGHT/2} 
+                L${this.REF_NODE_WIDTH + amountX} ${this.REF_NODE_HEIGHT/2 + amountY}`;
+    }
+
+    changeStyle(tl, style, pos) {
+        const {BG, STROKE, TEXT, REF_BG} = style;
+        tl.to(this.domNode, {attr: {fill: BG, stroke: STROKE}}, pos)
+        .to([this.nextRef, this.dataContainer], {attr: {fill: REF_BG}}, "<")
+        .to([this.nextRefText, this.dataText], {attr: {fill: TEXT}}, "<")
+        return tl;
     }
 
 }

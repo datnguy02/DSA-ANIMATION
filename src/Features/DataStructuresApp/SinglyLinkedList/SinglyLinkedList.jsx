@@ -19,6 +19,8 @@ const getNodeList = (list) => {
 }
 
 const SinglyLinkedList = ({operation}) => {
+    const ANIME_DURATION = 0.6;
+
     const operationName = operation.name;
     const list = operation.list;
     const nodeList = getNodeList(list);
@@ -30,6 +32,7 @@ const SinglyLinkedList = ({operation}) => {
     const domHeadLine = useRef(null);
     const domHeadText = useRef(null);
     const domTailText = useRef(null);
+    const domVirtualHeadLine = useRef(null);
 
     useEffect(() => {
         list.headRef = domHead.current;
@@ -39,12 +42,11 @@ const SinglyLinkedList = ({operation}) => {
         list.tailLineY = domTailLineY.current;
         list.headRefText = domHeadText.current;
         list.tailRefText = domTailText.current;
-
-        console.log(list.tailLineY)
+        list.virtualHeadLine = domVirtualHeadLine.current;
 
         tl.current = gsap.timeline({
             defaults: {
-                duration: 1,
+                duration: ANIME_DURATION,
             }
         });
 
@@ -83,6 +85,7 @@ const SinglyLinkedList = ({operation}) => {
                                     <HeadRefTextContext value={domHeadText}>
                                         <HeadRef
                                             list={list}
+                                            domVirtualHeadLine={domVirtualHeadLine}
                                         />
                                     </HeadRefTextContext>
                                 </HeadLineContext>

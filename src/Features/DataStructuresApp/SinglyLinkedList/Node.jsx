@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import RefNode from "./RefNode";
+import { NextRefContext, NextRefTextContext, RefLineContext } from "../../../context/sll/nodeRefContext";
 
 const Node = ({node}) => {
     const data = node.value;
@@ -29,6 +30,8 @@ const Node = ({node}) => {
     return (
         <g transform={`translate(${node.x}, ${node.y})`}
             ref={domNodeContainer}
+             className="transform-fill"
+                transformOrigin={`${node.WIDTH/2} ${node.HEIGHT/2}`}
         >
             <rect
                 width={node.WIDTH}
@@ -61,13 +64,19 @@ const Node = ({node}) => {
                     {data}
                 </text>
             </g>
-            <RefNode
-                node={node}
-                name="Next"
-                isTop={false}
-                isTail={false}
-                isListEmpty={false}
-            />
+            <RefLineContext value={domRefLine}>
+                <NextRefContext value={domNextRef}>
+                    <NextRefTextContext value={domNextRefText}>
+                        <RefNode
+                                node={node}
+                                name="Next"
+                                isTop={false}
+                                isTail={false}
+                                isListEmpty={false}
+                        />
+                    </NextRefTextContext>
+                </NextRefContext>
+            </RefLineContext>
         </g>
     );
 };

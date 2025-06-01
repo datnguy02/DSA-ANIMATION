@@ -7,6 +7,8 @@ export class LinkedList {
         this._head = null;
         this._tail = null;
         this._nElement = 0;
+
+        // Size and position
         this._GAP = node_size["GAP"];
         this._y = 300;
         this._startX = 300;
@@ -15,15 +17,31 @@ export class LinkedList {
         this._HEIGHT = node_size["HEIGHT"];
         this._HEAD_WIDTH = node_size["REF_NODE_WIDTH"];
         this._HEAD_HEIGHT = node_size["REF_NODE_HEIGHT"];
+        this._STROKE_WIDTH = node_size["STROKE_WIDTH"];
+        this._ROUNED = node_size["NODE_BORDER_RAD"];
+        this._REF_LINE_THICKNESS = node_size["STROKE_WIDTH"]
+        this._REF_NODE_ROUNDED = node_size["REF_NODE_RAD"];
+
+        // styling
         this._BG = colorway["LIST_BG"];
         this._HEAD_BG = colorway["HEAD_BG"];
         this._TAIL_BG = colorway["TAIL_BG"];
         this._STROKE = colorway["NODE_BORDER"];
-        this._STROKE_WIDTH = node_size["STROKE_WIDTH"];
-        this._ROUNED = node_size["NODE_BORDER_RAD"];
         this._REF_LINE_COLOR = colorway["REF_LINE"];
-        this._REF_LINE_THICKNESS = node_size["STROKE_WIDTH"]
-        this._REF_NODE_ROUNDED = node_size["REF_NODE_RAD"];
+        this._HEAD_CURRENT_VISIT_COLOR = colorway["HEAD_CONTROL_BG"];
+        this._Head_CURRENT_VISIT_TEXT = colorway["HEAD_CONTROL_TEXT"];
+
+        this._HEAD_NORMAL_STYLE = {
+            BG: colorway["HEAD_BG"],
+            TEXT: "white"
+        }
+
+        this._HEAD_CURRENT_VISIT_STYLE = {
+            BG: colorway["HEAD_CONTROL_BG"],
+            TEXT: colorway["HEAD_CONTROL_TEXT"],
+        }
+
+         // actual dom reference
         this._tailLineY = null;
         this._tailLineX = null;
         this._headRef = null;
@@ -31,6 +49,32 @@ export class LinkedList {
         this._headRefTetxt = null;
         this._tailRefText = null;
         this._headLine = null;
+        this._virtualHeadLine = null;
+
+        
+    }
+
+    get HEAD_CURRENT_VISIT_BG() {
+        return this._HEAD_CURRENT_VISIT_COLOR;
+    }
+
+    get HEAD_CURRENT_VISIT_TEXT() {
+        return this._Head_CURRENT_VISIT_TEXT;
+    }
+
+    get HEAD_NORMAL_STYLE() {
+        return this._HEAD_NORMAL_STYLE;
+    }
+
+    get HEAD_CURRENT_VISIT_STYLE() {
+        return this._HEAD_CURRENT_VISIT_STYLE;
+    }
+    get virtualHeadLine() {
+        return this._virtualHeadLine;
+    }
+
+    set virtualHeadLine(line) {
+        this._virtualHeadLine = line;
     }
 
     get headLine() {
@@ -106,6 +150,13 @@ export class LinkedList {
     get REF_LINE_WIDTH() {
         return (this.WIDTH - this.HEAD_WIDTH)/2  + this.GAP;
     }
+
+    get TAIL_LINE_Y_WIDTH() {
+        if (this.isEmpty())
+            return null;
+        return (this.tail.x + this.tail.WIDTH/2) - (this.x + this.WIDTH/2)
+    }
+
 
     get ROUNDED() {
         return this._ROUNED;
@@ -213,6 +264,18 @@ export class LinkedList {
         this._tail = t;
     }
 
+    getTailLineYWidthAttr(amount) {
+        return `M${this.HEAD_WIDTH/2} ${this.HEAD_HEIGHT} 
+                L${this.HEAD_WIDTH/2} 250 
+                L${this.HEAD_WIDTH/2 + this.TAIL_LINE_Y_WIDTH + amount} 250  
+                L${this.HEAD_WIDTH/2 + this.TAIL_LINE_Y_WIDTH + amount} ${this.HEAD_HEIGHT}`
+    }
+
+    getHeadLineAttr(amountX, amountY) {
+        return `M${this.HEAD_WIDTH} ${this.HEAD_HEIGHT/2} 
+                L${this.HEAD_WIDTH + amountX} ${this.HEAD_HEIGHT/2 + amountY}`
+    }
+
     insertFirst(value) {
         const newNode = new Node(value, this.startX, this.startY);
         if (this.isEmpty())
@@ -283,6 +346,18 @@ export class LinkedList {
             current = current.next;
         }
         return list;
+    }
+
+
+
+    // anime function
+    changeHeadStyle(tl, style, pos) {
+        const {BG, TEXT} = style;
+
+        tl.to(this.headRef, {attr: {fill: BG}}, pos)
+        .to(this.headRefText, {attr: {fill: TEXT}}, "<");
+
+        return tl;
     }
 }
 

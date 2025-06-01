@@ -1,16 +1,31 @@
+import { useContext } from "react";
+import { NextRefContext, NextRefTextContext, RefLineContext } from "../../../context/sll/nodeRefContext";
+
 const NULL_NODE_WIDTH = 100;
 const NULL_NOE_HEIGHT = 50;
 const NULL_NODE_ROUNDED = 10;
 
 const RefNode = ({node, name}) => {
+    const isLast = node.next === null;
+    const domRefLine = useContext(RefLineContext);
+    const domNextRef = useContext(NextRefContext);
+    const domNextRefText = useContext(NextRefTextContext);
     return (
-         <g transform={`translate(${node.WIDTH/2 - node.REF_NODE_WIDTH/2}, ${node.HEIGHT/2 + node.REF_NODE_HEIGHT/3})`}>
+         <g transform={`translate(${node.WIDTH/2 - node.REF_NODE_WIDTH/2}, ${node.HEIGHT/2 + node.REF_NODE_HEIGHT/3})`}
+         >
+                <path
+                    d={node.getRefLineAttr(node.REF_LINE_WIDTH, 0)}
+                    stroke={node.REF_LINE_COLOR}
+                    strokeWidth={node.REF_LINE_THICKNESS}
+                    strokeLinecap="round"
+                    ref={domRefLine}
+                />
                 <rect
                     width={node.REF_NODE_WIDTH}
                     height={node.REF_NODE_HEIGHT}
                     fill={node.REF_NODE_BG}
                     rx={node.REF_NODE_RAD}
-
+                    ref={domNextRef}
                 />
                 <text 
                     fill="white"
@@ -20,16 +35,13 @@ const RefNode = ({node, name}) => {
                     y={node.REF_NODE_HEIGHT/2}
                     fontWeight="bold"
                     fontSize={28}
+                    ref={domNextRefText}
                 >
                     {name}
                 </text>
-                <path
-                    d={`M${node.REF_NODE_WIDTH} ${node.REF_NODE_HEIGHT/2} L${node.REF_NODE_WIDTH + node.REF_LINE_WIDTH} ${node.REF_NODE_HEIGHT/2}`}
-                    stroke={node.REF_LINE_COLOR}
-                    strokeWidth={node.REF_LINE_THICKNESS}
-                    strokeLinecap="round"
-                />
-                <g transform={`translate(${node.REF_NODE_WIDTH + node.REF_LINE_WIDTH}, ${node.REF_NODE_HEIGHT/2 - NULL_NOE_HEIGHT/2})`}>
+                <g transform={`translate(${node.REF_NODE_WIDTH + node.REF_LINE_WIDTH}, ${node.REF_NODE_HEIGHT/2 - NULL_NOE_HEIGHT/2})`}
+                    opacity={isLast ? 1 : 0}
+                >
                     <rect
                         width={NULL_NODE_WIDTH}
                         height={NULL_NOE_HEIGHT}
