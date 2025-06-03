@@ -5,7 +5,7 @@ const NULL_NODE_WIDTH = 100;
 const NULL_NOE_HEIGHT = 50;
 const NULL_NODE_ROUNDED = 10;
 
-const RefNode = ({node, name}) => {
+const RefNode = ({node, name, domNextNull}) => {
     const isLast = node.next === null;
     const domRefLine = useContext(RefLineContext);
     const domNextRef = useContext(NextRefContext);
@@ -41,6 +41,9 @@ const RefNode = ({node, name}) => {
                 </text>
                 <g transform={`translate(${node.REF_NODE_WIDTH + node.REF_LINE_WIDTH}, ${node.REF_NODE_HEIGHT/2 - NULL_NOE_HEIGHT/2})`}
                     opacity={isLast ? 1 : 0}
+                    ref={domNextNull}
+                    className="transform-fill"
+                    transformOrigin="left center"
                 >
                     <rect
                         width={NULL_NODE_WIDTH}

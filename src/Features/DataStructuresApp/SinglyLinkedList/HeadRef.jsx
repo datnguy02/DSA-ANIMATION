@@ -6,7 +6,7 @@ const NULL_NOE_HEIGHT = 50;
 const NULL_NODE_ROUNDED = 10;
 
 
-const HeadRef = ({list, domVirtualHeadLine}) => {
+const HeadRef = ({list, domVirtualHeadLine, domVirtualHead, virtualHeadVisibility}) => {
     const domHead = useContext(HeadRefContext);
     const domHeadLine = useContext(HeadLineContext);
     const domHeadText = useContext(HeadRefTextContext);
@@ -33,6 +33,14 @@ const HeadRef = ({list, domVirtualHeadLine}) => {
                     fill={list.HEAD_BG}
                     rx={list.REF_NODE_ROUNDED}
                     ref={domHead}
+                />
+                 <rect
+                    width={list.HEAD_WIDTH}
+                    height={list.HEAD_HEIGHT}
+                    rx={list.REF_NODE_ROUNDED}
+                    fill={list.HEAD_BG}
+                    ref={domVirtualHead}
+                    opacity={virtualHeadVisibility}
                 />
                 <text 
                     fill="white"

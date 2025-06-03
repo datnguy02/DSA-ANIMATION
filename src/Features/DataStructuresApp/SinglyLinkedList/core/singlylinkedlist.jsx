@@ -21,6 +21,7 @@ export class LinkedList {
         this._ROUNED = node_size["NODE_BORDER_RAD"];
         this._REF_LINE_THICKNESS = node_size["STROKE_WIDTH"]
         this._REF_NODE_ROUNDED = node_size["REF_NODE_RAD"];
+        this._TAIL_LINE_Y_HEIGHT = 250;
 
         // styling
         this._BG = colorway["LIST_BG"];
@@ -30,6 +31,7 @@ export class LinkedList {
         this._REF_LINE_COLOR = colorway["REF_LINE"];
         this._HEAD_CURRENT_VISIT_COLOR = colorway["HEAD_CONTROL_BG"];
         this._Head_CURRENT_VISIT_TEXT = colorway["HEAD_CONTROL_TEXT"];
+        this._VIRTUAL_TAIL_LINE_COLOR = colorway["HEAD_CONTROL_BG"];
 
         this._HEAD_NORMAL_STYLE = {
             BG: colorway["HEAD_BG"],
@@ -41,6 +43,18 @@ export class LinkedList {
             TEXT: colorway["HEAD_CONTROL_TEXT"],
         }
 
+        this._TAIL_NORMAL_STYLE = {
+            BG: colorway["HEAD_BG"],
+            TEXT: "white"
+        }
+
+        this._TAIL_VISIT_STYLE = {
+            BG: colorway["HEAD_CONTROL_BG"],
+            TEXT: colorway["HEAD_CONTROL_TEXT"],
+        }
+
+        
+
          // actual dom reference
         this._tailLineY = null;
         this._tailLineX = null;
@@ -50,8 +64,42 @@ export class LinkedList {
         this._tailRefText = null;
         this._headLine = null;
         this._virtualHeadLine = null;
-
+        this._virtualTailLineY = null;
+        this._virtualHead = null;
         
+    }
+
+    get virtualHead() {
+        return this._virtualHead;
+    }
+
+    set virtualHead(head) {
+        this._virtualHead = head;
+    }
+
+    get VIRTUAL_TAIL_LINE_COLOR() {
+        return this._VIRTUAL_TAIL_LINE_COLOR;
+    }
+
+    get TAIL_LINE_Y_HEIGHT() {
+        return this._TAIL_LINE_Y_HEIGHT;
+    }
+
+    get virtualTailLineY() {
+        return this._virtualTailLineY;
+    }
+
+    set virtualTailLineY(line) {
+        this._virtualTailLineY = line;
+    }
+
+
+    get TAIL_NORMAL_STYLE() {
+        return this._TAIL_NORMAL_STYLE;
+    }
+
+    get TAIL_VISIT_STYLE() {
+        return this._TAIL_VISIT_STYLE;
     }
 
     get HEAD_CURRENT_VISIT_BG() {
@@ -264,10 +312,26 @@ export class LinkedList {
         this._tail = t;
     }
 
-    getTailLineYWidthAttr(amount) {
+    getTailLineYVerticalAttr() {
         return `M${this.HEAD_WIDTH/2} ${this.HEAD_HEIGHT} 
-                L${this.HEAD_WIDTH/2} 250 
-                L${this.HEAD_WIDTH/2 + this.TAIL_LINE_Y_WIDTH + amount} 250  
+                L${this.HEAD_WIDTH/2} ${this.TAIL_LINE_Y_HEIGHT}
+                L${this.HEAD_WIDTH/2} ${this.TAIL_LINE_Y_HEIGHT}
+                L${this.HEAD_WIDTH/2} ${this.TAIL_LINE_Y_HEIGHT}
+                `;
+    }
+
+    getTailLineYHorizontalAttr(amount) {
+        return `M${this.HEAD_WIDTH/2} ${this.HEAD_HEIGHT} 
+                L${this.HEAD_WIDTH/2} ${this.TAIL_LINE_Y_HEIGHT}
+                L${this.HEAD_WIDTH/2 + this.TAIL_LINE_Y_WIDTH + amount} ${this.TAIL_LINE_Y_HEIGHT}
+                L${this.HEAD_WIDTH/2 + this.TAIL_LINE_Y_WIDTH + amount} ${this.TAIL_LINE_Y_HEIGHT}
+                `;
+    }
+
+    getTailLineYAttr(amount) {
+        return `M${this.HEAD_WIDTH/2} ${this.HEAD_HEIGHT} 
+                L${this.HEAD_WIDTH/2} ${this.TAIL_LINE_Y_HEIGHT}
+                L${this.HEAD_WIDTH/2 + this.TAIL_LINE_Y_WIDTH + amount} ${this.TAIL_LINE_Y_HEIGHT}
                 L${this.HEAD_WIDTH/2 + this.TAIL_LINE_Y_WIDTH + amount} ${this.HEAD_HEIGHT}`
     }
 
@@ -349,7 +413,6 @@ export class LinkedList {
     }
 
 
-
     // anime function
     changeHeadStyle(tl, style, pos) {
         const {BG, TEXT} = style;
@@ -359,5 +422,15 @@ export class LinkedList {
 
         return tl;
     }
+
+    changeTailStyle(tl, style, pos) {
+        const {BG, TEXT} = style;
+        
+        tl.to(this.tailRef, {attr: {fill: BG}}, pos)
+        .to(this.tailRefText, {attr: {fill: TEXT}}, "<");
+
+        return tl;
+    }
+
 }
 

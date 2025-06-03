@@ -19,6 +19,7 @@ export class Node {
         this._nextRef = null;
         this._nextRefText = null;
         this._refLine = null;
+        this._nextNull = null;
 
         // size of node
         this._WIDTH = node_size["WIDTH"];
@@ -54,6 +55,14 @@ export class Node {
 
         if (next == undefined)
             this._next = null;
+    }
+
+    get nextNull() {
+        return this._nextNull;
+    }
+
+    set nextNull(node) {
+        this._nextNull = node;
     }
 
     get CURRENT_VISIT_STYLE() {

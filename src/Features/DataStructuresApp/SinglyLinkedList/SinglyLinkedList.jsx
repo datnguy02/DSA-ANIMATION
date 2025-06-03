@@ -3,8 +3,12 @@ import HeadRef from "./HeadRef";
 import TailRef from "./TailRef";
 import gsap from "gsap/gsap-core";
 import { useEffect, useRef } from "react";
-import { insertFirstAnimation } from "../../Animation/sll/insertAnimation";
+import { insertFirstAnimation } from "../../Animation/sll/insertFirstAnimation";
 import { HeadLineContext, HeadRefContext, HeadRefTextContext, TailLineXContext, TailLineYContext, TailRefContext, TailRefTextContext } from "../../../context/sll/headRefContext";
+import { insertLastAnimation } from "../../Animation/sll/insertLastAnimation";
+import Traveler from "./Traveler";
+import { TravelNode } from "./core/TravelNode";
+import { searchAnimation } from "../../Animation/sll/searchAnimation";
 
 const getNodeList = (list) => {
     let current = list.head;
@@ -19,9 +23,10 @@ const getNodeList = (list) => {
 }
 
 const SinglyLinkedList = ({operation}) => {
-    const ANIME_DURATION = 0.6;
+    const ANIME_DURATION = 0.5;
 
     const operationName = operation.name;
+    const isNone = operationName === "None";
     const list = operation.list;
     const nodeList = getNodeList(list);
     const tl = useRef(null);
@@ -33,6 +38,14 @@ const SinglyLinkedList = ({operation}) => {
     const domHeadText = useRef(null);
     const domTailText = useRef(null);
     const domVirtualHeadLine = useRef(null);
+    const domVirtualTailLineY = useRef(null);
+    const domVirtualHead = useRef(null);
+
+    const currentNode = new TravelNode(list);
+
+    let needCurrent = operationName === "search" 
+                    || operationName === "delete"
+                    || operationName === "insert(i)";
 
     useEffect(() => {
         list.headRef = domHead.current;
@@ -43,16 +56,30 @@ const SinglyLinkedList = ({operation}) => {
         list.headRefText = domHeadText.current;
         list.tailRefText = domTailText.current;
         list.virtualHeadLine = domVirtualHeadLine.current;
+        list.virtualTailLineY = domVirtualTailLineY.current;
+        list.virtualHead = domVirtualHead.current;
 
         tl.current = gsap.timeline({
             defaults: {
                 duration: ANIME_DURATION,
+                ease: "power1.inOut"
             }
         });
 
         if (operationName === "insertfirst") {
             insertFirstAnimation(tl.current, list);
         }
+        if (operationName === "insertlast") {
+            insertLastAnimation(tl.current, list);
+        }
+        if (operationName === "search") {
+            searchAnimation(tl, list, operation.target);
+        }
+
+        // tl.current.to(list.headRef, {
+        //     onComplete: () => operation.cleanAnime()
+        // });
+
 
         return () => {
             if (tl.current) {
@@ -68,6 +95,7 @@ const SinglyLinkedList = ({operation}) => {
             width={1300}
             height={700}    
             preserveAspectRatio="xMidYMid meet"
+
         >
                 <g
                     transform={`translate(${list.x}, ${list.y})`}
@@ -86,6 +114,8 @@ const SinglyLinkedList = ({operation}) => {
                                         <HeadRef
                                             list={list}
                                             domVirtualHeadLine={domVirtualHeadLine}
+                                            domVirtualHead={domVirtualHead}
+                                            virtualHeadVisibility={needCurrent ? 1 : 0}
                                         />
                                     </HeadRefTextContext>
                                 </HeadLineContext>
@@ -97,12 +127,19 @@ const SinglyLinkedList = ({operation}) => {
                                         <TailLineYContext value={domTailLineY}>
                                              <TailRef
                                                 list={list}
+                                                domVirtualTailLineY={domVirtualTailLineY}
                                             />
                                         </TailLineYContext>
                                     </TailLineXContext>
                                 </TailRefTextContext>
                             </TailRefContext>
                 </g>
+                <Traveler
+                    name="Current"
+                    list={list}
+                    node={currentNode}
+                    visible={needCurrent}
+                />
                 {nodeList}    
         </svg>
     );

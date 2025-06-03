@@ -21,20 +21,32 @@ const SinglyLinkedListApp = () => {
     const handleStart = (state) => {
         const operationName = state.operationName;
         const newList = operation.list.clone();
+        const newOperation = {
+            name: operationName,
+            list: newList,
+        }
         if (operationName === "insert(i)") {
             newList.insertAt(state["value"], state["index"]);
-            setOperation({
-                list: newList,
-                name: "insert(i)"
-            });
         }
         else if (operationName === "insertfirst") {
-            newList.insertAt(state["value"], 0);
-            setOperation({
-                list: newList,
-                name: "insertfirst",
-            })
+            newList.insertFirst(state["value"]);
         }
+        else if (operationName === "insertlast") {
+            newList.insertLast(state["value"]);
+        }
+        else if (operationName === "search") {
+            newOperation.target = state["value"];
+        }
+
+        newOperation.cleanAnime = () => {
+                setOperation({
+                    list: newList.clone(),
+                    name: "None"
+                })
+        }
+        
+
+        setOperation(newOperation);
         
     }
     return (

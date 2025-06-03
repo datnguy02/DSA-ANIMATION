@@ -19,7 +19,12 @@ const colorway = {
     NODE_CURRENT_VISIT_BG: "#5c5470",
     REF_CURRENT_VISIT_BG: "#dbd8e3",
     NODE_CURRENT_VISIT_STROKE: "#dbd8e3",
-    NODE_CURRENT_VISIT_TEXT: "#5c5470"
+    NODE_CURRENT_VISIT_TEXT: "#5c5470",
+
+    // styling for travel node
+    CURRENT_BG: "#5c5470",
+    CURRENT_STROKE: "#dbd8e3",
+    CURRENT_TEXT: "#dbd8e3"
 };
 
 export default colorway;

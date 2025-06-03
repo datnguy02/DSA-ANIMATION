@@ -2,6 +2,7 @@ const FADE_IN_AMOUNT = 120;
 
 
 const moveNodeToRight = (tl, startNode) => {
+    
     let node = startNode;
     tl.to(node.domNode, {});
     while (node != null) {
@@ -22,6 +23,8 @@ const moveNodeToRight = (tl, startNode) => {
 const insertFirstAnimation = (tl, list) => {
     const newNode = list.head;
 
+
+    // set up new node so that it fade in later
     tl.set(newNode.nodeContainer, {
         attr: {
              transform: `translate(${newNode.x}, ${newNode.y + FADE_IN_AMOUNT}) scale(0)`
@@ -33,7 +36,8 @@ const insertFirstAnimation = (tl, list) => {
     }, "<")
     .set(list.virtualHeadLine, {
         attr: {
-            stroke: `${list.HEAD_CURRENT_VISIT_BG}`
+            stroke: `${list.HEAD_CURRENT_VISIT_BG}`,
+            "stroke-linecap": ""
         }
     }, "<")
     ;
@@ -47,11 +51,11 @@ const insertFirstAnimation = (tl, list) => {
     }, "<")
     .fromTo(list.tailLineY, {
         attr: {
-            d: `${list.getTailLineYWidthAttr(-(list.GAP + list.WIDTH))}`
+            d: `${list.getTailLineYAttr(-(list.GAP + list.WIDTH))}`
         }
     }, {
         attr: {
-            d: `${list.getTailLineYWidthAttr(0)}`
+            d: `${list.getTailLineYAttr(0)}`
         }
     }, "<")
    .to(newNode.nodeContainer, {
@@ -62,9 +66,10 @@ const insertFirstAnimation = (tl, list) => {
    list.changeHeadStyle(tl, list.HEAD_CURRENT_VISIT_STYLE)
    .to(list.virtualHeadLine, {
         attr: {
-            d: `${list.getHeadLineAttr(list.REF_LINE_WIDTH + list.GAP + list.WIDTH, 0)}`
+            d: `${list.getHeadLineAttr(list.REF_LINE_WIDTH + list.GAP + list.WIDTH, 0)}`,
+            "stroke-linecap": "round"
         }
-   });
+   })
    newNode.next.changeStyle(tl, newNode.CURRENT_VISIT_STYLE)
     .to(newNode.refLine, {
         attr: {
@@ -93,6 +98,11 @@ const insertFirstAnimation = (tl, list) => {
         }
    });
    list.changeHeadStyle(tl, list.HEAD_NORMAL_STYLE)
+   .to(list.virtualHeadLine, {
+        attr: {
+            "stroke-linecap": "",
+        }
+   }, "<")
    .to(newNode.nodeContainer, {
         attr: {
             transform: `translate(${newNode.x}, ${newNode.y})`
@@ -106,10 +116,11 @@ const insertFirstAnimation = (tl, list) => {
    .to(list.headLine, {
         attr: {
             d: `${list.getHeadLineAttr(list.REF_LINE_WIDTH, 0)}`
-        }
+        },
    }, "<")
     
 };
+
 
 
 export {
