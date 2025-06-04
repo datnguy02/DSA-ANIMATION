@@ -65,17 +65,9 @@ export class LinkedList {
         this._headLine = null;
         this._virtualHeadLine = null;
         this._virtualTailLineY = null;
-        this._virtualHead = null;
         
     }
 
-    get virtualHead() {
-        return this._virtualHead;
-    }
-
-    set virtualHead(head) {
-        this._virtualHead = head;
-    }
 
     get VIRTUAL_TAIL_LINE_COLOR() {
         return this._VIRTUAL_TAIL_LINE_COLOR;
@@ -312,6 +304,12 @@ export class LinkedList {
         this._tail = t;
     }
 
+    /*
+        |
+        |
+    
+    */
+
     getTailLineYVerticalAttr() {
         return `M${this.HEAD_WIDTH/2} ${this.HEAD_HEIGHT} 
                 L${this.HEAD_WIDTH/2} ${this.TAIL_LINE_Y_HEIGHT}
@@ -320,6 +318,11 @@ export class LinkedList {
                 `;
     }
 
+    /*
+        |
+        |___________________
+    
+    */
     getTailLineYHorizontalAttr(amount) {
         return `M${this.HEAD_WIDTH/2} ${this.HEAD_HEIGHT} 
                 L${this.HEAD_WIDTH/2} ${this.TAIL_LINE_Y_HEIGHT}
@@ -328,6 +331,10 @@ export class LinkedList {
                 `;
     }
 
+    /*
+        |                    |
+        |____________________|
+    */
     getTailLineYAttr(amount) {
         return `M${this.HEAD_WIDTH/2} ${this.HEAD_HEIGHT} 
                 L${this.HEAD_WIDTH/2} ${this.TAIL_LINE_Y_HEIGHT}
@@ -337,6 +344,11 @@ export class LinkedList {
 
     getHeadLineAttr(amountX, amountY) {
         return `M${this.HEAD_WIDTH} ${this.HEAD_HEIGHT/2} 
+                L${this.HEAD_WIDTH + amountX} ${this.HEAD_HEIGHT/2 + amountY}`
+    }
+
+    getHeadLineAttrAfterMovingFirstPoint(x, y, amountX, amountY) {
+         return `M${this.HEAD_WIDTH + x} ${this.HEAD_HEIGHT/2 + y} 
                 L${this.HEAD_WIDTH + amountX} ${this.HEAD_HEIGHT/2 + amountY}`
     }
 
@@ -431,6 +443,8 @@ export class LinkedList {
 
         return tl;
     }
+
+    
 
 }
 

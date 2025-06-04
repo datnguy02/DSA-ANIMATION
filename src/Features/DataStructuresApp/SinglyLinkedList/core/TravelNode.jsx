@@ -13,6 +13,7 @@ export class TravelNode {
         this._textNode = null;
         this._domNode = null;
         this._connectLine = null;
+        this._wrapper = null;
 
         // styling
         this._BG = colorway["CURRENT_BG"];
@@ -26,8 +27,20 @@ export class TravelNode {
         this._STROKE_WIDTH = node_size["STROKE_WIDTH"];
     }
 
+    get wrapper() {
+        return this._wrapper;
+    }
+    
+    set wrapper(w) {
+        this._wrapper = w;
+    }
+
     get LINE_HEIGHT() {
         return this._LINE_HEIGHT;
+    }
+
+    set LINE_HEIGHT(height) {
+        this._LINE_HEIGHT = height;
     }
 
     get STROKE_WIDTH() {
@@ -100,9 +113,91 @@ export class TravelNode {
         this._connectLine = line;
     }
 
-    getLineAttr(amountY) {
-        return `M${this.WIDTH/2} ${this.HEIGHT}
-                L${this.WIDTH/2} ${this.HEIGHT + this.LINE_HEIGHT}
+    getLineAttr(amountY1, amountY2) {
+        return `M${this.WIDTH/2} ${this.HEIGHT + amountY1}
+                L${this.WIDTH/2} ${this.HEIGHT + amountY2}
         `;
     }
+
+    shrinkLine(tl, pos) {
+        tl.to(this.connectLine, {
+            attr: {
+                d: `${this.getLineAttr(this.LINE_HEIGHT, this.LINE_HEIGHT)}`,
+                "stroke-linecap": "",
+            }
+        }, pos);
+        return tl;
+    }
+    
+    expandLineUpWard(tl, pos) {
+         tl.to(this.connectLine, {
+            attr: {
+                d: `${this.getLineAttr(this.LINE_HEIGHT, 0)}`,
+            }
+        }, pos);
+        return tl;
+    }
+
+     expandLineDownWard(tl, pos) {
+         tl.to(this.connectLine, {
+            attr: {
+                d: `${this.getLineAttr(0, this.LINE_HEIGHT)}`,
+            }
+        }, pos);
+        return tl;
+    }
+
+    scaleDown(tl, pos) {
+        tl.fromTo(this.wrapper, {
+            attr: {
+                transform: "scale(1)"
+            }
+        }, {
+            attr: {
+                transform: "scale(0)"
+            }
+        }, pos);
+    }
+
+    scaleUp(tl, pos) {
+        tl.to(this.wrapper, {
+            attr: {
+                transform: "scale(1)"
+            }
+        }, pos);
+    }
+
+    setNewPos(tl, x, y, pos) {
+        tl.set(this.nodeContainer, {
+            attr: {
+                transform: `translate(${this.startX + x}, ${this.startY + y})`
+            }
+        }, pos);
+        return tl;
+    }
+
+    setLineAttr(tl, x, y, pos) {
+        tl.set(this.connectLine, {
+            attr: {
+                d: `M${this.WIDTH/2} ${this.HEIGHT}
+                    L${this.WIDTH/2 + x} ${this.HEIGHT + y}
+                `
+            }
+        }, pos)
+    }
+
+    fadeIn(tl, amount, pos) {
+        tl.fromTo(this.nodeContainer, {
+            attr: {
+                opacity: 0,
+                transform: `translate(${this.startX}, ${this.startY - amount})`,
+            }
+        }, {
+            attr: {
+                opacity: 1,
+                transform: `translate(${this.startX}, ${this.startY})`
+            },
+        }, pos);
+    }
+
 }

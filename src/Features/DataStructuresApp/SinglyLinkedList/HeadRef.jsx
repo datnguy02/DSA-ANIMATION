@@ -6,7 +6,7 @@ const NULL_NOE_HEIGHT = 50;
 const NULL_NODE_ROUNDED = 10;
 
 
-const HeadRef = ({list, domVirtualHeadLine, domVirtualHead, virtualHeadVisibility}) => {
+const HeadRef = ({list, domVirtualHeadLine}) => {
     const domHead = useContext(HeadRefContext);
     const domHeadLine = useContext(HeadLineContext);
     const domHeadText = useContext(HeadRefTextContext);
@@ -14,7 +14,7 @@ const HeadRef = ({list, domVirtualHeadLine, domVirtualHead, virtualHeadVisibilit
     return (
        <g transform={`translate(${list.WIDTH/2 - list.HEAD_WIDTH/2}, ${list.HEIGHT/2 - list.HEAD_HEIGHT})`}
        >        
-                  <path
+                <path
                     d={list.getHeadLineAttr(list.REF_LINE_WIDTH, 0)}
                     stroke={list.REF_LINE_COLOR}
                     strokeWidth={list.REF_LINE_THICKNESS}
@@ -33,14 +33,6 @@ const HeadRef = ({list, domVirtualHeadLine, domVirtualHead, virtualHeadVisibilit
                     fill={list.HEAD_BG}
                     rx={list.REF_NODE_ROUNDED}
                     ref={domHead}
-                />
-                 <rect
-                    width={list.HEAD_WIDTH}
-                    height={list.HEAD_HEIGHT}
-                    rx={list.REF_NODE_ROUNDED}
-                    fill={list.HEAD_BG}
-                    ref={domVirtualHead}
-                    opacity={virtualHeadVisibility}
                 />
                 <text 
                     fill="white"

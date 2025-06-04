@@ -81,7 +81,7 @@ const insertFirstAnimation = (tl, list) => {
             d: `${list.getHeadLineAttr(list.REF_LINE_WIDTH/2 , 0)}`
         }
    });
-   newNode.next.changeStyle(tl, newNode.NORMAL_STYLE, "<")
+   newNode.next.changeStyle(tl, newNode.NORMAL_STYLE, false, "<")
    .to([list.headLine, list.virtualHeadLine], {
          attr: {
             d: `${list.getHeadLineAttr(list.REF_LINE_WIDTH/2 , FADE_IN_AMOUNT/2)}`

@@ -128,7 +128,7 @@ const insertLastAnimation = (tl, list) => {
             d: `${list.getTailLineYHorizontalAttr(reduceAmount)}`
         }
     });
-    prevTail.changeStyle(tl, prevTail.NORMAL_STYLE, "<")
+    prevTail.changeStyle(tl, prevTail.NORMAL_STYLE, false, "<")
     .to([list.virtualTailLineY, list.tailLineY], {
         attr: {
               d: `${list.getTailLineYHorizontalAttr(0)}`

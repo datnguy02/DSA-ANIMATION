@@ -12,6 +12,7 @@ const Node = ({node}) => {
     const domNextRefText = useRef(null);
     const domRefLine = useRef(null);
     const domNull = useRef(null);
+    const domVirtualRefLine = useRef(null);
 
     useEffect(() => {
         node.domNode = domNode.current;
@@ -22,6 +23,7 @@ const Node = ({node}) => {
         node.refLine = domRefLine.current;
         node.nextRefText = domNextRefText.current;
         node.nextNull = domNull.current;
+        node.virtualRefLine = domVirtualRefLine.current;
 
         return () => {
            node.domNode = null;
@@ -77,6 +79,7 @@ const Node = ({node}) => {
                                 isTail={false}
                                 isListEmpty={false}
                                 domNextNull={domNull}
+                                domVirtualRefLine={domVirtualRefLine}
                         />
                     </NextRefTextContext>
                 </NextRefContext>

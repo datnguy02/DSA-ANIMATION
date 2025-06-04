@@ -20,6 +20,7 @@ export class Node {
         this._nextRefText = null;
         this._refLine = null;
         this._nextNull = null;
+        this._virtualRefLine = null;
 
         // size of node
         this._WIDTH = node_size["WIDTH"];
@@ -37,6 +38,7 @@ export class Node {
         this._REF_NODE_BG = colorway["NODE_REF_BG"];
         this._STROKE = colorway["NODE_BORDER"];
         this._REF_LINE_COLOR = colorway["REF_LINE"];
+        this._CURRENT_LINE_COLOR = colorway["CURRENT_STROKE"];
 
         this._NORMAL_STYLE = {
             BG: colorway["NODE_BG"],
@@ -52,9 +54,40 @@ export class Node {
             TEXT: colorway["NODE_CURRENT_VISIT_TEXT"]
         };
 
+        this._REF_NORMAL_STYLE = {
+            BG: colorway["NODE_REF_BG"],
+            TEXT: "white",
+        }
+
+        this._REF_CURRENT_VISIT_STYLE = {
+            BG: colorway["REF_CURRENT_VISIT_BG"],
+            TEXT: colorway["NODE_CURRENT_VISIT_TEXT"]
+        }
+
 
         if (next == undefined)
             this._next = null;
+    }
+
+    get CURRENT_LINE_COLOR() {
+        return this._CURRENT_LINE_COLOR;
+    }
+
+
+    get virtualRefLine() {
+        return this._virtualRefLine;
+    }
+
+    set virtualRefLine(line) {
+        this._virtualRefLine = line;
+    }
+
+    get REF_NORMAL_STYLE() {
+        return this._REF_NORMAL_STYLE;
+    }
+
+    get REF_CURRENT_VISIT_STYLE() {
+        return this._REF_CURRENT_VISIT_STYLE;
     }
 
     get nextNull() {
@@ -218,12 +251,72 @@ export class Node {
                 L${this.REF_NODE_WIDTH + amountX} ${this.REF_NODE_HEIGHT/2 + amountY}`;
     }
 
-    changeStyle(tl, style, pos) {
+    changeStyle(tl, style, noRef, pos) {
         const {BG, STROKE, TEXT, REF_BG} = style;
+        let fields = [this.dataContainer, this.nextRef];
+        let texts = [this.dataText, this.nextRefText];
+        if (noRef) {
+            fields.pop();
+            texts.pop();
+        }
         tl.to(this.domNode, {attr: {fill: BG, stroke: STROKE}}, pos)
-        .to([this.nextRef, this.dataContainer], {attr: {fill: REF_BG}}, "<")
-        .to([this.nextRefText, this.dataText], {attr: {fill: TEXT}}, "<")
+        .to(fields, {attr: {fill: REF_BG}}, "<")
+        .to(texts, {attr: {fill: TEXT}}, "<")
         return tl;
     }
+
+
+    animeRefStyle(tl, style, pos) {
+        const {BG, TEXT} = style;
+        tl.to(this.nextRef, {
+            attr: {
+                fill: BG,
+            }
+        }, pos)
+        .to(this.nextRefText, {
+            attr: {
+                fill: TEXT,
+            }
+        }, "<");
+        return tl;
+    }
+
+    setVirtualLineColor(tl, color, pos) {
+        tl.set(this.virtualRefLine, {
+            attr: {
+                stroke: color,
+            }
+        }, pos);
+        return tl;
+    }
+
+    setLineTip(tl, line, style, pos) {
+        tl.set(line, {
+            attr: {
+                "stroke-linecap": style,
+            }
+        }, pos);
+        return tl;
+    }
+
+    moveRefLine(tl, line, x, y, pos) {
+        tl.to(line, {
+            attr: {
+                d: `${this.getRefLineAttr(x, y)}`
+            }
+        }, pos);
+        return tl;
+    }
+
+    shrinkLineTo(tl, line, x, y, pos) {
+        tl.to(line, {
+            attr: {
+                d: `M${x} ${y} L${x} ${y}`,
+            }
+        }, pos);
+        return tl;
+    }
+
+    
 
 }

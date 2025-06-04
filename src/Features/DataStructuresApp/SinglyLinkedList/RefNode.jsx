@@ -5,11 +5,12 @@ const NULL_NODE_WIDTH = 100;
 const NULL_NOE_HEIGHT = 50;
 const NULL_NODE_ROUNDED = 10;
 
-const RefNode = ({node, name, domNextNull}) => {
+const RefNode = ({node, name, domNextNull, domVirtualRefLine}) => {
     const isLast = node.next === null;
     const domRefLine = useContext(RefLineContext);
     const domNextRef = useContext(NextRefContext);
     const domNextRefText = useContext(NextRefTextContext);
+
     return (
          <g transform={`translate(${node.WIDTH/2 - node.REF_NODE_WIDTH/2}, ${node.HEIGHT/2 + node.REF_NODE_HEIGHT/3})`}
          >
@@ -19,6 +20,12 @@ const RefNode = ({node, name, domNextNull}) => {
                     strokeWidth={node.REF_LINE_THICKNESS}
                     strokeLinecap="round"
                     ref={domRefLine}
+                />
+                <path
+                    d={node.getRefLineAttr(0, 0)}
+                    strokeWidth={node.REF_LINE_THICKNESS}
+                    strokeLinecap="round"
+                    ref={domVirtualRefLine}
                 />
                 <rect
                     width={node.REF_NODE_WIDTH}

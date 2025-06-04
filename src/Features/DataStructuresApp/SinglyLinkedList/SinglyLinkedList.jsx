@@ -39,8 +39,6 @@ const SinglyLinkedList = ({operation}) => {
     const domTailText = useRef(null);
     const domVirtualHeadLine = useRef(null);
     const domVirtualTailLineY = useRef(null);
-    const domVirtualHead = useRef(null);
-
     const currentNode = new TravelNode(list);
 
     let needCurrent = operationName === "search" 
@@ -57,7 +55,6 @@ const SinglyLinkedList = ({operation}) => {
         list.tailRefText = domTailText.current;
         list.virtualHeadLine = domVirtualHeadLine.current;
         list.virtualTailLineY = domVirtualTailLineY.current;
-        list.virtualHead = domVirtualHead.current;
 
         tl.current = gsap.timeline({
             defaults: {
@@ -73,7 +70,7 @@ const SinglyLinkedList = ({operation}) => {
             insertLastAnimation(tl.current, list);
         }
         if (operationName === "search") {
-            searchAnimation(tl, list, operation.target);
+            searchAnimation(tl.current, list, operation.target, currentNode);
         }
 
         // tl.current.to(list.headRef, {
@@ -114,8 +111,6 @@ const SinglyLinkedList = ({operation}) => {
                                         <HeadRef
                                             list={list}
                                             domVirtualHeadLine={domVirtualHeadLine}
-                                            domVirtualHead={domVirtualHead}
-                                            virtualHeadVisibility={needCurrent ? 1 : 0}
                                         />
                                     </HeadRefTextContext>
                                 </HeadLineContext>
