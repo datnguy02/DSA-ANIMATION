@@ -73,9 +73,9 @@ const SinglyLinkedList = ({operation}) => {
             searchAnimation(tl.current, list, operation.target, currentNode);
         }
 
-        // tl.current.to(list.headRef, {
-        //     onComplete: () => operation.cleanAnime()
-        // });
+        tl.current.to(list.headRef, {
+            onComplete: () => operation.cleanAnime()
+        });
 
 
         return () => {
