@@ -32,6 +32,9 @@ export class Node {
         this._STROKE_WIDTH = node_size["STROKE_WIDTH"];
         this._REF_LINE_THICKNESS = node_size["REF_LINE_WIDTH"];
         this._GAP = node_size["GAP"];
+        this._NULL_WIDTH = node_size["NULL_WIDTH"];
+        this._NULL_HEIGHT = node_size["NULL_HEIGHT"];
+        this._NULL_ROUND = node_size["NULL_ROUND"];
 
         // styling
         this._BG = colorway["NODE_BG"];
@@ -67,6 +70,18 @@ export class Node {
 
         if (next == undefined)
             this._next = null;
+    }
+
+    get NULL_HEIGHT() {
+        return this._NULL_HEIGHT;
+    }
+
+    get NULL_WIDTH() {
+        return this._NULL_WIDTH;
+    }
+
+    get NULL_ROUND() {
+        return this._NULL_ROUND;
     }
 
     get CURRENT_LINE_COLOR() {
@@ -122,6 +137,14 @@ export class Node {
         this._nextRefText = node;
     }
 
+    get nodeContainer() {
+        return this._nodeContainer;
+    }
+
+    set nodeContainer(node) {
+        this._nodeContainer = node;
+    }
+
 
     get dataText() {
         return this._dataText
@@ -147,7 +170,21 @@ export class Node {
         this._dataContainer = node;
     }
 
+    get dataPosX() {
+        return this.WIDTH/2 - this.REF_NODE_WIDTH/2;
+    }
 
+    get dataPosY() {
+        return this.HEIGHT/2 - this.REF_NODE_HEIGHT;
+    }
+
+    get refNodeX() {
+        return this.WIDTH/2 - this.REF_NODE_WIDTH/2;
+    }
+    
+    get refNodeY() {
+        return this.HEIGHT/2 + this.REF_NODE_HEIGHT/3;
+    }
 
     get domNode() {
         return this._domNode;
@@ -251,6 +288,11 @@ export class Node {
                 L${this.REF_NODE_WIDTH + amountX} ${this.REF_NODE_HEIGHT/2 + amountY}`;
     }
 
+    getRefLineAttrY(amountX, amountY) {
+         return `M${this.REF_NODE_WIDTH + amountX} ${this.REF_NODE_HEIGHT/2 + amountY} 
+                L${this.REF_NODE_WIDTH + this.REF_LINE_WIDTH} ${this.REF_NODE_HEIGHT/2}`;
+    }
+
     changeStyle(tl, style, noRef, pos) {
         const {BG, STROKE, TEXT, REF_BG} = style;
         let fields = [this.dataContainer, this.nextRef];
@@ -308,10 +350,46 @@ export class Node {
         return tl;
     }
 
+    moveFirstPointOfLine(tl, line, x, y, pos) {
+        tl.to(line, {
+            attr: {
+                d: `${this.getRefLineAttrY(x, y)}`
+            }
+        }, pos);
+        return tl;
+    }
+
     shrinkLineTo(tl, line, x, y, pos) {
         tl.to(line, {
             attr: {
                 d: `M${x} ${y} L${x} ${y}`,
+            }
+        }, pos);
+        return tl;
+    }
+
+    moveUp(tl, amount, pos) {
+        tl.to([this.nextRef, this.nextRefText, this.dataContainer, this._dataText, this.domNode], {
+            attr: {
+                transform: `translate(${0}, ${-amount})`
+            }
+        }, pos);
+        return tl;
+    }
+
+    moveDown(tl, amount, pos) {
+         tl.to([this.nextRef, this.nextRefText, this.dataContainer, this._dataText, this.domNode], {
+            attr: {
+                transform: `translate(${0}, ${0})`
+            }
+        }, pos);
+        return tl;
+    }
+
+    setNullPos(tl, x, y, pos) {
+        tl.set(this.nextNull, {
+            attr: {
+                transform: `translate(${x}, ${y})`,
             }
         }, pos);
         return tl;

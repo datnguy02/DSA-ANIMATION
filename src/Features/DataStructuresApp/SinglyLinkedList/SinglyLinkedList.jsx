@@ -41,10 +41,6 @@ const SinglyLinkedList = ({operation}) => {
     const domVirtualTailLineY = useRef(null);
     const currentNode = new TravelNode(list);
 
-    let needCurrent = operationName === "search" 
-                    || operationName === "delete"
-                    || operationName === "insert(i)";
-
     useEffect(() => {
         list.headRef = domHead.current;
         list.tailRef = domTail.current;
@@ -133,7 +129,6 @@ const SinglyLinkedList = ({operation}) => {
                     name="Current"
                     list={list}
                     node={currentNode}
-                    visible={needCurrent}
                 />
                 {nodeList}    
         </svg>

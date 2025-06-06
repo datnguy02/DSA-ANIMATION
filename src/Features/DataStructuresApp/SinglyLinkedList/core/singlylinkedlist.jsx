@@ -341,10 +341,22 @@ export class LinkedList {
                 L${this.HEAD_WIDTH/2 + this.TAIL_LINE_Y_WIDTH + amount} ${this.TAIL_LINE_Y_HEIGHT}
                 L${this.HEAD_WIDTH/2 + this.TAIL_LINE_Y_WIDTH + amount} ${this.HEAD_HEIGHT}`
     }
+    
+    getVerticalTailLineYAttr(amount) {
+         return `M${this.HEAD_WIDTH/2} ${this.HEAD_HEIGHT} 
+                L${this.HEAD_WIDTH/2} ${this.TAIL_LINE_Y_HEIGHT}
+                L${this.HEAD_WIDTH/2 + this.TAIL_LINE_Y_WIDTH} ${this.TAIL_LINE_Y_HEIGHT}
+                L${this.HEAD_WIDTH/2 + this.TAIL_LINE_Y_WIDTH} ${this.HEAD_HEIGHT + amount}`;
+    }
 
     getHeadLineAttr(amountX, amountY) {
         return `M${this.HEAD_WIDTH} ${this.HEAD_HEIGHT/2} 
                 L${this.HEAD_WIDTH + amountX} ${this.HEAD_HEIGHT/2 + amountY}`
+    }
+
+    getHeadLineAttrY(amountX, amountY) {
+        return `M${this.HEAD_WIDTH + amountX} ${this.HEAD_HEIGHT/2 + amountY} 
+                L${this.HEAD_WIDTH + this.REF_LINE_WIDTH} ${this.HEAD_HEIGHT/2}`;
     }
 
     getHeadLineAttrAfterMovingFirstPoint(x, y, amountX, amountY) {
@@ -440,7 +452,33 @@ export class LinkedList {
         
         tl.to(this.tailRef, {attr: {fill: BG}}, pos)
         .to(this.tailRefText, {attr: {fill: TEXT}}, "<");
+        return tl;
+    }
 
+    stretchHeightOfTailLineY(tl, amount, pos) {
+        tl.to(this.tailLineY, {
+            attr: {
+                d: `${this.getVerticalTailLineYAttr(amount)}`
+            }
+        }, pos);
+        return tl;
+    }
+
+    moveFirstPointOfHeadLine(tl, amountX, amountY, pos) {
+        tl.to(this.headLine, {
+            attr: {
+                d: `${this.getHeadLineAttrY(amountX, amountY)}`
+            }
+        }, pos);
+        return tl;
+    }
+
+    moveSecondPointOfHeadLine(tl, amountX, amountY, pos) {
+         tl.to(this.headLine, {
+            attr: {
+                d: `${this.getHeadLineAttr(amountX, amountY)}`
+            }
+        }, pos);
         return tl;
     }
 

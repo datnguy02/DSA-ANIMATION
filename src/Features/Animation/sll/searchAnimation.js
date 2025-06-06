@@ -1,7 +1,7 @@
-import colorway from "../../../assets/color-style/sllStyle";
+
 
 const FADE_IN_AMOUNT = 100;
-
+const UP = 100;
 
 
 export const travelNodeAppearAnimation = (tl, list, travelNode) => {
@@ -35,7 +35,7 @@ export const searchAnimation = (tl, list, target, travelNode) => {
     let current = list.head;
     let i = 1;
     while (current != null) {
-        current.changeStyle(tl, current.CURRENT_VISIT_STYLE,);
+        current.changeStyle(tl, current.CURRENT_VISIT_STYLE);
         if (prev === null) {
             list.changeHeadStyle(tl, list.HEAD_NORMAL_STYLE)
             .to(list.virtualHeadLine, {
@@ -48,17 +48,43 @@ export const searchAnimation = (tl, list, target, travelNode) => {
             prev.animeRefStyle(tl, prev.REF_NORMAL_STYLE);
             prev.shrinkLineTo(tl, prev.virtualRefLine, prev.REF_NODE_WIDTH + prev.REF_LINE_WIDTH,  prev.REF_NODE_HEIGHT/2);
         }
-        travelNode.setNewPos(tl, i * (list.GAP + list.WIDTH), 0);
+        
+        travelNode.startX += list.GAP + list.WIDTH;
+        travelNode.setNewPos(tl, travelNode.startX, travelNode.startY);
         travelNode.expandLineUpWard(tl);
         travelNode.scaleUp(tl);
-        if (current.val == target) {
-            console.log(current.val);
-            // TODO
+
+        if (current.value === target) {
+            travelNode.moveUp(tl, UP);
+            current.moveUp(tl, UP, "<");
+            current.moveFirstPointOfLine(tl, current.refLine, 0, -UP, "<");
+            if (prev !== null) {
+                prev.moveRefLine(tl, prev.refLine, prev.REF_LINE_WIDTH, -UP, "<");
+            }
+            else {
+                list.moveSecondPointOfHeadLine(tl, list.REF_LINE_WIDTH, -UP, "<");
+            }
+            if (current.next === null) {
+                list.stretchHeightOfTailLineY(tl, -UP, "<");
+            }
+            travelNode.shrinkLineTo(tl, travelNode.WIDTH/2, travelNode.HEIGHT, "+=0.5");
+            current.moveDown(tl, 0, "<")
+            current.changeStyle(tl, current.NORMAL_STYLE, false, "<");
+            current.moveFirstPointOfLine(tl, current.refLine, 0, 0, "<");
+            if (prev !== null) {
+                prev.moveRefLine(tl, prev.refLine, prev.REF_LINE_WIDTH, 0, "<");
+            }
+            else {
+                list.moveSecondPointOfHeadLine(tl, list.REF_LINE_WIDTH, 0, "<");
+            }
+            if (current.next === null) {
+                list.stretchHeightOfTailLineY(tl, 0, "<");
+            }
+            travelNode.fadeOut(tl, 2*UP);
             return;
         }
         travelNode.scaleDown(tl, "+=0.5");
         travelNode.shrinkLine(tl);
-        current.setLineTip(tl, current.virtualRefLine, "");
         current.setVirtualLineColor(tl, current.CURRENT_LINE_COLOR, "");
         current.changeStyle(tl, current.NORMAL_STYLE, true);
         current.moveRefLine(tl, current.virtualRefLine, current.REF_LINE_WIDTH, 0);

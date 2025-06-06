@@ -47,7 +47,7 @@ const Node = ({node}) => {
                 strokeWidth={node.STROKE_WIDTH}
                 ref={domNode}
             />
-            <g transform={`translate(${node.WIDTH/2 - node.REF_NODE_WIDTH/2}, ${node.HEIGHT/2 - node.REF_NODE_HEIGHT})`}
+            <g transform={`translate(${node.dataPosX}, ${node.dataPosY})`}
             >
                 <rect
                     width={node.REF_NODE_WIDTH}

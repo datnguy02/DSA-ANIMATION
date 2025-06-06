@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-const Traveler = ({name, node, visible}) => {
+const Traveler = ({name, node}) => {
     const domNodeContainer = useRef(null);
     const domTextNode = useRef(null);
     const domNode = useRef(null);
@@ -20,11 +20,11 @@ const Traveler = ({name, node, visible}) => {
             node.textNode = null;
             node.connectLine = null;
         }
-    }, [visible, node]);
+    }, [node]);
 
     return (
             <g transform={`translate(${node.startX}, ${node.startY})`}
-                opacity={visible ? 1 : 0}
+                opacity={0}
                 ref={domNodeContainer}
             >
                 <g 

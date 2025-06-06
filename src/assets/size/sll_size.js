@@ -9,6 +9,9 @@ const node_size = {
     REF_NODE_RAD: 10,
     REF_LINE_WIDTH: 8,
     GAP: 120,
+    NULL_WIDTH: 100,
+    NULL_HEIGHT: 50,
+    NULL_ROUND: 10,
 };
 
 

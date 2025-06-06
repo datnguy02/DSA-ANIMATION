@@ -77,8 +77,16 @@ export class TravelNode {
         return this._startX;
     }
 
+    set startX(x) {
+        this._startX = x;
+    }
+
     get startY() {
         return this._startY;
+    }
+
+    set startY(y) {
+        this._startY = y;
     }
 
     get nodeContainer() {
@@ -128,6 +136,16 @@ export class TravelNode {
         }, pos);
         return tl;
     }
+
+    shrinkLineTo(tl, x, y, pos) {
+        tl.to(this.connectLine, {
+            attr: {
+                d: `M${x} ${y}
+                    L${x} ${y}`
+            }
+        }, pos);
+        return tl;
+    }
     
     expandLineUpWard(tl, pos) {
          tl.to(this.connectLine, {
@@ -138,7 +156,7 @@ export class TravelNode {
         return tl;
     }
 
-     expandLineDownWard(tl, pos) {
+    expandLineDownWard(tl, pos) {
          tl.to(this.connectLine, {
             attr: {
                 d: `${this.getLineAttr(0, this.LINE_HEIGHT)}`,
@@ -170,7 +188,7 @@ export class TravelNode {
     setNewPos(tl, x, y, pos) {
         tl.set(this.nodeContainer, {
             attr: {
-                transform: `translate(${this.startX + x}, ${this.startY + y})`
+                transform: `translate(${x}, ${y})`
             }
         }, pos);
         return tl;
@@ -198,6 +216,26 @@ export class TravelNode {
                 transform: `translate(${this.startX}, ${this.startY})`
             },
         }, pos);
+    }
+
+    fadeOut(tl, amount, pos) {
+         tl.to(this.nodeContainer, {
+            attr: {
+                opacity: 0,
+                transform: `translate(${this.startX}, ${this.startY - amount})`,
+            }
+        }, pos);
+        return tl;
+    }
+
+    moveUp(tl, amount, pos) {
+        tl.to(this.nodeContainer, {
+            attr: {
+                transform: `translate(${this.startX}, ${this.startY - amount})`,
+            }
+        }, pos);
+        return tl;
+
     }
 
 }
