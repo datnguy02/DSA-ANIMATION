@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { NextRefContext, NextRefTextContext, RefLineContext } from "../../../context/sll/nodeRefContext";
 
-const RefNode = ({node, name, domNextNull, domVirtualRefLine}) => {
+const RefNode = ({node, name, domNextNull, domVirtualRefLine, domNullText, domNullBg}) => {
     const isLast = node.next === null;
     const domRefLine = useContext(RefLineContext);
     const domNextRef = useContext(NextRefContext);
@@ -52,6 +52,8 @@ const RefNode = ({node, name, domNextNull, domVirtualRefLine}) => {
                         height={node.NULL_HEIGHT}
                         fill={node.REF_NODE_BG}
                         rx={node.NULL_ROUND}
+                        ref={domNullBg}
+                        
                     />
                     <text
                         textAnchor="middle"
@@ -61,6 +63,7 @@ const RefNode = ({node, name, domNextNull, domVirtualRefLine}) => {
                         y={node.NULL_HEIGHT/2}
                         fill="white"
                         fontSize={26}    
+                        ref={domNullText}
                     >
                             Null
                     </text>

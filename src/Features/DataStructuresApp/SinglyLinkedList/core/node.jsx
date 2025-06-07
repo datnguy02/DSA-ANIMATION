@@ -20,6 +20,8 @@ export class Node {
         this._nextRefText = null;
         this._refLine = null;
         this._nextNull = null;
+        this._domNull = null;
+        this._nullText = null;
         this._virtualRefLine = null;
 
         // size of node
@@ -62,6 +64,7 @@ export class Node {
             TEXT: "white",
         }
 
+
         this._REF_CURRENT_VISIT_STYLE = {
             BG: colorway["REF_CURRENT_VISIT_BG"],
             TEXT: colorway["NODE_CURRENT_VISIT_TEXT"]
@@ -70,6 +73,22 @@ export class Node {
 
         if (next == undefined)
             this._next = null;
+    }
+
+    get nullText() {
+        return this._nullText;
+    }
+
+    set nullText(node) {
+        this._nullText = node;
+    }
+
+    get domNull() {
+        return this._domNull;
+    }
+
+    set domNull(node) {
+        this._domNull = node;
     }
 
     get NULL_HEIGHT() {
@@ -392,6 +411,21 @@ export class Node {
                 transform: `translate(${x}, ${y})`,
             }
         }, pos);
+        return tl;
+    }
+
+    animeNullStyle(tl, style, pos) {
+        const {BG, TEXT} = style;
+        tl.to(this.domNull, {
+            attr: {
+                fill: BG,
+            }
+        }, pos)
+        .to(this.nullText, {
+            attr: {
+                fill: TEXT,
+            }
+        }, "<");
         return tl;
     }
 
