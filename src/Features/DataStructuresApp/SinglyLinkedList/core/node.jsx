@@ -58,7 +58,13 @@ export class Node {
             REF_BG: colorway["REF_CURRENT_VISIT_BG"],
             TEXT: colorway["NODE_CURRENT_VISIT_TEXT"]
         };
-
+        
+        this._PREV_VISIT_STYLE = {
+            BG: colorway["NODE_PREV_VISIT_BG"],
+            STROKE: colorway["NODE_PREV_VISIT_STROKE"],
+            REF_BG: colorway["REF_PREV_VISIT_BG"],
+            TEXT: colorway["NODE_PREV_VISIT_TEXT"],
+        }
         this._REF_NORMAL_STYLE = {
             BG: colorway["NODE_REF_BG"],
             TEXT: "white",
@@ -73,6 +79,11 @@ export class Node {
 
         if (next == undefined)
             this._next = null;
+    }
+
+
+    get PREV_VISIT_STYLE() {
+        return this._PREV_VISIT_STYLE;
     }
 
     get nullText() {

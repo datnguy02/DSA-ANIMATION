@@ -21,7 +21,7 @@ export class LinkedList {
         this._ROUNED = node_size["NODE_BORDER_RAD"];
         this._REF_LINE_THICKNESS = node_size["STROKE_WIDTH"]
         this._REF_NODE_ROUNDED = node_size["REF_NODE_RAD"];
-        this._TAIL_LINE_Y_HEIGHT = 250;
+        this._TAIL_LINE_Y_HEIGHT = 280;
 
         // styling
         this._BG = colorway["LIST_BG"];
@@ -32,6 +32,7 @@ export class LinkedList {
         this._HEAD_CURRENT_VISIT_COLOR = colorway["HEAD_CONTROL_BG"];
         this._Head_CURRENT_VISIT_TEXT = colorway["HEAD_CONTROL_TEXT"];
         this._VIRTUAL_TAIL_LINE_COLOR = colorway["HEAD_CONTROL_BG"];
+        this._VIRTUAL_TAIL_LINE_PREV_COLOR = colorway["HEAD_PREV_BG"];
 
         this._HEAD_NORMAL_STYLE = {
             BG: colorway["HEAD_BG"],
@@ -41,6 +42,11 @@ export class LinkedList {
         this._HEAD_CURRENT_VISIT_STYLE = {
             BG: colorway["HEAD_CONTROL_BG"],
             TEXT: colorway["HEAD_CONTROL_TEXT"],
+        }
+
+        this._HEAD_PREV_VISIT_STYLE = {
+            BG: colorway["HEAD_PREV_BG"],
+            TEXT: colorway["HEAD_PREV_TEXT"],
         }
 
         this._TAIL_NORMAL_STYLE = {
@@ -68,6 +74,13 @@ export class LinkedList {
         
     }
 
+    get VIRTUAL_TAIL_LINE_PREV_COLOR() {
+        return this._VIRTUAL_TAIL_LINE_PREV_COLOR;
+    }
+
+    get HEAD_PREV_VISIT_STYLE() {
+        return this._HEAD_PREV_VISIT_STYLE;
+    }
 
     get VIRTUAL_TAIL_LINE_COLOR() {
         return this._VIRTUAL_TAIL_LINE_COLOR;
@@ -477,6 +490,24 @@ export class LinkedList {
          tl.to(this.headLine, {
             attr: {
                 d: `${this.getHeadLineAttr(amountX, amountY)}`
+            }
+        }, pos);
+        return tl;
+    }
+
+    shrinkHeadLineTo(tl, line, x, y, pos) {
+        tl.to(line, {
+            attr: {
+                d: `${this.getHeadLineAttrY(x, y)}`,
+            }
+        }, pos);
+        return tl;
+    }
+
+    setHeadAttr(tl, line, x, y, pos) {
+        tl.set(line, {
+            attr: {
+                d: `${this.getHeadLineAttr(x, y)}`,
             }
         }, pos);
         return tl;

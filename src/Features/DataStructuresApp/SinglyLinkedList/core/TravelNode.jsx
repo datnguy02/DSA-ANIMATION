@@ -1,8 +1,7 @@
-import colorway from "../../../../assets/color-style/sllStyle";
 import { node_size } from "../../../../assets/size/sll_size";
 
 export class TravelNode {
-    constructor(listToTravel) {
+    constructor(listToTravel, textColor, stroke, bg) {
 
         this._startX = listToTravel.x + (listToTravel.WIDTH/2 - listToTravel.HEAD_WIDTH/2);
         this._startY = listToTravel.y - (listToTravel.HEIGHT/2 - listToTravel.HEAD_HEIGHT + listToTravel.HEAD_HEIGHT + node_size["STROKE_WIDTH"]);
@@ -16,9 +15,9 @@ export class TravelNode {
         this._wrapper = null;
 
         // styling
-        this._BG = colorway["CURRENT_BG"];
-        this._STROKE = colorway["CURRENT_STROKE"];
-        this._TEXT = colorway["CURRENT_TEXT"];
+        this._BG = bg;
+        this._STROKE = stroke;
+        this._TEXT = textColor;
 
         // size 
         this._WIDTH = node_size["REF_NODE_WIDTH"];
@@ -204,6 +203,26 @@ export class TravelNode {
         }, pos)
     }
 
+    setLineUpAttr(tl, x, y, pos) {
+        tl.set(this.connectLine, {
+            attr: {
+                d: `M${this.WIDTH/2} ${-this._LINE_HEIGHT}
+                    L${this.WIDTH/2 + x} ${-this._LINE_HEIGHT}`,
+            }
+        }, pos);
+        return tl;
+    }
+
+    animeLineDown(tl, pos) {
+        tl.to(this.connectLine, {
+            attr: {
+                d: `M${this.WIDTH/2} ${-this._LINE_HEIGHT}
+                    L${this.WIDTH/2} 0`
+            }
+        }, pos);
+        return tl;
+    }
+
     fadeIn(tl, amount, pos) {
         tl.fromTo(this.nodeContainer, {
             attr: {
@@ -235,7 +254,15 @@ export class TravelNode {
             }
         }, pos);
         return tl;
+    }
 
+    setScalePoint(tl, point, pos) {
+        tl.to(this.wrapper, {
+            attr: {
+                "transform-origin": point,
+            }
+        }, pos);
+        return tl;
     }
 
 }

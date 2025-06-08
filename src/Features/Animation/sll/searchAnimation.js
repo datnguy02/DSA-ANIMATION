@@ -4,24 +4,31 @@ const FADE_IN_AMOUNT = 100;
 const UP = 100;
 
 
-export const travelNodeAppearAnimation = (tl, list, travelNode) => {
-
+export const travelNodeAppearAnimation = (tl, list, travelNode, isPrev) => {
+    
+    
     tl.set(list.virtualHeadLine, {
         attr: {
-            stroke: `${list.VIRTUAL_TAIL_LINE_COLOR}`,
+            stroke: `${isPrev ? 
+                        list.VIRTUAL_TAIL_LINE_PREV_COLOR 
+                      : list.VIRTUAL_TAIL_LINE_COLOR}`,
             "stroke-linecap": ""
         }
     })
     travelNode.fadeIn(tl, FADE_IN_AMOUNT);
     travelNode.expandLineDownWard(tl);
-    list.changeHeadStyle(tl, list.HEAD_CURRENT_VISIT_STYLE);
+    if (isPrev)
+        list.changeHeadStyle(tl, list.HEAD_PREV_VISIT_STYLE);
+    else
+        list.changeHeadStyle(tl, list.HEAD_CURRENT_VISIT_STYLE);
     travelNode.scaleDown(tl);
     travelNode.shrinkLine(tl)
     .to(list.virtualHeadLine, {
         attr: {
             d: `${list.getHeadLineAttr(list.REF_LINE_WIDTH, 0)}`,
         }
-    })
+    });
+
 
 
     return tl;

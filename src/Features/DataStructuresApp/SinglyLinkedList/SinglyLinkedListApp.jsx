@@ -37,6 +37,9 @@ const SinglyLinkedListApp = () => {
         else if (operationName === "search") {
             newOperation.target = state["value"];
         }
+        else if (operationName === "delete") {
+            newOperation.target = state["value"];
+        }
 
         newOperation.cleanAnime = () => {
                 setOperation({

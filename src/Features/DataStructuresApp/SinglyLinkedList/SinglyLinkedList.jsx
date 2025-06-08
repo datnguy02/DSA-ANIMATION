@@ -2,13 +2,17 @@ import Node from "./Node";
 import HeadRef from "./HeadRef";
 import TailRef from "./TailRef";
 import gsap from "gsap/gsap-core";
+import Traveler from "./Traveler";
+
 import { useEffect, useRef } from "react";
 import { insertFirstAnimation } from "../../Animation/sll/insertFirstAnimation";
 import { HeadLineContext, HeadRefContext, HeadRefTextContext, TailLineXContext, TailLineYContext, TailRefContext, TailRefTextContext } from "../../../context/sll/headRefContext";
 import { insertLastAnimation } from "../../Animation/sll/insertLastAnimation";
-import Traveler from "./Traveler";
 import { TravelNode } from "./core/TravelNode";
 import { searchAnimation } from "../../Animation/sll/searchAnimation";
+import { deleteAnimation } from "../../Animation/sll/deleteAnimation";
+
+import colorway from "../../../assets/color-style/sllStyle";
 
 const getNodeList = (list) => {
     let current = list.head;
@@ -23,7 +27,7 @@ const getNodeList = (list) => {
 }
 
 const SinglyLinkedList = ({operation}) => {
-    const ANIME_DURATION = 0.5;
+    const ANIME_DURATION = 0.3;
 
     const operationName = operation.name;
     const isNone = operationName === "None";
@@ -39,7 +43,17 @@ const SinglyLinkedList = ({operation}) => {
     const domTailText = useRef(null);
     const domVirtualHeadLine = useRef(null);
     const domVirtualTailLineY = useRef(null);
-    const currentNode = new TravelNode(list);
+    const currentNode = new TravelNode(
+                                        list, 
+                                        colorway["CURRENT_TEXT"], 
+                                        colorway["CURRENT_STROKE"],
+                                        colorway["CURRENT_BG"]);
+    const prevNode= new TravelNode(
+                                    list,
+                                    colorway["PREV_TEXT"],
+                                    colorway["PREV_STROKE"],
+                                    colorway["PREV_BG"]
+    );
 
     useEffect(() => {
         list.headRef = domHead.current;
@@ -68,10 +82,13 @@ const SinglyLinkedList = ({operation}) => {
         if (operationName === "search") {
             searchAnimation(tl.current, list, operation.target, currentNode);
         }
+        if (operationName === "delete") {
+            deleteAnimation(tl.current, list, operation.target, prevNode, currentNode);
+        }
 
-        tl.current.to(list.headRef, {
-            onComplete: () => operation.cleanAnime()
-        });
+        // tl.current.to(list.headRef, {
+        //     onComplete: () => operation.cleanAnime()
+        // });
 
 
         return () => {
@@ -129,6 +146,11 @@ const SinglyLinkedList = ({operation}) => {
                     name="Current"
                     list={list}
                     node={currentNode}
+                />
+                <Traveler
+                    name="Previous"
+                    list={list}
+                    node={prevNode}
                 />
                 {nodeList}    
         </svg>
