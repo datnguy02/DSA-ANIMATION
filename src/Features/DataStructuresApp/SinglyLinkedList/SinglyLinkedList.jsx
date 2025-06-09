@@ -86,9 +86,9 @@ const SinglyLinkedList = ({operation}) => {
             deleteAnimation(tl.current, list, operation.target, prevNode, currentNode);
         }
 
-        // tl.current.to(list.headRef, {
-        //     onComplete: () => operation.cleanAnime()
-        // });
+        tl.current.to(list.headRef, {
+            onComplete: () => operation.cleanAnime()
+        });
 
 
         return () => {

@@ -40,7 +40,7 @@ const OperationBar = ({name, onStart}) => {
                             gap-[0.5rem]
                             p-[1em]
                             pb-[4em]
-                            rounded-[0.2em]
+                            rounded-[0.8em]
                             "
                 style={
                     {

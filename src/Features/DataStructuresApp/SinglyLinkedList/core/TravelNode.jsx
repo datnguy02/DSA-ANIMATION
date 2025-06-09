@@ -207,7 +207,7 @@ export class TravelNode {
         tl.set(this.connectLine, {
             attr: {
                 d: `M${this.WIDTH/2} ${-this._LINE_HEIGHT}
-                    L${this.WIDTH/2 + x} ${-this._LINE_HEIGHT}`,
+                    L${this.WIDTH/2 + x} ${-this._LINE_HEIGHT + y}`,
             }
         }, pos);
         return tl;
@@ -255,6 +255,7 @@ export class TravelNode {
         }, pos);
         return tl;
     }
+
 
     setScalePoint(tl, point, pos) {
         tl.to(this.wrapper, {

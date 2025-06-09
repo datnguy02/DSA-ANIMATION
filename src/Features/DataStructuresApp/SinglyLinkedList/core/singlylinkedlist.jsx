@@ -430,6 +430,30 @@ export class LinkedList {
         }
     }
 
+    delete(value) {
+        let current = this.head;
+        let prev = this.head;
+        while (current !== null) {
+            if (current.value === value) 
+                break;
+            prev = current;
+            current = current.next;
+        }
+        if (current === null) 
+            return;
+        if (current === this.head) {
+            this.head = current.next;
+        }
+        else if (current === this.tail) {
+            prev.next = current.next;
+            this.tail = prev;
+        }
+        else {
+            prev.next = current.next;
+        }
+        this.nElement--;
+    }
+
     updatePos(startNode, amountX) {
         let current = startNode;
         while (current != null) {
@@ -437,6 +461,7 @@ export class LinkedList {
             current = current.next;
         }
     }
+
 
     clone() {
         let current = this.head;
@@ -513,6 +538,24 @@ export class LinkedList {
         return tl;
     }
 
+    animeTailLineWidth(tl, amount, pos) {
+        tl.to(this.tailLineY, {
+            attr: {
+                d: `${this.getTailLineYAttr(amount)}`,
+            }
+        }, pos);
+        return tl;
+    }
+    
+    moveListNodes(tl, amount,startNode, pos) {
+        tl.to(this.headRef, {}, pos);
+        let current = startNode;
+        while (current !== null) {
+            current.moveLeft(tl, amount, "<");
+            current = current.next;
+        }
+        return tl;
+    }
     
 
 }

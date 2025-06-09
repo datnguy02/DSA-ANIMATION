@@ -44,6 +44,8 @@ export class Node {
         this._STROKE = colorway["NODE_BORDER"];
         this._REF_LINE_COLOR = colorway["REF_LINE"];
         this._CURRENT_LINE_COLOR = colorway["CURRENT_STROKE"];
+        this._PREV_LINE_COLOR = colorway["PREV_STROKE"];
+        
 
         this._NORMAL_STYLE = {
             BG: colorway["NODE_BG"],
@@ -65,25 +67,38 @@ export class Node {
             REF_BG: colorway["REF_PREV_VISIT_BG"],
             TEXT: colorway["NODE_PREV_VISIT_TEXT"],
         }
+
         this._REF_NORMAL_STYLE = {
             BG: colorway["NODE_REF_BG"],
             TEXT: "white",
         }
-
 
         this._REF_CURRENT_VISIT_STYLE = {
             BG: colorway["REF_CURRENT_VISIT_BG"],
             TEXT: colorway["NODE_CURRENT_VISIT_TEXT"]
         }
 
+        this._REF_PREV_VISIT_STYLE = {
+            BG: colorway["PREV_STROKE"],
+            TEXT: colorway["NODE_PREV_VISIT_TEXT"]
+        }
+
 
         if (next == undefined)
             this._next = null;
+    }
+    
+    get REF_PREV_VISIT_STYLE() {
+        return this._REF_PREV_VISIT_STYLE;
     }
 
 
     get PREV_VISIT_STYLE() {
         return this._PREV_VISIT_STYLE;
+    }
+
+    get PREV_LINE_COLOR() {
+        return this._PREV_LINE_COLOR;
     }
 
     get nullText() {
@@ -440,6 +455,55 @@ export class Node {
         return tl;
     }
 
+    resetLineAttr(tl, line, pos) {
+        tl.set(line, {
+            attr: {
+                d: `${this.getRefLineAttr(0, 0)}`,
+            }
+        }, pos);
+        return tl;
+    }
+
+    setLineAttr(tl, line, x1, y1, x2, y2, pos) {
+        tl.set(line, {
+            attr: {
+                d: `M${x1} ${y1} L${x2} ${y2}`,
+            }
+        }, pos);
+        return tl;
+    }
+
+    setScalePoint(tl, point, pos) {
+        tl.to(this.nodeContainer, {
+            attr: {
+                "transform-origin": point,
+            }
+        }, pos);
+        return tl;
+    }
+
+    scaleDown(tl, pos) {
+        tl.fromTo(this.nodeContainer, {
+            attr: {
+                transform: `${this.nodeContainer.getAttribute("transform")} scale(1)`,
+            }
+        }, {
+            attr: {
+                transform: `${this.nodeContainer.getAttribute("transform")} scale(0)`,
+            }
+        },
+        pos);
+        return tl;
+    }
+
+    moveLeft(tl, amount, pos) {
+        tl.to(this.nodeContainer, {
+            attr: {
+                transform: `translate(${this.x - amount}, ${this.y})`,
+            }
+        }, pos);
+        return tl;
+    }
     
 
 }
