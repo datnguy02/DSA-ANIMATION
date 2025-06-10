@@ -20,6 +20,7 @@ const getNodeList = (list) => {
     while (current != null) {
         res.push(<Node
                     node={current}
+                    key={current.id}
                 />);
         current = current.next;
     }
@@ -87,7 +88,9 @@ const SinglyLinkedList = ({operation}) => {
         }
 
         tl.current.to(list.headRef, {
-            onComplete: () => operation.cleanAnime()
+            onComplete: () => {
+                operation.cleanAnime()
+            }
         });
 
 

@@ -312,6 +312,14 @@ export class Node {
         this._y = yPos;
     }
 
+    get id() {
+        return this._id;
+    }
+
+    set id(ID) {
+        this._id = ID;
+    }
+
     get value() {
         return this._val;
     }

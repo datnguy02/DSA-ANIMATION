@@ -75,12 +75,12 @@ export const deleteAnimation = (tl, list, target, prevNode, currentNode) => {
             prevNode.fadeOut(tl, -UP, "<");
             if (current.next !== null) {
                 list.moveListNodes(tl, list.GAP + list.WIDTH, current.next);
-                list.animeTailLineWidth(tl, -list.GAP - list.WIDTH, "<");
+                list.morphTailLineWidth(tl, 0, "<");
+                // list.animeTailLineWidth(tl, -(list.GAP + list.WIDTH), "<");
             }
-
-
-        
-
+            else {
+                
+            }
             return;
         }
 

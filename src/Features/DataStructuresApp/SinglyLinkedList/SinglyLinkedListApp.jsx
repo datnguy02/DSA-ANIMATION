@@ -5,7 +5,7 @@ import SinglyLinkedList from "./SinglyLinkedList";
 import { useState } from "react";
 
 const initialList = new LinkedList();
-for (let i = 0; i < 6; i++) {
+for (let i = 0; i < 4; i++) {
     initialList.insertFirst(Math.round((Math.random() * 10000) % 100));
 }
 
@@ -21,7 +21,7 @@ const SinglyLinkedListApp = () => {
     const handleStart = (state) => {
         const operationName = state.operationName;
         const newList = operation.list.clone();
-        const listForNextState = newList.clone();
+       
         const newOperation = {
             name: operationName,
             list: newList,
@@ -40,17 +40,17 @@ const SinglyLinkedListApp = () => {
         }
         else if (operationName === "delete") {
             newOperation.target = state["value"];
-            listForNextState.delete(state["value"]);
         }
 
         newOperation.cleanAnime = () => {
+                if (operationName === "delete")
+                    newList.delete(state["value"]);
                 setOperation({
-                    list: listForNextState,
+                    list: newList.clone(),
                     name: "None"
                 })
-        }
+        };
         
-
         setOperation(newOperation);
         
     }

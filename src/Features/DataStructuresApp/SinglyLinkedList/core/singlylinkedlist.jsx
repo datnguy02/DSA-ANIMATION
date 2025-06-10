@@ -378,7 +378,7 @@ export class LinkedList {
     }
 
     insertFirst(value) {
-        const newNode = new Node(value, this.startX, this.startY);
+        const newNode = new Node(value, this.startX, this.startY, null, this.getRandomId());
         if (this.isEmpty())
             this.tail = newNode;
         else  {
@@ -390,7 +390,7 @@ export class LinkedList {
     }
 
     insertLast(value) {
-        const newNode = new Node(value, this.startX, this.startY);
+        const newNode = new Node(value, this.startX, this.startY, null, this.getRandomId());
         if (this.isEmpty()) {
             this.head = newNode;
         }
@@ -413,7 +413,7 @@ export class LinkedList {
             this.insertLast(value);
         }
         else {
-            const newNode = new Node(value, this.startX, this.startY);
+            const newNode = new Node(value, this.startX, this.startY, null,this.getRandomId());
             let current = this.head;
             let previous = current;
             let i = 0;
@@ -451,7 +451,15 @@ export class LinkedList {
         else {
             prev.next = current.next;
         }
+        
+        if (current.next !== null) {
+            this.updatePos(current.next, -(current.next.GAP + current.next.WIDTH));
+        }
         this.nElement--;
+    }
+
+    getRandomId() {
+        return Math.round(Math.random() * 1000000000);
     }
 
     updatePos(startNode, amountX) {
@@ -547,6 +555,19 @@ export class LinkedList {
         return tl;
     }
     
+    morphTailLineWidth(tl, amount, pos) {
+        tl.fromTo(this.tailLineY, {
+            attr: {
+                d: `${this.getTailLineYAttr(amount)}`,
+            }
+        }, {
+            attr: {
+                d: `${this.tailLineY.getAttribute("d")}`
+            }
+        }, pos);
+        return tl;
+    }
+
     moveListNodes(tl, amount,startNode, pos) {
         tl.to(this.headRef, {}, pos);
         let current = startNode;
