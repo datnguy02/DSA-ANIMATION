@@ -5,8 +5,6 @@ const UP = 100;
 
 
 export const travelNodeAppearAnimation = (tl, list, travelNode, isPrev) => {
-    
-    
     tl.set(list.virtualHeadLine, {
         attr: {
             stroke: `${isPrev ? 
@@ -33,6 +31,7 @@ export const travelNodeAppearAnimation = (tl, list, travelNode, isPrev) => {
 
     return tl;
 }
+
 
 export const searchAnimation = (tl, list, target, travelNode) => {
     travelNodeAppearAnimation(tl, list, travelNode);
@@ -107,11 +106,7 @@ export const searchAnimation = (tl, list, target, travelNode) => {
     prev.animeRefStyle(tl, prev.REF_NORMAL_STYLE)
     prev.shrinkLineTo(tl, prev.virtualRefLine, prev.REF_NODE_WIDTH + prev.REF_LINE_WIDTH,  prev.REF_NODE_HEIGHT/2);
 
-    travelNode.startX = prev.x + prev.WIDTH + prev.GAP - (travelNode.WIDTH/2 - prev.NULL_WIDTH/2);
-    travelNode.startY = prev.y + prev.refNodeY  + (prev.REF_NODE_HEIGHT/2 - prev.NULL_HEIGHT/2) - travelNode.LINE_HEIGHT - travelNode.HEIGHT;
-    travelNode.setNewPos(tl, travelNode.startX, travelNode.startY);
-    travelNode.expandLineUpWard(tl);
-    travelNode.scaleUp(tl);
+    travelNode.moveToNull(tl, prev);
 
     travelNode.shrinkLineTo(tl, travelNode.WIDTH/2, travelNode.HEIGHT, "+=0.5");
     prev.animeNullStyle(tl, prev.REF_NORMAL_STYLE, "<");

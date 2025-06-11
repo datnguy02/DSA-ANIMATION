@@ -266,4 +266,13 @@ export class TravelNode {
         return tl;
     }
 
+    moveToNull(tl, node, pos) {
+        this.startX = node.x + node.WIDTH + node.GAP - (this.WIDTH/2 - node.NULL_WIDTH/2);
+        this.startY = node.y + node.refNodeY + (node.REF_NODE_HEIGHT/2 - node.NULL_HEIGHT/2) - this.LINE_HEIGHT - this.HEIGHT;
+        this.setNewPos(tl, this.startX, this.startY, pos);
+        this.expandLineUpWard(tl);
+        this.scaleUp(tl);
+        return tl;
+    }
+
 }

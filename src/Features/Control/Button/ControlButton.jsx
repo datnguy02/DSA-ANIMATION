@@ -1,7 +1,7 @@
 const ControlButton = ({name, style, onStart, inputNameList, inputValList, methodName}) => {
     return (
         <div>
-            <button className="font-bold p-[0.5em] rounded-[0.2em]"
+            <button className="font-bold p-[0.5em] rounded-[0.5em] text-center"
                     style={
                         {
                             backgroundColor: style["START_BUTTON_BG"]

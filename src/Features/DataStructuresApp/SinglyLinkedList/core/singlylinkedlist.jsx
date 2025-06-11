@@ -457,6 +457,17 @@ export class LinkedList {
         }
         this.nElement--;
     }
+    
+    search(value) {
+        let current = this.head;
+        let i = 0;
+        while (current !== null) {
+            if (current.value === value)
+                return i;
+            current = current.next;
+        }
+        return -1;
+    }
 
     getRandomId() {
         return Math.round(Math.random() * 1000000000);

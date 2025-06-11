@@ -3,7 +3,10 @@ import { travelNodeAppearAnimation } from "./searchAnimation";
 const UP = 100;
 
 export const deleteAnimation = (tl, list, target, prevNode, currentNode) => {
-    list.tailLineY.setAttribute("d", list.getTailLineYAttr(-(list.GAP + list.WIDTH)));
+    const deleteAt = list.search(target);
+    if (deleteAt >= 0) {
+         list.tailLineY.setAttribute("d", list.getTailLineYAttr(-(list.GAP + list.WIDTH)));
+    }
     travelNodeAppearAnimation(tl, list, currentNode);
     currentNode.LINE_HEIGHT -= list.HEIGHT/2 - list.HEAD_HEIGHT;
 
@@ -129,7 +132,17 @@ export const deleteAnimation = (tl, list, target, prevNode, currentNode) => {
 
         prev = current;
         current = current.next;
-
     }
+    prev.animeNullStyle(tl, prev.REF_CURRENT_VISIT_STYLE);
+    prev.animeRefStyle(tl, prev.REF_PREV_VISIT_STYLE);
+    prev.shrinkLineTo(tl, prev.virtualRefLine, prev.REF_NODE_WIDTH + prev.REF_LINE_WIDTH, prev.REF_NODE_HEIGHT/2);
+    currentNode.moveToNull(tl, prev);
+
+    currentNode.shrinkLineTo(tl, currentNode.WIDTH/2, currentNode.HEIGHT, "+=0.5");
+    prevNode.shrinkLineTo(tl, prevNode.WIDTH/2, 0, "<");
+    prev.animeNullStyle(tl, prev.REF_NORMAL_STYLE, "<");
+    prev.changeStyle(tl, prev.NORMAL_STYLE, false, "<");
+    prevNode.fadeOut(tl, -UP);
+    currentNode.fadeOut(tl, UP, "<");
 };
 
