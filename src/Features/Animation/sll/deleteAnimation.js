@@ -3,9 +3,15 @@ import { travelNodeAppearAnimation } from "./searchAnimation";
 const UP = 100;
 
 export const deleteAnimation = (tl, list, target, prevNode, currentNode) => {
-    const deleteAt = list.search(target);
-    if (deleteAt >= 0) {
-         list.tailLineY.setAttribute("d", list.getTailLineYAttr(-(list.GAP + list.WIDTH)));
+    const {nodes, index} = list.search(target);
+    if (index >= 0) {
+        list.tailLineY.setAttribute("d", list.getTailLineYAttr(-(list.GAP + list.WIDTH)));
+    }
+    if (index === list.nElement - 1) {
+        let n = nodes.length;
+        if (n >= 2) {
+            nodes[n - 2].nextNull.setAttribute("opacity", 1);
+        }
     }
     travelNodeAppearAnimation(tl, list, currentNode);
     currentNode.LINE_HEIGHT -= list.HEIGHT/2 - list.HEAD_HEIGHT;
@@ -70,6 +76,7 @@ export const deleteAnimation = (tl, list, target, prevNode, currentNode) => {
                 current.animeNullStyle(tl, current.REF_NORMAL_STYLE, "<");
             }
             current.setScalePoint(tl, `${current.WIDTH/2} 0`, "<");
+            current.setNullOpacity(tl, 0, "<");
             current.scaleDown(tl);
             currentNode.shrinkLineTo(tl, currentNode.WIDTH/2, currentNode.HEIGHT);
             prevNode.shrinkLineTo(tl, prevNode.WIDTH/2, 0, "<");
@@ -79,10 +86,10 @@ export const deleteAnimation = (tl, list, target, prevNode, currentNode) => {
             if (current.next !== null) {
                 list.moveListNodes(tl, list.GAP + list.WIDTH, current.next);
                 list.morphTailLineWidth(tl, 0, "<");
-                // list.animeTailLineWidth(tl, -(list.GAP + list.WIDTH), "<");
             }
             else {
-                
+                prev.moveNullFromTo(tl, prev.WIDTH + prev.GAP, 0);
+                prev.moveRefLine(tl, prev.refLine, prev.REF_LINE_WIDTH, 0, "<");
             }
             return;
         }

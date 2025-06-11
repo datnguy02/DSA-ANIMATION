@@ -41,7 +41,7 @@ const RefNode = ({node, name, domNextNull, domVirtualRefLine, domNullText, domNu
                 >
                     {name}
                 </text>
-                <g transform={`translate(${node.REF_NODE_WIDTH + node.REF_LINE_WIDTH}, ${node.REF_NODE_HEIGHT/2 - node.NULL_HEIGHT/2})`}
+                <g transform={`translate(${node.nullPosX}, ${node.nullPosY})`}
                     opacity={isLast ? 1 : 0}
                     ref={domNextNull}
                     className="transform-fill"

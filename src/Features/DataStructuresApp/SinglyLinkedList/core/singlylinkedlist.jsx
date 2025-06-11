@@ -461,12 +461,20 @@ export class LinkedList {
     search(value) {
         let current = this.head;
         let i = 0;
+        let result = {
+            nodes: [],
+            index: -1,
+        };
         while (current !== null) {
-            if (current.value === value)
-                return i;
+            result.nodes.push(current);
+            if (current.value === value) {
+                result.index = i;
+                return result;
+            }
             current = current.next;
+            i++;
         }
-        return -1;
+        return result;
     }
 
     getRandomId() {
@@ -588,6 +596,7 @@ export class LinkedList {
         }
         return tl;
     }
+
     
 
 }

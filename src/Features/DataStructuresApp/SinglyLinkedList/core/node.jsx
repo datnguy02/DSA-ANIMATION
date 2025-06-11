@@ -117,6 +117,14 @@ export class Node {
         this._domNull = node;
     }
 
+    get nullPosX() {
+        return this.REF_NODE_WIDTH + this.REF_LINE_WIDTH;
+    }
+
+    get nullPosY() {
+        return this.REF_NODE_HEIGHT/2 - this.NULL_HEIGHT/2;
+    }
+
     get NULL_HEIGHT() {
         return this._NULL_HEIGHT;
     }
@@ -508,6 +516,28 @@ export class Node {
         tl.to(this.nodeContainer, {
             attr: {
                 transform: `translate(${this.x - amount}, ${this.y})`,
+            }
+        }, pos);
+        return tl;
+    }
+
+    moveNullFromTo(tl, amountX, amountY, pos) {
+        tl.fromTo(this.nextNull, {
+            attr: {
+                transform: `translate(${this.nullPosX + amountX}, ${this.nullPosY + amountY})`,
+            }
+        }, {
+            attr: {
+                transform: `translate(${this.nullPosX}, ${this.nullPosY})`,
+            }
+        }, pos);
+        return tl;
+    }
+
+    setNullOpacity(tl, opacity, pos) {
+        tl.to(this.nextNull, {
+            attr: {
+                opacity: opacity,
             }
         }, pos);
         return tl;
