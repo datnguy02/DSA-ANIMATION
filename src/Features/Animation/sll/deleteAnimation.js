@@ -76,7 +76,7 @@ export const deleteAnimation = (tl, list, target, prevNode, currentNode) => {
                 current.animeNullStyle(tl, current.REF_NORMAL_STYLE, "<");
             }
             current.setScalePoint(tl, `${current.WIDTH/2} 0`, "<");
-            current.setNullOpacity(tl, 0, "<");
+            current.animeNullOpacity(tl, 0, "<");
             current.scaleDown(tl);
             currentNode.shrinkLineTo(tl, currentNode.WIDTH/2, currentNode.HEIGHT);
             prevNode.shrinkLineTo(tl, prevNode.WIDTH/2, 0, "<");
@@ -88,7 +88,7 @@ export const deleteAnimation = (tl, list, target, prevNode, currentNode) => {
                 list.morphTailLineWidth(tl, 0, "<");
             }
             else {
-                prev.moveNullFromTo(tl, prev.WIDTH + prev.GAP, 0);
+                prev.moveNullFromTo(tl, prev.WIDTH + prev.GAP, 0, 1, 1);
                 prev.moveRefLine(tl, prev.refLine, prev.REF_LINE_WIDTH, 0, "<");
             }
             return;

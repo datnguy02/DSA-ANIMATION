@@ -18,43 +18,20 @@ const insertLastAnimation = (tl, list) => {
     const newNode = list.tail;
 
 
-     tl.set(list.tailLineY, {
-        attr: {
-            d: `${list.getTailLineYAttr(reduceAmount)}`
-        }
-    }).set(prevTail.nextNull, {
-        attr: {
-            opacity: 1,
-        }
-    }).set(newNode.nodeContainer, {
-        attr: {
-            transform: `translate(${newNode.x}, ${newNode.y + FADE_IN_AMOUNT}) scale(0)`
-        }
-    })
-    .set(newNode.refLine, {
-        attr: {
-            "stroke-linecap": ""
-        }
-    });
+    list.setTailLineYAttr(tl, reduceAmount);
+    prevTail.setNullOpacity(tl, 1);
+    newNode.setPos(tl, `translate(${newNode.x}, ${newNode.y + FADE_IN_AMOUNT}) scale(0)`);
+    newNode.setLineTip(tl, newNode.refLine, "");
 
     // animation that make new node appear
-    tl.to(newNode.nodeContainer, {
-        attr: {
-             transform: `translate(${newNode.x}, ${newNode.y + FADE_IN_AMOUNT}) scale(1)`
-        }
-    })
+    newNode.animePos(tl, `translate(${newNode.x}, ${newNode.y + FADE_IN_AMOUNT}) scale(1)`);
 
     // animation that show how we control tail ref to access the last node of the list
-    list.changeTailStyle(tl, list.TAIL_VISIT_STYLE)
-    .to(list.virtualTailLineY, {
-        attr: {
-            d: `${list.getTailLineYVerticalAttr()}`,
-        }
-    }).to(list.virtualTailLineY, {
-        attr: {
-            d: `${list.getTailLineYHorizontalAttr(reduceAmount)}`
-        }
-    }).to(list.virtualTailLineY, {
+    list.changeTailStyle(tl, list.TAIL_VISIT_STYLE);
+    list.animeFirstPartOfTailLineY(tl, list.virtualTailLineY);
+
+    list.animeSecondPart(tl, list.virtualTailLineY, reduceAmount);
+    tl.to(list.virtualTailLineY, {
         attr: {
             d: `${list.getTailLineYAttr(reduceAmount)}`
         }
@@ -63,97 +40,32 @@ const insertLastAnimation = (tl, list) => {
 
 
     // animation that updates the next ref of previous tail
-    tl.fromTo(prevTail.nextNull, {
-        attr: {
-            transform: `${prevTail.nextNull.getAttribute("transform")} scale(1)`,
-        }
-    }, {
-        attr: {
-             transform: `${prevTail.nextNull.getAttribute("transform")} scale(0)`,
-        }
-    })
-    .to(prevTail.refLine, {
-        attr: {
-            d: `${prevTail.getRefLineAttr(prevTail.REF_LINE_WIDTH/3, 0)}`
-        }
-    })
-    .to(prevTail.refLine, {
-        attr: {
-            d: `${prevTail.getRefLineAttr(prevTail.REF_LINE_WIDTH/3, FADE_IN_AMOUNT/3)}`
-        }
-    })
-    .to(prevTail.refLine, {
-        attr: {
-            d: `${prevTail.getRefLineAttr(prevTail.REF_LINE_WIDTH, FADE_IN_AMOUNT)}`
-        }
-    });
+    prevTail.moveNullFromTo(tl, 0, 0, 1, 0);
+    prevTail.moveRefLine(tl, prevTail.refLine, prevTail.REF_LINE_WIDTH/3, 0);
+    prevTail.moveRefLine(tl, prevTail.refLine, prevTail.REF_LINE_WIDTH/3, FADE_IN_AMOUNT/3);
+    prevTail.moveRefLine(tl, prevTail.refLine, prevTail.REF_LINE_WIDTH, FADE_IN_AMOUNT);
 
 
     // animation that lift up the new node
-    tl.to(prevTail.refLine, {
-        attr: {
-             d: `${prevTail.getRefLineAttr(prevTail.REF_LINE_WIDTH, 0)}`
-        }
-    })
-    .to(newNode.nodeContainer, {
-        attr: {
-            transform: `translate(${newNode.x}, ${newNode.y})`
-        }
-    }, "<");
+    prevTail.moveRefLine(tl, prevTail.refLine, prevTail.REF_LINE_WIDTH, 0);
+    newNode.animePos(tl, `translate(${newNode.x}, ${newNode.y})`, "<");
 
 
     // animation that show the null of new node
-    tl.fromTo(newNode.refLine, {
-        attr: {
-            d: `${newNode.getRefLineAttr(0, 0)}`,
-        }
-    }, {
-        attr: {
-            d: `${newNode.getRefLineAttr(newNode.REF_LINE_WIDTH, 0)}`,
-        }
-    })
-    .fromTo(newNode.nextNull, {
-        attr: {
-            transform: `${newNode.nextNull.getAttribute("transform")} scale(0)`,
-        }
-    }, {
-        attr: {
-             transform: `${newNode.nextNull.getAttribute("transform")} scale(1)`,
-        }
-    });
+    newNode.expandRefLineTo(tl, newNode.refLine, newNode.REF_LINE_WIDTH, 0);
+    newNode.moveNullFromTo(tl, 0, 0, 0, 1);
 
     // animation that update the tail reference of the list so that it points to new node
-    tl.to([list.virtualTailLineY, list.tailLineY], {
-        attr: {
-            d: `${list.getTailLineYHorizontalAttr(reduceAmount)}`
-        }
-    });
-    prevTail.changeStyle(tl, prevTail.NORMAL_STYLE, false, "<")
-    .to([list.virtualTailLineY, list.tailLineY], {
-        attr: {
-              d: `${list.getTailLineYHorizontalAttr(0)}`
-        }
-    })
-    .to([list.virtualTailLineY, list.tailLineY], {
-        attr: {
-            d: `${list.getTailLineYAttr(0)}`
-        }
-    })
-    .to(list.virtualTailLineY, {
-        attr: {
-            d: `${list.getTailLineYHorizontalAttr(0)}`
-        }
-    })
-    .to(list.virtualTailLineY, {
-        attr: {
-            d: `${list.getTailLineYVerticalAttr()}`
-        }
-    })
-    .to(list.virtualTailLineY, {
-        attr: {
-            d: `${list.virtualTailLineY.getAttribute("d")}`
-        }
-    });
+    list.shrinkThirdPartOfTailLineY(tl, list.virtualTailLineY, reduceAmount);
+    list.shrinkThirdPartOfTailLineY(tl, list.tailLineY, reduceAmount, "<");
+    prevTail.changeStyle(tl, prevTail.NORMAL_STYLE, false, "<");
+    list.shrinkThirdPartOfTailLineY(tl, list.virtualTailLineY, 0);
+    list.shrinkThirdPartOfTailLineY(tl, list.tailLineY, 0, "<");
+    list.animeTailLineWidth(tl, 0);
+    list.animeVirtualTailLineWidth(tl, 0, "<");
+    list.shrinkThirdPartOfTailLineY(tl, list.virtualTailLineY, 0);
+    list.animeFirstPartOfTailLineY(tl, list.virtualTailLineY);
+    list.shrinkEntireLine(tl, list.virtualTailLineY);
     list.changeTailStyle(tl, list.TAIL_NORMAL_STYLE);
 };
 

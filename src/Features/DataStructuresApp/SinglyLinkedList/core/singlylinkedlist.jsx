@@ -318,10 +318,20 @@ export class LinkedList {
     }
 
     /*
-        |
+        |  <-- first part of tail line y Attribute
         |
     
     */
+
+
+    shrinkEntireLine(tl, line, pos) {
+        tl.to(line, {
+            attr: {
+                d: `${line.getAttribute("d")}`
+            }
+        }, pos);
+        return tl;
+    }
 
     getTailLineYVerticalAttr() {
         return `M${this.HEAD_WIDTH/2} ${this.HEAD_HEIGHT} 
@@ -329,6 +339,15 @@ export class LinkedList {
                 L${this.HEAD_WIDTH/2} ${this.TAIL_LINE_Y_HEIGHT}
                 L${this.HEAD_WIDTH/2} ${this.TAIL_LINE_Y_HEIGHT}
                 `;
+    }
+
+    animeFirstPartOfTailLineY(tl, line, pos) {
+        tl.to(line, {
+            attr: {
+                d: `${this.getTailLineYVerticalAttr()}`,
+            }
+        }, pos);
+        return tl;
     }
 
     /*
@@ -344,6 +363,15 @@ export class LinkedList {
                 `;
     }
 
+    animeSecondPart(tl, line, amount,pos) {
+        tl.to(line, {
+            attr: {
+                d: `${this.getTailLineYHorizontalAttr(amount)}`,
+            }
+        }, pos);
+        return tl;
+    }
+
     /*
         |                    |
         |____________________|
@@ -354,6 +382,8 @@ export class LinkedList {
                 L${this.HEAD_WIDTH/2 + this.TAIL_LINE_Y_WIDTH + amount} ${this.TAIL_LINE_Y_HEIGHT}
                 L${this.HEAD_WIDTH/2 + this.TAIL_LINE_Y_WIDTH + amount} ${this.HEAD_HEIGHT}`
     }
+
+    
     
     getVerticalTailLineYAttr(amount) {
          return `M${this.HEAD_WIDTH/2} ${this.HEAD_HEIGHT} 
@@ -546,6 +576,14 @@ export class LinkedList {
         }, pos);
         return tl;
     }
+    moveSecondPointOfVirtualHeadLine(tl, amountX, amountY, pos) {
+         tl.to(this.virtualHeadLine, {
+            attr: {
+                d: `${this.getHeadLineAttr(amountX, amountY)}`
+            }
+        }, pos);
+        return tl;
+    }
 
     shrinkHeadLineTo(tl, line, x, y, pos) {
         tl.to(line, {
@@ -573,6 +611,15 @@ export class LinkedList {
         }, pos);
         return tl;
     }
+
+    animeVirtualTailLineWidth(tl, amount, pos) {
+        tl.to(this.virtualTailLineY, {
+            attr: {
+                d: `${this.getTailLineYAttr(amount)}`,
+            }
+        }, pos);
+        return tl;
+    }
     
     morphTailLineWidth(tl, amount, pos) {
         tl.fromTo(this.tailLineY, {
@@ -594,6 +641,33 @@ export class LinkedList {
             current.moveLeft(tl, amount, "<");
             current = current.next;
         }
+        return tl;
+    }
+
+    setTailLineYAttr(tl, amount, pos) {
+        tl.set(this.tailLineY, {
+            attr: {
+                d: `${this.getTailLineYAttr(amount)}`,
+            }
+        }, pos);
+        return tl;
+    }
+
+    shrinkThirdPartOfTailLineY(tl, line, changeAmount, pos) {
+        tl.to(line, {
+            attr: {
+                d: `${this.getTailLineYHorizontalAttr(changeAmount)}`
+            }
+        }, pos);
+        return tl;
+    }
+
+    animeLineTip(tl, line, style, pos) {
+        tl.to(line, {
+            attr: {
+                "stroke-linecap": style,
+            }
+        }, pos);
         return tl;
     }
 

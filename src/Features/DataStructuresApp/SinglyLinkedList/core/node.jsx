@@ -521,20 +521,22 @@ export class Node {
         return tl;
     }
 
-    moveNullFromTo(tl, amountX, amountY, pos) {
+    moveNullFromTo(tl, amountX, amountY, opacity1, opacity2, pos) {
         tl.fromTo(this.nextNull, {
             attr: {
-                transform: `translate(${this.nullPosX + amountX}, ${this.nullPosY + amountY})`,
+                transform: `translate(${this.nullPosX + amountX}, ${this.nullPosY + amountY})
+                            scale(${opacity1})
+                `,
             }
         }, {
             attr: {
-                transform: `translate(${this.nullPosX}, ${this.nullPosY})`,
+                transform: `translate(${this.nullPosX}, ${this.nullPosY}) scale(${opacity2})`,
             }
         }, pos);
         return tl;
     }
 
-    setNullOpacity(tl, opacity, pos) {
+    animeNullOpacity(tl, opacity, pos) {
         tl.to(this.nextNull, {
             attr: {
                 opacity: opacity,
@@ -542,6 +544,45 @@ export class Node {
         }, pos);
         return tl;
     }
+
+    setNullOpacity(tl, opacity, pos) {
+        tl.set(this.nextNull, {
+            attr: {
+                opacity: opacity,
+            }
+        }, pos);
+        return tl;
+    }
+
+    setPos(tl, position, pos) {
+        tl.set(this.nodeContainer, {
+            attr: {
+                transform: `${position}`,
+            }
+        }, pos);
+        return tl;
+    }
+
+    animePos(tl, position, pos) {
+        tl.to(this.nodeContainer, {
+            attr: {
+                transform: `${position}`,
+            }
+        },pos);
+        return tl;
+    }
     
+    expandRefLineTo(tl, line, x, y, pos) {
+        tl.fromTo(line, {
+            attr: {
+                d: `${this.getRefLineAttr(0, 0)}`
+            }
+        }, {
+            attr: {
+                d: `${this.getRefLineAttr(x, y)}`,
+            }
+        }, pos);
+        return tl;
+    }
 
 }

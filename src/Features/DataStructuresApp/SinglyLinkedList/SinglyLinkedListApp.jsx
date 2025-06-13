@@ -1,4 +1,5 @@
 import colorway from "../../../assets/color-style/sllStyle";
+import { AnimatingContext } from "../../../context/animeContext/animatingContext";
 import OperationBar from "../../Control/Operation/OperationBar";
 import { LinkedList } from "./core/singlylinkedlist";
 import SinglyLinkedList from "./SinglyLinkedList";
@@ -72,10 +73,12 @@ const SinglyLinkedListApp = () => {
                 <SinglyLinkedList
                     operation={operation}
                 />
-                <OperationBar
-                    name="sll"
-                    onStart={handleStart}
-                />
+                <AnimatingContext value={operation.name !== "None"}>
+                    <OperationBar
+                        name="sll"
+                        onStart={handleStart}
+                    />
+                </AnimatingContext>
             </div>
         </>
 

@@ -25,15 +25,8 @@ const insertFirstAnimation = (tl, list) => {
 
 
     // set up new node so that it fade in later
-    tl.set(newNode.nodeContainer, {
-        attr: {
-             transform: `translate(${newNode.x}, ${newNode.y + FADE_IN_AMOUNT}) scale(0)`
-        }
-    }).set(newNode.refLine, {
-        attr: {
-            d: `${newNode.getRefLineAttr(0, 0)}`,
-        }
-    }, "<")
+    newNode.setPos(tl, `translate(${newNode.x}, ${newNode.y + FADE_IN_AMOUNT}) scale(0)`);
+    newNode.resetLineAttr(tl, newNode.refLine, "<")
     .set(list.virtualHeadLine, {
         attr: {
             stroke: `${list.HEAD_CURRENT_VISIT_BG}`,
@@ -43,13 +36,9 @@ const insertFirstAnimation = (tl, list) => {
     ;
     
 
-    moveNodeToRight(tl, list.head.next)
-    .to(list.headLine, {
-        attr: {
-            d: `${list.getHeadLineAttr(list.GAP + list.WIDTH + list.REF_LINE_WIDTH, 0)}`,
-        }
-    }, "<")
-    .fromTo(list.tailLineY, {
+    moveNodeToRight(tl, list.head.next);
+    list.moveSecondPointOfHeadLine(tl, list.GAP + list.WIDTH + list.REF_LINE_WIDTH, 0, "<");
+    tl.fromTo(list.tailLineY, {
         attr: {
             d: `${list.getTailLineYAttr(-(list.GAP + list.WIDTH))}`
         }
@@ -57,68 +46,33 @@ const insertFirstAnimation = (tl, list) => {
         attr: {
             d: `${list.getTailLineYAttr(0)}`
         }
-    }, "<")
-   .to(newNode.nodeContainer, {
-        attr: {
-             transform: `translate(${newNode.x}, ${newNode.y + FADE_IN_AMOUNT}) scale(1)`,
-        }
-   })
-   list.changeHeadStyle(tl, list.HEAD_CURRENT_VISIT_STYLE)
-   .to(list.virtualHeadLine, {
+    }, "<");
+    newNode.animePos(tl, `translate(${newNode.x}, ${newNode.y + FADE_IN_AMOUNT}) scale(1)`);
+    list.changeHeadStyle(tl, list.HEAD_CURRENT_VISIT_STYLE)
+    .to(list.virtualHeadLine, {
         attr: {
             d: `${list.getHeadLineAttr(list.REF_LINE_WIDTH + list.GAP + list.WIDTH, 0)}`,
             "stroke-linecap": "round"
         }
-   })
-   newNode.next.changeStyle(tl, newNode.CURRENT_VISIT_STYLE)
-    .to(newNode.refLine, {
-        attr: {
-            d: `${newNode.getRefLineAttr(newNode.REF_LINE_WIDTH, -FADE_IN_AMOUNT)}`
-        }
-   })
-   .to([list.headLine, list.virtualHeadLine], {
-        attr: {
-            d: `${list.getHeadLineAttr(list.REF_LINE_WIDTH/2 , 0)}`
-        }
-   });
-   newNode.next.changeStyle(tl, newNode.NORMAL_STYLE, false, "<")
-   .to([list.headLine, list.virtualHeadLine], {
-         attr: {
-            d: `${list.getHeadLineAttr(list.REF_LINE_WIDTH/2 , FADE_IN_AMOUNT/2)}`
-        }
-   })
-   .to([list.headLine, list.virtualHeadLine], {
-         attr: {
-            d: `${list.getHeadLineAttr(list.REF_LINE_WIDTH , FADE_IN_AMOUNT)}`
-        }
-   })
-   .to(list.virtualHeadLine, {
-        attr: {
-            d: `${list.getHeadLineAttr(0, 0)}`
-        }
-   });
-   list.changeHeadStyle(tl, list.HEAD_NORMAL_STYLE)
-   .to(list.virtualHeadLine, {
-        attr: {
-            "stroke-linecap": "",
-        }
-   }, "<")
-   .to(newNode.nodeContainer, {
-        attr: {
-            transform: `translate(${newNode.x}, ${newNode.y})`
-        }
-   })
-   .to(newNode.refLine, {
-        attr: {
-            d: `${newNode.getRefLineAttr(newNode.REF_LINE_WIDTH, 0)}`
-        }
-   }, "<")
-   .to(list.headLine, {
-        attr: {
-            d: `${list.getHeadLineAttr(list.REF_LINE_WIDTH, 0)}`
-        },
-   }, "<")
+    })
+    newNode.next.changeStyle(tl, newNode.CURRENT_VISIT_STYLE);
+    newNode.moveRefLine(tl, newNode.refLine, newNode.REF_LINE_WIDTH, -FADE_IN_AMOUNT);
+    list.moveSecondPointOfHeadLine(tl, list.REF_LINE_WIDTH/2, 0);
+    list.moveSecondPointOfVirtualHeadLine(tl, list.REF_LINE_WIDTH/2, 0, "<");
+    newNode.next.changeStyle(tl, newNode.NORMAL_STYLE, false, "<");
+    list.moveSecondPointOfHeadLine(tl, list.REF_LINE_WIDTH/2, FADE_IN_AMOUNT/2);
+    list.moveSecondPointOfVirtualHeadLine(tl, list.REF_LINE_WIDTH/2, FADE_IN_AMOUNT/2, "<");
     
+    list.moveSecondPointOfHeadLine(tl, list.REF_LINE_WIDTH, FADE_IN_AMOUNT);
+    list.moveSecondPointOfVirtualHeadLine(tl, list.REF_LINE_WIDTH, FADE_IN_AMOUNT, "<");
+
+    list.moveSecondPointOfVirtualHeadLine(tl, 0, 0);
+    list.changeHeadStyle(tl, list.HEAD_NORMAL_STYLE);
+    list.animeLineTip(tl, list.virtualHeadLine, "", "<");
+    newNode.animePos(tl, `translate(${newNode.x}, ${newNode.y})`);
+    newNode.moveRefLine(tl, newNode.refLine, newNode.REF_LINE_WIDTH, 0, "<");
+    list.moveSecondPointOfHeadLine(tl, list.REF_LINE_WIDTH, 0, "<");
+
 };
 
 
