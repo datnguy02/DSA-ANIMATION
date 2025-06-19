@@ -54,7 +54,7 @@ const insertFirstAnimation = (tl, list) => {
             d: `${list.getHeadLineAttr(list.REF_LINE_WIDTH + list.GAP + list.WIDTH, 0)}`,
             "stroke-linecap": "round"
         }
-    })
+    });
     newNode.next.changeStyle(tl, newNode.CURRENT_VISIT_STYLE);
     newNode.moveRefLine(tl, newNode.refLine, newNode.REF_LINE_WIDTH, -FADE_IN_AMOUNT);
     list.moveSecondPointOfHeadLine(tl, list.REF_LINE_WIDTH/2, 0);

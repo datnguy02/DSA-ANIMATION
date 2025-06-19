@@ -432,6 +432,18 @@ export class LinkedList {
         this.nElement++;
     }
 
+    getAt(index) {
+        if (index < 0 || index >= this.nElement)
+            throw new Error(`Index out of bound for ${index}`);
+        let current = this.head;
+        let i = 0;
+        while (i < index) {
+            current = current.next;
+            i++;
+        }
+        return current;
+    }
+
     insertAt(value, index) {
         if (index < 0 || index > this.nElement) {
             throw new Error("Index out of bound");
@@ -634,7 +646,7 @@ export class LinkedList {
         return tl;
     }
 
-    moveListNodes(tl, amount,startNode, pos) {
+    moveListNodes(tl, amount, startNode, pos) {
         tl.to(this.headRef, {}, pos);
         let current = startNode;
         while (current !== null) {
@@ -668,6 +680,16 @@ export class LinkedList {
                 "stroke-linecap": style,
             }
         }, pos);
+        return tl;
+    }
+
+    moveNodesToRight(tl, amount, startNode, pos) {
+        tl.to(this.headRef, {}, pos);
+        let current = startNode;
+        while (current !== null) {
+            current.moveRight(tl, amount, "<");
+            current = current.next;
+        }
         return tl;
     }
 

@@ -13,6 +13,7 @@ import { searchAnimation } from "../../Animation/sll/searchAnimation";
 import { deleteAnimation } from "../../Animation/sll/deleteAnimation";
 
 import colorway from "../../../assets/color-style/sllStyle";
+import { insertAtAnimation } from "../../Animation/sll/insertAtAnimation";
 
 const getNodeList = (list) => {
     let current = list.head;
@@ -28,10 +29,9 @@ const getNodeList = (list) => {
 }
 
 const SinglyLinkedList = ({operation}) => {
-    const ANIME_DURATION = 0.3;
+    const ANIME_DURATION = 0.2;
 
     const operationName = operation.name;
-    const isNone = operationName === "None";
     const list = operation.list;
     const nodeList = getNodeList(list);
     const tl = useRef(null);
@@ -85,6 +85,16 @@ const SinglyLinkedList = ({operation}) => {
         }
         if (operationName === "delete") {
             deleteAnimation(tl.current, list, operation.target, prevNode, currentNode);
+        }
+        if (operationName === "insert(i)") {
+            const insertAt = operation.insertAt;
+            if (insertAt === 0)
+                insertFirstAnimation(tl.current, list);
+            else if (insertAt === list.nElement - 1){
+                insertLastAnimation(tl.current, list);
+            }
+            else 
+                insertAtAnimation(tl.current, list, insertAt, prevNode, currentNode);
         }
 
         tl.current.to(list.headRef, {

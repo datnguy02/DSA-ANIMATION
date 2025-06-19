@@ -446,6 +446,24 @@ export class Node {
         }, pos);
         return tl;
     }
+    
+    animeResetPos(tl, pos) {
+        tl.to(this.nodeContainer, {
+            attr: {
+                transform: `translate(${this.x}, ${this.y}) scale(1)`,
+            }
+        }, pos);
+        return tl;
+    }
+
+    moveRight(tl, amount, pos) {
+        tl.to(this.nodeContainer, {
+            attr: {
+                transform: `translate(${this.x + amount}, ${this.y})`,
+            }
+        }, pos);
+        return tl;
+    }
 
     setNullPos(tl, x, y, pos) {
         tl.set(this.nextNull, {
@@ -580,6 +598,19 @@ export class Node {
         }, {
             attr: {
                 d: `${this.getRefLineAttr(x, y)}`,
+            }
+        }, pos);
+        return tl;
+    }
+
+    scaleUp(tl, x, y, pos) {
+        tl.fromTo(this.nodeContainer, {
+            attr: {
+                transform: `translate(${x}, ${y}) scale(0)`,
+            }
+        }, {
+            attr: {
+                transform: `translate(${x}, ${y}) scale(1)`,
             }
         }, pos);
         return tl;

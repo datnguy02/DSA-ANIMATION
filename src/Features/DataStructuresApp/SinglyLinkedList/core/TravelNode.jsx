@@ -256,6 +256,15 @@ export class TravelNode {
         return tl;
     }
 
+    moveRight(tl, amount, pos) {
+        tl.to(this.nodeContainer, {
+            attr: {
+                transform: `translate(${this.startX + amount}, ${this.startY})`,
+            }
+        }, pos);
+        return tl;
+    }
+
 
     setScalePoint(tl, point, pos) {
         tl.to(this.wrapper, {

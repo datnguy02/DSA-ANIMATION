@@ -29,6 +29,7 @@ const SinglyLinkedListApp = () => {
         }
         if (operationName === "insert(i)") {
             newList.insertAt(state["value"], state["index"]);
+            newOperation.insertAt = state["index"];
         }
         else if (operationName === "insertfirst") {
             newList.insertFirst(state["value"]);
