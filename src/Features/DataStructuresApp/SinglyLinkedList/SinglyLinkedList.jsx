@@ -69,32 +69,37 @@ const SinglyLinkedList = ({operation}) => {
 
         tl.current = gsap.timeline({
             defaults: {
-                duration: ANIME_DURATION,
+                // duration: ANIME_DURATION,
                 ease: "power1.inOut"
             }
         });
 
-        if (operationName === "insertfirst") {
-            insertFirstAnimation(tl.current, list);
-        }
-        if (operationName === "insertlast") {
-            insertLastAnimation(tl.current, list);
-        }
-        if (operationName === "search") {
-            searchAnimation(tl.current, list, operation.target, currentNode);
-        }
-        if (operationName === "delete") {
-            deleteAnimation(tl.current, list, operation.target, prevNode, currentNode);
-        }
-        if (operationName === "insert(i)") {
-            const insertAt = operation.insertAt;
-            if (insertAt === 0)
+        tl.current.timeScale(2);
+
+        if (operation.useAnime) {
+
+            if (operationName === "insertfirst") {
                 insertFirstAnimation(tl.current, list);
-            else if (insertAt === list.nElement - 1){
+            }
+            if (operationName === "insertlast") {
                 insertLastAnimation(tl.current, list);
             }
-            else 
-                insertAtAnimation(tl.current, list, insertAt, prevNode, currentNode);
+            if (operationName === "search") {
+                searchAnimation(tl.current, list, operation.target, currentNode);
+            }
+            if (operationName === "delete") {
+                deleteAnimation(tl.current, list, operation.target, prevNode, currentNode);
+            }
+            if (operationName === "insert(i)") {
+                const insertAt = operation.insertAt;
+                if (insertAt === 0)
+                    insertFirstAnimation(tl.current, list);
+                else if (insertAt === list.nElement - 1){
+                    insertLastAnimation(tl.current, list);
+                }
+                else 
+                    insertAtAnimation(tl.current, list, insertAt, prevNode, currentNode);
+            }
         }
 
         tl.current.to(list.headRef, {

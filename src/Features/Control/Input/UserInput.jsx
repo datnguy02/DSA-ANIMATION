@@ -6,6 +6,7 @@ const UserInput = ({input_title, val_index, inputVal, handleChange}) => {
                     className="bg-white text-black rounded-[0.1em]"
                     value={inputVal}
                     onChange={e => handleChange(e.target.value, val_index)}
+                    type="number"
             />
         </label>
 

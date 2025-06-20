@@ -1,6 +1,7 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import RefNode from "./RefNode";
 import { NextRefContext, NextRefTextContext, RefLineContext } from "../../../context/sll/nodeRefContext";
+import gsap from "gsap";
 
 const Node = ({node}) => {
     const data = node.value;
@@ -15,9 +16,11 @@ const Node = ({node}) => {
     const domVirtualRefLine = useRef(null);
     const domNullText = useRef(null);
     const domNullBg = useRef(null);
+    const tl = useRef(null);
 
 
     useEffect(() => {
+        tl.current = gsap.timeline();
         node.domNode = domNode.current;
         node.nodeContainer = domNodeContainer.current;
         node.dataContainer = domData.current;
@@ -29,19 +32,22 @@ const Node = ({node}) => {
         node.virtualRefLine = domVirtualRefLine.current;
         node.nullText = domNullText.current;
         node.domNull = domNullBg.current;
+        
+
+
 
         return () => {
            node.domNode = null;
            node.domNodeContainer = null;
         }
 
-    }, [node])
+    }, [node]);
 
     return (
         <g transform={`translate(${node.x}, ${node.y})`}
             ref={domNodeContainer}
-             className="transform-fill"
-                transformOrigin={`${node.WIDTH/2} ${node.HEIGHT/2}`}
+            className="transform-fill"
+            transformOrigin={`${node.WIDTH/2} ${node.HEIGHT/2}`}
         >
             <rect
                 width={node.WIDTH}

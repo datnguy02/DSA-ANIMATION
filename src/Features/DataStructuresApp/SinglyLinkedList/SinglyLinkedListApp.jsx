@@ -17,7 +17,6 @@ const SinglyLinkedListApp = () => {
                                                 name: "None"
                                                 });
 
-
     // This function will be passed down to the operation bar
     const handleStart = (state) => {
         const operationName = state.operationName;
@@ -26,6 +25,7 @@ const SinglyLinkedListApp = () => {
         const newOperation = {
             name: operationName,
             list: newList,
+            useAnime: state.butName !== "No Animation",
         }
         if (operationName === "insert(i)") {
             newList.insertAt(state["value"], state["index"]);
@@ -49,7 +49,7 @@ const SinglyLinkedListApp = () => {
                     newList.delete(state["value"]);
                 setOperation({
                     list: newList.clone(),
-                    name: "None"
+                    name: "None",
                 })
         };
         
@@ -80,6 +80,7 @@ const SinglyLinkedListApp = () => {
                         onStart={handleStart}
                     />
                 </AnimatingContext>
+                
             </div>
         </>
 
