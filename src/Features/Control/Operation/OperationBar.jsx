@@ -3,6 +3,7 @@ import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
 import Method from "./Method";
 import operation_bar from "../../../assets/MethodList/operationList";
+import TimeButton from "../Button/TimeButton";
 
 
 const OperationBar = ({name, onStart}) => {
@@ -60,6 +61,11 @@ const OperationBar = ({name, onStart}) => {
                                                 />
                                                 ))
                 }
+                <TimeButton
+                    style={style}
+                    handleClick={onStart}
+                    isBack={true}
+                />
             </div>
             <div
                     className=" 

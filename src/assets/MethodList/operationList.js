@@ -27,10 +27,6 @@ const operation_bar = {
                 name: "InsertFirst",
                 inputList: ["Value"]
             },
-            {
-                name: "Get",
-                inputList: ["Index"]
-            }
         ]
     }
 };
