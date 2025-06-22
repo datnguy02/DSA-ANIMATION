@@ -36,12 +36,12 @@ const OperationBar = ({name, onStart, timeLine}) => {
     });
 
     return (
-        <div className="fixed left-5 bottom-6 lg:text-[0.8rem] sm:text-[0.3rem] text-[0.3rem] xl:text-[1rem]" ref={container}>
+        <div className="fixed left-5 bottom-6 lg:text-[0.8rem] sm:text-[0.45rem] text-[0.3rem] xl:text-[1rem]" ref={container}>
             <div
                 className="
                             flex
                             flex-col
-                            gap-[0.7rem]
+                            gap-[0.7em]
                             p-[1em]
                             rounded-[0.8em]
                             content-center

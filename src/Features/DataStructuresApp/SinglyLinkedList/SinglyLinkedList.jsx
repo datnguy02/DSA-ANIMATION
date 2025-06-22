@@ -119,7 +119,7 @@ const SinglyLinkedList = ({operation}) => {
 
     return (
         <svg 
-            viewBox="800 -300 1800 1800" 
+            viewBox="700 -200 1800 1800" 
             width={1800}
             height={700}    
             className="size-fit"
