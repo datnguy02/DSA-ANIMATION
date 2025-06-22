@@ -13,8 +13,8 @@ const Method = ({name, inputList, methodStyle, handleStart}) => {
         }));
     }
     return (
-        <div className="flex gap-[1rem] items-center">
-            <button className="font-bold p-[0.5em] rounded-[0.2em] text-center min-w-20"
+        <div className="flex gap-[1.3em] items-center">
+            <button className="font-bold p-[0.5em] rounded-[0.2em] text-center min-w-[6em]"
                     style={
                         {
                             backgroundColor: methodStyle["METHOD_BUTTON_BG"]

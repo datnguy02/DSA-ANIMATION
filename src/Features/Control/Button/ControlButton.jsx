@@ -6,7 +6,7 @@ const ControlButton = ({name, style, onStart, inputNameList, inputValList, metho
     
     return (
         <div className="relative">
-            <button className="font-bold p-[0.5em] rounded-[0.5em] text-center relative z-20"
+            <button className="font-bold p-[0.5em] rounded-[0.5em] text-center relative z-20 whitespace-nowrap"
                     style={
                         {
                             backgroundColor: style["START_BUTTON_BG"],

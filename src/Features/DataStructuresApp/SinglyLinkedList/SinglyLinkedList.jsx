@@ -122,6 +122,7 @@ const SinglyLinkedList = ({operation}) => {
             viewBox="800 -300 1800 1800" 
             width={1800}
             height={700}    
+            className="size-fit"
             preserveAspectRatio="xMidYMid meet"
 
         >

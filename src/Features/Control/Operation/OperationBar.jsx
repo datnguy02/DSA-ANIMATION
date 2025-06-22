@@ -3,7 +3,10 @@ import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
 import Method from "./Method";
 import operation_bar from "../../../assets/MethodList/operationList";
+import IconButton from "../Button/StateButton";
+import SkipButton from "../Button/SkipButton";
 import TimeButton from "../Button/TimeButton";
+import StateButton from "../Button/StateButton";
 
 
 const OperationBar = ({name, onStart, timeLine}) => {
@@ -33,15 +36,15 @@ const OperationBar = ({name, onStart, timeLine}) => {
     });
 
     return (
-        <div className="fixed left-5 bottom-6 lg:text-[0.8rem] sm:text-[0.6rem] text-[0.5rem]" ref={container}>
+        <div className="fixed left-5 bottom-6 lg:text-[0.8rem] sm:text-[0.3rem] text-[0.3rem] xl:text-[1rem]" ref={container}>
             <div
                 className="
                             flex
                             flex-col
-                            gap-[0.5rem]
-                            p-[1.3em]
-
+                            gap-[0.7rem]
+                            p-[1em]
                             rounded-[0.8em]
+                            content-center
                             "
                 style={
                     {
@@ -61,17 +64,24 @@ const OperationBar = ({name, onStart, timeLine}) => {
                                                 />
                                                 ))
                 }
-                <div className="absolute right-0 bottom-0 flex gap-1.5">
-                    <TimeButton
-                        style={style}
+                <div className="flex self-end gap-[1em] align-center">
+                     <StateButton
                         handleClick={onStart}
                         isBack={true}
+                        style={style}
                     />
-                    <div className="text-white font-bold"
-                         onClick={() => timeLine.timeScale(3)}
-                    >
-                        Pause
-                    </div>
+                    <StateButton
+                        handleClick={onStart}
+                        isBack={false}
+                        style={style}
+                    />
+                    <SkipButton
+                        style={style}
+                        tl={timeLine}
+                    />
+                    <TimeButton
+                        tl={timeLine}
+                    />
                 </div>
             </div>
             <div
