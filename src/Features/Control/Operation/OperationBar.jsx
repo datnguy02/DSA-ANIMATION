@@ -6,7 +6,7 @@ import operation_bar from "../../../assets/MethodList/operationList";
 import TimeButton from "../Button/TimeButton";
 
 
-const OperationBar = ({name, onStart}) => {
+const OperationBar = ({name, onStart, timeLine}) => {
     const style = operation_bar[name].style;
     const container = useRef(null);
     const bar = useRef(null);
@@ -39,8 +39,8 @@ const OperationBar = ({name, onStart}) => {
                             flex
                             flex-col
                             gap-[0.5rem]
-                            p-[1em]
-                            pb-[4em]
+                            p-[1.3em]
+
                             rounded-[0.8em]
                             "
                 style={
@@ -61,11 +61,18 @@ const OperationBar = ({name, onStart}) => {
                                                 />
                                                 ))
                 }
-                <TimeButton
-                    style={style}
-                    handleClick={onStart}
-                    isBack={true}
-                />
+                <div className="absolute right-0 bottom-0 flex gap-1.5">
+                    <TimeButton
+                        style={style}
+                        handleClick={onStart}
+                        isBack={true}
+                    />
+                    <div className="text-white font-bold"
+                         onClick={() => timeLine.timeScale(3)}
+                    >
+                        Pause
+                    </div>
+                </div>
             </div>
             <div
                     className=" 

@@ -1,6 +1,6 @@
 const TimeButton = ({isBack, handleClick, style}) => {
     return (
-            <div className="absolute right-0 bottom-0"
+            <div className="relative"
                 onClick={() => {
                     let state = {
                         operationName: isBack ? "revert" : "foward",

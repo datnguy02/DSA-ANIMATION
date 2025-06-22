@@ -29,12 +29,12 @@ const getNodeList = (list) => {
 }
 
 const SinglyLinkedList = ({operation}) => {
-    const ANIME_DURATION = 0.2;
-
+    const ANIMATION_SPEED = 2;
     const operationName = operation.name;
     const list = operation.list;
     const nodeList = getNodeList(list);
     const tl = useRef(null);
+    const count = useRef(0);
     const domHead = useRef(null);
     const domTail = useRef(null);
     const domTailLineX = useRef(null);
@@ -66,15 +66,13 @@ const SinglyLinkedList = ({operation}) => {
         list.tailRefText = domTailText.current;
         list.virtualHeadLine = domVirtualHeadLine.current;
         list.virtualTailLineY = domVirtualTailLineY.current;
+        
+        if (operationName !== "None") {
+            tl.current = operation.gsapTimeLine;
+            tl.current.timeScale(ANIMATION_SPEED);
+        }
 
-        tl.current = gsap.timeline({
-            defaults: {
-                // duration: ANIME_DURATION,
-                ease: "power1.inOut"
-            }
-        });
-
-        tl.current.timeScale(2);
+        
 
         if (operation.useAnime) {
 
@@ -94,24 +92,26 @@ const SinglyLinkedList = ({operation}) => {
                 const insertAt = operation.insertAt;
                 if (insertAt === 0)
                     insertFirstAnimation(tl.current, list);
-                else if (insertAt === list.nElement - 1){
+                else if (insertAt === list.nElement - 1)
                     insertLastAnimation(tl.current, list);
-                }
                 else 
                     insertAtAnimation(tl.current, list, insertAt, prevNode, currentNode);
             }
         }
-
-        tl.current.to(list.headRef, {
-            onComplete: () => {
-                operation.cleanAnime()
-            }
-        });
-
+        
+        if (operationName !== "None") {
+            tl.current.to(list.headRef, {
+                onComplete: () => {
+                        if (operation.cleanAnime)
+                            operation.cleanAnime()
+                    }
+                });
+        }
 
         return () => {
             if (tl.current) {
                 tl.current.revert();
+                tl.current = null;
             }
         }
     }, [operation])
@@ -119,8 +119,8 @@ const SinglyLinkedList = ({operation}) => {
 
     return (
         <svg 
-            viewBox="0 0 1800 1800" 
-            width={1300}
+            viewBox="800 -300 1800 1800" 
+            width={1800}
             height={700}    
             preserveAspectRatio="xMidYMid meet"
 

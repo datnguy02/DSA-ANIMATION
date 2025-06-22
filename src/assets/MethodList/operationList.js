@@ -8,10 +8,6 @@ const operation_bar = {
         },
         methods: [
             {
-                name: "Insert(i)",
-                inputList: ["Value", "Index"],
-            },
-            {
                 name: "Delete",
                 inputList: ["Value"]
             },
@@ -26,6 +22,10 @@ const operation_bar = {
             {
                 name: "InsertFirst",
                 inputList: ["Value"]
+            },
+            {
+                name: "Insert(i)",
+                inputList: ["Value", "Index"],
             },
         ]
     }

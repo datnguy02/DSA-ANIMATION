@@ -5,6 +5,7 @@ import Message from "../../Message/Message";
 import { LinkedList } from "./core/singlylinkedlist";
 import SinglyLinkedList from "./SinglyLinkedList";
 import { useCallback, useState } from "react";
+import gsap from "gsap";
 
 const initialList = new LinkedList();
 for (let i = 0; i < 4; i++) {
@@ -17,7 +18,12 @@ const SinglyLinkedListApp = () => {
                                                 list: initialList,
                                                 name: "None",
                                                 stackList: [],
-                                        });
+                                                gsapTimeLine: gsap.timeline({
+                                                                            defaults: {
+                                                                                ease: "power1.inOut",
+                                                                            }
+                                                                            }),
+                                                });
     
     // This function will be passed down to the operation bar
     const handleStart = useCallback((state) => {
@@ -31,6 +37,11 @@ const SinglyLinkedListApp = () => {
             list: newList,
             useAnime: state.butName !== "No Animation",
             stackList: newStackList,
+            gsapTimeLine: gsap.timeline({
+                defaults: {
+                    ease: "power1.inOut"
+                },
+            }),
         }
         if (operationName === "insert(i)") {
             newList.insertAt(state["value"], state["index"]);
@@ -47,9 +58,13 @@ const SinglyLinkedListApp = () => {
         }
         else if (operationName === "search") {
             newOperation.target = state["value"];
+            const {index} = operation.list.search(state["value"]);
+            message = index >= 0 ? `Found ${state["value"]} at index ${index}` : `It looks like ${state["value"]} is not in the list`;
         }
         else if (operationName === "delete") {
             newOperation.target = state["value"];
+            const {index} = operation.list.search(state["value"]);
+            message = index >= 0 ? `Successful delete ${state["value"]}` : `It looks like ${state["value"]} is not in the list to be deleted`;
         }
         else if (operationName === "revert") {
             newOperation.stackList.pop();
@@ -65,11 +80,9 @@ const SinglyLinkedListApp = () => {
                     name: "None",
                     stackList: newStackList,
                     message: message,
-                })
+                });
         };
-        
         setOperation(newOperation);
-        
     });
     return (
         <>
@@ -93,6 +106,7 @@ const SinglyLinkedListApp = () => {
                     <OperationBar
                         name="sll"
                         onStart={handleStart}
+                        timeLine={operation.gsapTimeLine}
                     />
                 </AnimatingContext>
                 {
