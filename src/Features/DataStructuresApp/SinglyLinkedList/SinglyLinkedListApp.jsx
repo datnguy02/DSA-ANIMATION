@@ -4,7 +4,7 @@ import OperationBar from "../../Control/Operation/OperationBar";
 import Message from "../../Message/Message";
 import { LinkedList } from "./core/singlylinkedlist";
 import SinglyLinkedList from "./SinglyLinkedList";
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import gsap from "gsap";
 
 const initialList = new LinkedList();
@@ -14,35 +14,40 @@ for (let i = 0; i < 4; i++) {
 
 
 const SinglyLinkedListApp = () => {
-    const [operation, setOperation] = useState({
-                                                list: initialList,
-                                                name: "None",
-                                                stackList: [],
-                                                gsapTimeLine: gsap.timeline({
-                                                                            defaults: {
-                                                                                ease: "power1.inOut",
-                                                                            }
-                                                                            }),
-                                                });
+    const animation_speed = useRef(1);
+    const initialOperation = {
+                                list: initialList,
+                                name: "None",
+                                stateList: [],
+                                gsapTimeLine: gsap.timeline({
+                                                            defaults: {
+                                                                ease: "power1.inOut",
+                                                            }
+                                                            }),
+                                };
+    initialOperation.gsapTimeLine.timeScale(animation_speed.current);
+    const [operation, setOperation] = useState(initialOperation);
+
     
     // This function will be passed down to the operation bar
     const handleStart = useCallback((state) => {
         const operationName = state.operationName;
         const newList = operation.list.clone();
-        const newStackList = operation.stackList;
+        const newStateList = operation.stateList;
         let message = "";
-        newStackList.push(newList.clone());
+        newStateList.push(newList.clone());
         const newOperation = {
             name: operationName,
             list: newList,
             useAnime: state.butName !== "No Animation",
-            stackList: newStackList,
+            stateList: newStateList,
             gsapTimeLine: gsap.timeline({
                 defaults: {
                     ease: "power1.inOut"
                 },
             }),
-        }
+        };
+        newOperation.gsapTimeLine.timeScale(animation_speed.current);
         if (operationName === "insert(i)") {
             newList.insertAt(state["value"], state["index"]);
             newOperation.insertAt = state["index"];
@@ -67,8 +72,11 @@ const SinglyLinkedListApp = () => {
             message = index >= 0 ? `Successful delete ${state["value"]}` : `It looks like ${state["value"]} is not in the list to be deleted`;
         }
         else if (operationName === "revert") {
-            newOperation.stackList.pop();
-            newOperation.list = newOperation.stackList.pop().clone();
+            newOperation.stateList.pop();
+            newOperation.list = newOperation.stateList.pop().clone();
+        }
+        else if (operationName === "forward") {
+            console.log("click!!!");
         }
         
 
@@ -78,8 +86,13 @@ const SinglyLinkedListApp = () => {
                 setOperation({
                     list: newOperation.list.clone(),
                     name: "None",
-                    stackList: newStackList,
+                    stateList: newStateList,
                     message: message,
+                    gsapTimeLine: gsap.timeline({
+                        defaults: {
+                            ease: "power1.inOut"
+                        },
+                    }),
                 });
         };
         setOperation(newOperation);
@@ -107,6 +120,7 @@ const SinglyLinkedListApp = () => {
                         name="sll"
                         onStart={handleStart}
                         timeLine={operation.gsapTimeLine}
+                        animationSpeed={animation_speed}
                     />
                 </AnimatingContext>
                 {

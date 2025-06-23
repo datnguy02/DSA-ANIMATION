@@ -29,7 +29,6 @@ const getNodeList = (list) => {
 }
 
 const SinglyLinkedList = ({operation}) => {
-    const ANIMATION_SPEED = 2;
     const operationName = operation.name;
     const list = operation.list;
     const nodeList = getNodeList(list);
@@ -69,7 +68,6 @@ const SinglyLinkedList = ({operation}) => {
         
         if (operationName !== "None") {
             tl.current = operation.gsapTimeLine;
-            tl.current.timeScale(ANIMATION_SPEED);
         }
 
         
@@ -119,10 +117,8 @@ const SinglyLinkedList = ({operation}) => {
 
     return (
         <svg 
-            viewBox="700 -200 1800 1800" 
-            width={1800}
-            height={700}    
-            className="size-fit"
+            viewBox="-500 -300 4500 4500" 
+            className="w-full h-auto"
             preserveAspectRatio="xMidYMid meet"
 
         >

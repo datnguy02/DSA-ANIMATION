@@ -7,9 +7,10 @@ import IconButton from "../Button/StateButton";
 import SkipButton from "../Button/SkipButton";
 import TimeButton from "../Button/TimeButton";
 import StateButton from "../Button/StateButton";
+import AnimationSpeedInput from "../Input/AnimationSpeedInput";
 
 
-const OperationBar = ({name, onStart, timeLine}) => {
+const OperationBar = ({name, onStart, timeLine, animationSpeed}) => {
     const style = operation_bar[name].style;
     const container = useRef(null);
     const bar = useRef(null);
@@ -61,11 +62,16 @@ const OperationBar = ({name, onStart, timeLine}) => {
                                                     inputList={method.inputList}
                                                     methodStyle={style}
                                                     handleStart={onStart}
+                                                    key={method.name}
                                                 />
                                                 ))
                 }
                 <div className="flex self-end gap-[1em] align-center">
-                     <StateButton
+                    <AnimationSpeedInput
+                        tl={timeLine}
+                        speedRef={animationSpeed}
+                    />
+                    <StateButton
                         handleClick={onStart}
                         isBack={true}
                         style={style}

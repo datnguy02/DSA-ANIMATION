@@ -3,6 +3,7 @@ import RefNode from "./RefNode";
 import { NextRefContext, NextRefTextContext, RefLineContext } from "../../../context/sll/nodeRefContext";
 import gsap from "gsap";
 
+
 const Node = ({node}) => {
     const data = node.value;
     const domNode = useRef(null);
@@ -33,8 +34,6 @@ const Node = ({node}) => {
         node.nullText = domNullText.current;
         node.domNull = domNullBg.current;
         
-
-
 
         return () => {
            node.domNode = null;

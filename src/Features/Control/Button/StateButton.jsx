@@ -1,19 +1,33 @@
+import { useContext } from "react";
+import { AnimatingContext } from "../../../context/animeContext/animatingContext";
+
 const StateButton = ({handleClick, style, isBack}) => {
+    const isAnimating = useContext(AnimatingContext);
     return (
             <div className="relative"
-                onClick={() => {
-                    let state = {
-                        operationName: isBack ? "revert" : "foward",
-                    }
-                    handleClick(state)
-                }}
             >
-                <div className="rounded-[0.5em] relative p-[0.3em]"
-                     style={
+                <div className="absolute h-full w-full top-0 rounded-[0.5em] opacity-[0.5]"
+                    style={
                         {
                             backgroundColor: style["START_BUTTON_BG"],
                         }
+                    }
+                ></div>
+                <button 
+                    className="rounded-[0.5em] relative p-[0.3em]"
+                     style={
+                        {
+                            backgroundColor: style["START_BUTTON_BG"],
+                            transform: isAnimating ? "translate(0, 0)" : "translate(0, -0.3em)"
+                        }
                      }
+                    onClick={() => {
+                        let state = {
+                            operationName: isBack ? "revert" : "forward",
+                        };
+                        handleClick(state);
+                    }}
+                    disabled={isAnimating}
                 >
                     {isBack ? 
                         (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" className="w-[2em]">
@@ -26,7 +40,7 @@ const StateButton = ({handleClick, style, isBack}) => {
                             </svg>
                         )
                     }
-                </div>
+                </button>
             </div>
     );
 };
