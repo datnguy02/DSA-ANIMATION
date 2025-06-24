@@ -693,6 +693,16 @@ export class LinkedList {
         return tl;
     }
 
+    toString() {
+        let current = this.head;
+        const res = [];
+        while (current !== null) {
+            res.push(current.value);
+            current = current.next;
+        }
+        return res;
+    }
+
     
 
 }

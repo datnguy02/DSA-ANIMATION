@@ -28,17 +28,19 @@ const SinglyLinkedListApp = () => {
                                 };
     initialOperation.gsapTimeLine.timeScale(animation_speed.current);
     const [operation, setOperation] = useState(initialOperation);
-
+    
     
     // This function will be passed down to the operation bar
     const handleStart = useCallback((state) => {
         const operationName = state.operationName;
         const newList = operation.list.clone();
-        const newStateList = operation.stateList;
+        let newStateList = operation.stateList;
         let message = "";
         const newOperation = {
             name: operationName,
             list: newList,
+            stateList: newStateList,
+            stateIndex: operation.stateIndex,
             useAnime: state.butName !== "No Animation",
             gsapTimeLine: gsap.timeline({
                 defaults: {
@@ -72,16 +74,20 @@ const SinglyLinkedListApp = () => {
         }
         else if (operationName === "revert") {
             newOperation.list = operation.stateList[operation.stateIndex - 1].clone();
+            newOperation.stateIndex--;
         }
         else if (operationName === "forward") {
-            console.log("click!!!");
+            newOperation.list = operation.stateList[operation.stateIndex + 1].clone();
+            newOperation.stateIndex++;
         }
         
         newOperation.cleanAnime = () => {
                 if (operationName === "delete")
                     newList.delete(state["value"]);
+                newStateList = newStateList.slice(0, operation.stateIndex + 1);
                 newStateList.push(newList.clone());
-                console.log(newStateList);
+                for (let lst of newStateList)
+                    console.log(lst.toString());
                 console.log(operation.stateIndex + 1);
                 setOperation({
                     list: newOperation.list.clone(),
@@ -116,7 +122,9 @@ const SinglyLinkedListApp = () => {
                 <SinglyLinkedList
                     operation={operation}
                 />
-                <AnimatingContext value={operation.name !== "None" && operation.name !== "revert"}>
+                <AnimatingContext value={operation.name !== "None" 
+                                      && operation.name !== "revert" 
+                                      && operation.name !== "forward"}>
                     <OperationBar
                         name="sll"
                         onStart={handleStart}

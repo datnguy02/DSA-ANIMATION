@@ -37,35 +37,45 @@ const OperationBar = ({name, onStart, timeLine, animationSpeed}) => {
 
     return (
         <div className="fixed left-5 bottom-6 lg:text-[0.8rem] sm:text-[0.5rem] text-[0.3rem]" ref={container}>
-            <div
-                className="
-                            flex
-                            flex-col
-                            gap-[0.7em]
-                            p-[1em]
-                            rounded-[0.8em]
-                            content-center
-                            "
-                style={
-                    {
-                        backgroundColor: style.BG,
-                        color: style.TEXT,
-                        border: `0.2em solid ${style["START_BUTTON_BG"]}`
-                    }
-                }
+            <div className="flex flex-col gap-[1em] p-[1em]  rounded-[0.8em]"
                 ref={bar}
+                 style={
+                        {
+                            backgroundColor: style.BG,
+                            color: style.TEXT,
+                            border: `0.2em solid ${style["START_BUTTON_BG"]}`
+                        }
+                    }
             >
-                {operation_bar[name].methods.map(method => (
-                                                <Method 
-                                                    name={method.name}
-                                                    inputList={method.inputList}
-                                                    methodStyle={style}
-                                                    handleStart={onStart}
-                                                    key={method.name}
-                                                />
-                                                ))
-                }
-                <div className="flex self-end gap-[1em] align-center">
+                <div
+                    className="
+                                flex
+                                flex-col
+                                gap-[0.7em]
+                                content-center
+                                "
+                >
+                    {operation_bar[name].methods.map(method => (
+                                                    <Method 
+                                                        name={method.name}
+                                                        inputList={method.inputList}
+                                                        methodStyle={style}
+                                                        handleStart={onStart}
+                                                        key={method.name}
+                                                    />
+                                                    ))
+                    }
+                </div>
+                <hr
+                    style={
+                        {
+                            color: style["START_BUTTON_BG"],
+                            border: "0.1em solid"
+                        }
+                    }
+                />
+                <div className="flex self-end gap-[1em] align-center"
+                >
                     <AnimationSpeedInput
                         tl={timeLine}
                         speedRef={animationSpeed}

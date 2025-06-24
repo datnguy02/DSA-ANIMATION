@@ -6,19 +6,11 @@ const StateButton = ({handleClick, style, isBack}) => {
     return (
             <div className="relative"
             >
-                <div className="absolute h-full w-full top-0 rounded-[0.5em] opacity-[0.5]"
-                    style={
-                        {
-                            backgroundColor: style["START_BUTTON_BG"],
-                        }
-                    }
-                ></div>
                 <button 
                     className="rounded-[0.5em] relative p-[0.3em]"
                      style={
                         {
                             backgroundColor: style["START_BUTTON_BG"],
-                            transform: isAnimating ? "translate(0, 0)" : "translate(0, -0.3em)"
                         }
                      }
                     onClick={() => {

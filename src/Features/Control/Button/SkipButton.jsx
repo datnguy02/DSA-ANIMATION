@@ -10,7 +10,7 @@ const SkipButton = ({style, tl}) => {
                     style={
                         {
                             backgroundColor: style["START_BUTTON_BG"],
-                             transform: !isAnimating ? "translate(0, 0)" : "translate(0, -0.3em)"
+                            
                         }
                     }
                     onClick={() => tl.progress(1)}
@@ -18,13 +18,6 @@ const SkipButton = ({style, tl}) => {
             >
                 Skip Animation
             </button>
-            <div className="w-full h-full absolute rounded-[0.5em] top-0 z-10 opacity-[0.5]"
-                style={
-                    {
-                        backgroundColor: style["START_BUTTON_BG"]
-                    }
-                }
-            ></div>
         </div>
     );
 };

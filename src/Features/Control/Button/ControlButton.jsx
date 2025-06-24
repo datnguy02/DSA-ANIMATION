@@ -10,7 +10,8 @@ const ControlButton = ({name, style, onStart, inputNameList, inputValList, metho
                     style={
                         {
                             backgroundColor: style["START_BUTTON_BG"],
-                            transform: isAnimating ? "translate(0, 0)" : "translate(0, -0.3em)"
+                            opacity: isAnimating ? 0.8 : 1,
+                            pointerEvents: isAnimating ? "None" : "all"
                         }
                     }
                     onClick={() => {
@@ -30,13 +31,6 @@ const ControlButton = ({name, style, onStart, inputNameList, inputValList, metho
             >
                 {name}
             </button>
-            <div className="w-full h-full absolute rounded-[0.5em] top-0 z-10 opacity-[0.5]"
-                style={
-                    {
-                        backgroundColor: style["START_BUTTON_BG"]
-                    }
-                }
-            ></div>
         </div>
     );
 };
