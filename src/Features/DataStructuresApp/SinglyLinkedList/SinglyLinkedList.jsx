@@ -65,8 +65,10 @@ const SinglyLinkedList = ({operation}) => {
         list.tailRefText = domTailText.current;
         list.virtualHeadLine = domVirtualHeadLine.current;
         list.virtualTailLineY = domVirtualTailLineY.current;
+
+        const noAnimationOperations = ["None", "revert", "forward"];
         
-        if (operationName !== "None") {
+        if (!noAnimationOperations.includes(operationName)) {
             tl.current = operation.gsapTimeLine;
         }
 
@@ -97,7 +99,7 @@ const SinglyLinkedList = ({operation}) => {
             }
         }
         
-        if (operationName !== "None") {
+        if (!noAnimationOperations.includes(operationName)) {
             tl.current.to(list.headRef, {
                 onComplete: () => {
                         if (operation.cleanAnime)

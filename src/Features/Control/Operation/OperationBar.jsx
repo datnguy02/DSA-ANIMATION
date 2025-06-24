@@ -3,7 +3,6 @@ import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
 import Method from "./Method";
 import operation_bar from "../../../assets/MethodList/operationList";
-import IconButton from "../Button/StateButton";
 import SkipButton from "../Button/SkipButton";
 import TimeButton from "../Button/TimeButton";
 import StateButton from "../Button/StateButton";
@@ -37,7 +36,7 @@ const OperationBar = ({name, onStart, timeLine, animationSpeed}) => {
     });
 
     return (
-        <div className="fixed left-5 bottom-6 lg:text-[0.8rem] sm:text-[0.45rem] text-[0.3rem] xl:text-[1rem]" ref={container}>
+        <div className="fixed left-5 bottom-6 lg:text-[0.8rem] sm:text-[0.5rem] text-[0.3rem]" ref={container}>
             <div
                 className="
                             flex

@@ -18,7 +18,8 @@ const SinglyLinkedListApp = () => {
     const initialOperation = {
                                 list: initialList,
                                 name: "None",
-                                stateList: [],
+                                stateList: [initialList.clone()],
+                                stateIndex: 0,
                                 gsapTimeLine: gsap.timeline({
                                                             defaults: {
                                                                 ease: "power1.inOut",
@@ -35,12 +36,10 @@ const SinglyLinkedListApp = () => {
         const newList = operation.list.clone();
         const newStateList = operation.stateList;
         let message = "";
-        newStateList.push(newList.clone());
         const newOperation = {
             name: operationName,
             list: newList,
             useAnime: state.butName !== "No Animation",
-            stateList: newStateList,
             gsapTimeLine: gsap.timeline({
                 defaults: {
                     ease: "power1.inOut"
@@ -72,21 +71,23 @@ const SinglyLinkedListApp = () => {
             message = index >= 0 ? `Successful delete ${state["value"]}` : `It looks like ${state["value"]} is not in the list to be deleted`;
         }
         else if (operationName === "revert") {
-            newOperation.stateList.pop();
-            newOperation.list = newOperation.stateList.pop().clone();
+            newOperation.list = operation.stateList[operation.stateIndex - 1].clone();
         }
         else if (operationName === "forward") {
             console.log("click!!!");
         }
         
-
         newOperation.cleanAnime = () => {
                 if (operationName === "delete")
                     newList.delete(state["value"]);
+                newStateList.push(newList.clone());
+                console.log(newStateList);
+                console.log(operation.stateIndex + 1);
                 setOperation({
                     list: newOperation.list.clone(),
                     name: "None",
                     stateList: newStateList,
+                    stateIndex: operation.stateIndex + 1,
                     message: message,
                     gsapTimeLine: gsap.timeline({
                         defaults: {
@@ -115,7 +116,7 @@ const SinglyLinkedListApp = () => {
                 <SinglyLinkedList
                     operation={operation}
                 />
-                <AnimatingContext value={operation.name !== "None"}>
+                <AnimatingContext value={operation.name !== "None" && operation.name !== "revert"}>
                     <OperationBar
                         name="sll"
                         onStart={handleStart}
