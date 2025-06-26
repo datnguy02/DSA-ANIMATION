@@ -2,8 +2,27 @@ import { travelNodeAppearAnimation } from "./searchAnimation";
 
 const UP = 100;
 
+const search = (list, target) => {
+    let current = list.head;
+    let result = {
+        nodes: [],
+        index: -1,
+    }
+    let i = 0;
+    while (current !== null) {
+        result.nodes.push(current);
+        if (current.value === target) {
+            result.index = i;
+            return result;
+        }
+        current = current.next;
+        i++;
+    }
+    return result;
+}
+
 export const deleteAnimation = (tl, list, target, prevNode, currentNode) => {
-    const {nodes, index} = list.search(target);
+    const {nodes, index} = search(list, target);
     if (index >= 0) {
         list.tailLineY.setAttribute("d", list.getTailLineYAttr(-(list.GAP + list.WIDTH)));
     }

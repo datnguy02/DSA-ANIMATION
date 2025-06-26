@@ -3,9 +3,11 @@ import getInitalDs from "./GetInitialDs";
 import { AnimatingContext } from "../../../context/animeContext/animatingContext";
 import gsap from "gsap";
 import OperationBar from "../../Control/Operation/OperationBar";
-import Test from "../SinglyLinkedList/Test";
+import Test from "../SinglyLinkedList/SinglyLinkedList";
 import colorway from "../../../assets/color-style/sllStyle";
 import Message from "../../Message/Message";
+import DataStructure from "./DataStructure";
+import { ForwardContext, RevertContext} from "../../../context/stateButtonContext/StateButtonContext";
 
 
 const DataStructureApp = ({name}) => {
@@ -75,9 +77,6 @@ const DataStructureApp = ({name}) => {
                 message = newDataStructure.delete(state["value"]);
             newStateList = newStateList.slice(0, operation.stateIndex + 1);
             newStateList.push(newDataStructure.clone());
-            for (let lst of newStateList)
-                console.log(lst.toString());
-            console.log(`state index is ${operation.stateIndex + 1}`);
             setOperation({
                 data_structure: newOperation.data_structure.clone(),
                 name: "None",
@@ -89,7 +88,7 @@ const DataStructureApp = ({name}) => {
                         ease: "power1.inOut"
                     },
                 }),
-            })
+            });
         };
         setOperation(newOperation);
     });
@@ -107,20 +106,22 @@ const DataStructureApp = ({name}) => {
                     }
             }
         >
-            <Test
-                operation={operation}
-            />
+            <DataStructure operation={operation} name={name}/>
             <AnimatingContext
                             value={operation.name !== "None" 
                                     && operation.name !== "revert" 
                                     && operation.name !== "forward"}
             >
-                <OperationBar
-                    name={name === "singlylinkedlist" ? "sll" : "no"}
-                    onStart={handleStart}
-                    timeLine={operation.gsapTimeLine}
-                    animationSpeed={animation_speed}
-                />
+                <RevertContext value={operation.stateIndex === 0}>
+                    <ForwardContext value={operation.stateIndex === operation.stateList.length - 1}>
+                        <OperationBar
+                            name={name === "singlylinkedlist" ? "sll" : "no"}
+                            onStart={handleStart}
+                            timeLine={operation.gsapTimeLine}
+                            animationSpeed={animation_speed}
+                        />
+                    </ForwardContext>
+                </RevertContext>
             </AnimatingContext>
             {
                 operation.message && (<Message message={operation.message} key={3}/>)

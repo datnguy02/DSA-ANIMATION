@@ -21,7 +21,7 @@ const DsCard = ({name, type, difficulty, img, bg}) => {
                             background: bg
                         }
                     }
-                    className="p-[1.5em] rounded-[1em] flex flex-col justify-end"
+                    className="p-[1.5em] rounded-[1em] flex flex-col justify-end relative overflow-hidden"
                 >
                     {img}
                     <div className="self-start">
@@ -29,6 +29,7 @@ const DsCard = ({name, type, difficulty, img, bg}) => {
                         <Title title={`Type: ${type}`} color="white"/>
                         <Title title={`Difficulty: ${difficulty}`} color="white"/>
                     </div>
+                    <div class="absolute inset-0 bg-gradient-to-br from-white/20 via-white/5 to-transparent rotate-45"></div>
                 </div>
         </Link>
     );

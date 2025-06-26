@@ -1,5 +1,5 @@
+import NavBar from "./components/nav/NavBar";
 import DataStructureApp from "./Features/DataStructuresApp/DsApp/DataStructureApp";
-import Test from "./Features/DataStructuresApp/SinglyLinkedList/Test";
 import HomePage from "./pages/HomePages";
 import { Routes, Route } from "react-router-dom";
 

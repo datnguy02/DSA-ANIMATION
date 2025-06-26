@@ -11,7 +11,8 @@ const ControlButton = ({name, style, onStart, inputNameList, inputValList, metho
                         {
                             backgroundColor: style["START_BUTTON_BG"],
                             opacity: isAnimating ? 0.8 : 1,
-                            pointerEvents: isAnimating ? "None" : "all"
+                            cursor: isAnimating ? "not-allowed" : "pointer",
+                            transition: "opacity 0.5s"
                         }
                     }
                     onClick={() => {

@@ -1,17 +1,25 @@
 import { useContext } from "react";
 import { AnimatingContext } from "../../../context/animeContext/animatingContext";
+import { ForwardContext, RevertContext } from "../../../context/stateButtonContext/StateButtonContext";
 
 const StateButton = ({handleClick, style, isBack}) => {
     const isAnimating = useContext(AnimatingContext);
+    const revertIsDisabled = useContext(RevertContext);
+    const forwardisDisabled = useContext(ForwardContext);
+
+    let isDisable = (isBack && revertIsDisabled) || (!isBack && forwardisDisabled)
     return (
             <div className="relative"
             >
                 <button 
+                    
                     className="rounded-[0.5em] relative p-[0.3em]"
                      style={
                         {
                             backgroundColor: style["START_BUTTON_BG"],
-                            opacity: isAnimating ? 0.8 : 1
+                            opacity: (isAnimating || isDisable) ? 0.8 : 1,
+                            cursor: (isAnimating || isDisable) ? "not-allowed" : "pointer",
+                            transition: "opacity 0.5s"
                         }
                      }
                     onClick={() => {
@@ -20,7 +28,8 @@ const StateButton = ({handleClick, style, isBack}) => {
                         };
                         handleClick(state);
                     }}
-                    disabled={isAnimating}
+                    disabled={isAnimating || isDisable}
+
                 >
                     {isBack ? 
                         (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" className="w-[2em]">

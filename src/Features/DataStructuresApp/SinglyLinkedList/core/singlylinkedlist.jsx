@@ -508,20 +508,15 @@ export class LinkedList {
     search(value) {
         let current = this.head;
         let i = 0;
-        let result = {
-            nodes: [],
-            index: -1,
-        };
         while (current !== null) {
-            result.nodes.push(current);
             if (current.value === value) {
-                result.index = i;
-                return result;
+                // result.index = i;
+                return `Found ${value} at index ${i} in the list`
             }
             current = current.next;
             i++;
         }
-        return result;
+        return `It looks like ${value} is not in the list`;
     }
 
     getRandomId() {
