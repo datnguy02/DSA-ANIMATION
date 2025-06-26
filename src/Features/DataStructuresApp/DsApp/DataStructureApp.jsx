@@ -95,14 +95,16 @@ const DataStructureApp = ({name}) => {
 
     return (
         <div
-            className="w-screen 
+            className="w-screen
                         h-screen 
                         flex 
                         justify-center 
-                        items-start"
+                        items-start
+                        "
             style={
                     {
-                        backgroundColor: colorway["BG"]
+                        backgroundColor: colorway["BG"],
+                        overflow: "scroll"
                     }
             }
         >
