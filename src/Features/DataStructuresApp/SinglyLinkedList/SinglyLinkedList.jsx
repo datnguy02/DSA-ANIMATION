@@ -111,10 +111,11 @@ const SinglyLinkedList = ({operation}) => {
 
     return (
         <svg 
-            viewBox="-500 -300 4500 4500" 
-            className="w-full h-auto"
-            preserveAspectRatio="xMidYMid meet"
-
+            viewBox="300 -300 1800 1800" 
+            width={1800}
+            height={700}
+            className="border-2"
+         
         >
                 <g
                     transform={`translate(${list.x}, ${list.y})`}
