@@ -114,7 +114,6 @@ const SinglyLinkedList = ({operation}) => {
             viewBox="300 -300 1800 1800" 
             width={1800}
             height={700}
-            className="border-2"
          
         >
                 <g
