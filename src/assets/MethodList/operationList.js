@@ -24,7 +24,7 @@ const operation_bar = {
                 inputList: ["Value"]
             },
             {
-                name: "Insert(i)",
+                name: "InsertAt",
                 inputList: ["Value", "Index"],
             },
         ]

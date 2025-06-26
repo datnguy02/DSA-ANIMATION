@@ -1,6 +1,17 @@
 import { travelNodeAppearAnimation } from "./searchAnimation";
+import { insertFirstAnimation } from "./insertFirstAnimation";
+import { insertLastAnimation } from "./insertLastAnimation";
 const UP = 200;
 export const insertAtAnimation = (tl, list, targetIndex, prevNode, currentNode) => {
+    if (targetIndex === 0) {
+        insertFirstAnimation(tl, list);
+        return;
+    }
+    if (targetIndex === list.nElement - 1) {
+        insertLastAnimation(tl, list);
+        return;
+    }
+    
     const newNode = list.getAt(targetIndex);
     const after = newNode.next;
     newNode.resetLineAttr(tl, newNode.refLine);

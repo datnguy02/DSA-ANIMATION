@@ -407,7 +407,7 @@ export class LinkedList {
                 L${this.HEAD_WIDTH + amountX} ${this.HEAD_HEIGHT/2 + amountY}`
     }
 
-    insertFirst(value) {
+    insertfirst(value) {
         const newNode = new Node(value, this.startX, this.startY, null, this.getRandomId());
         if (this.isEmpty())
             this.tail = newNode;
@@ -417,9 +417,10 @@ export class LinkedList {
         }
         this.head = newNode;
         this.nElement++;
+        return `Successful insert ${value} at the beginning of the list`;
     }
 
-    insertLast(value) {
+    insertlast(value) {
         const newNode = new Node(value, this.startX, this.startY, null, this.getRandomId());
         if (this.isEmpty()) {
             this.head = newNode;
@@ -430,6 +431,7 @@ export class LinkedList {
         }
         this.tail = newNode;
         this.nElement++;
+        return `Successful insert ${value} at the beginning of the list`;
     }
 
     getAt(index) {
@@ -444,15 +446,15 @@ export class LinkedList {
         return current;
     }
 
-    insertAt(value, index) {
+    insertat(value, index) {
         if (index < 0 || index > this.nElement) {
             throw new Error("Index out of bound");
         }
         if (index == 0) {
-            this.insertFirst(value);
+            this.insertfirst(value);
         }
         else if (index == this.nElement) {
-            this.insertLast(value);
+            this.insertlast(value);
         }
         else {
             const newNode = new Node(value, this.startX, this.startY, null,this.getRandomId());
@@ -470,6 +472,7 @@ export class LinkedList {
             this.updatePos(current, this.GAP + newNode.WIDTH);
             this.nElement++;
         }
+        return `Successful insert ${value} at ${index}`
     }
 
     delete(value) {
@@ -481,8 +484,9 @@ export class LinkedList {
             prev = current;
             current = current.next;
         }
-        if (current === null) 
-            return;
+        if (current === null) {
+            return `It looks like ${value} is not in the list to be deleted`;
+        }
         if (current === this.head) {
             this.head = current.next;
         }
@@ -498,6 +502,7 @@ export class LinkedList {
             this.updatePos(current.next, -(current.next.GAP + current.next.WIDTH));
         }
         this.nElement--;
+        return `Successful delete ${value} from the list`
     }
     
     search(value) {
@@ -537,7 +542,7 @@ export class LinkedList {
         const list = new LinkedList();
         let i = 0;
         while (current != null) {
-            list.insertAt(current.value, i++);
+            list.insertat(current.value, i++);
             current = current.next;
         }
         return list;

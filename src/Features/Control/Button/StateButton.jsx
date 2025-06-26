@@ -11,6 +11,7 @@ const StateButton = ({handleClick, style, isBack}) => {
                      style={
                         {
                             backgroundColor: style["START_BUTTON_BG"],
+                            opacity: isAnimating ? 0.8 : 1
                         }
                      }
                     onClick={() => {
