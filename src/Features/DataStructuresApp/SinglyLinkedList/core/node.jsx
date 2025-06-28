@@ -39,48 +39,48 @@ export class Node {
         this._NULL_ROUND = node_size["NULL_ROUND"];
 
         // styling
-        this._BG = colorway["NODE_BG"];
-        this._REF_NODE_BG = colorway["NODE_REF_BG"];
-        this._STROKE = colorway["NODE_BORDER"];
-        this._REF_LINE_COLOR = colorway["REF_LINE"];
-        this._CURRENT_LINE_COLOR = colorway["CURRENT_STROKE"];
-        this._PREV_LINE_COLOR = colorway["PREV_STROKE"];
+        this._BG = colorway.singlylinkedlist["NODE_BG"];
+        this._REF_NODE_BG = colorway.singlylinkedlist["NODE_REF_BG"];
+        this._STROKE = colorway.singlylinkedlist["NODE_BORDER"];
+        this._REF_LINE_COLOR = colorway.singlylinkedlist["REF_LINE"];
+        this._CURRENT_LINE_COLOR = colorway.singlylinkedlist["CURRENT_STROKE"];
+        this._PREV_LINE_COLOR = colorway.singlylinkedlist["PREV_STROKE"];
         
 
         this._NORMAL_STYLE = {
-            BG: colorway["NODE_BG"],
-            STROKE: colorway["NODE_REF_BG"],
-            REF_BG: colorway["NODE_REF_BG"],
+            BG: colorway.singlylinkedlist["NODE_BG"],
+            STROKE: colorway.singlylinkedlist["NODE_REF_BG"],
+            REF_BG: colorway.singlylinkedlist["NODE_REF_BG"],
             TEXT: "white",
         };
 
         this._CURRENT_VISIT_STYLE = {
-            BG: colorway["NODE_CURRENT_VISIT_BG"],
-            STROKE: colorway["NODE_CURRENT_VISIT_STROKE"],
-            REF_BG: colorway["REF_CURRENT_VISIT_BG"],
-            TEXT: colorway["NODE_CURRENT_VISIT_TEXT"]
+            BG: colorway.singlylinkedlist["NODE_CURRENT_VISIT_BG"],
+            STROKE: colorway.singlylinkedlist["NODE_CURRENT_VISIT_STROKE"],
+            REF_BG: colorway.singlylinkedlist["REF_CURRENT_VISIT_BG"],
+            TEXT: colorway.singlylinkedlist["NODE_CURRENT_VISIT_TEXT"]
         };
         
         this._PREV_VISIT_STYLE = {
-            BG: colorway["NODE_PREV_VISIT_BG"],
-            STROKE: colorway["NODE_PREV_VISIT_STROKE"],
-            REF_BG: colorway["REF_PREV_VISIT_BG"],
-            TEXT: colorway["NODE_PREV_VISIT_TEXT"],
+            BG: colorway.singlylinkedlist["NODE_PREV_VISIT_BG"],
+            STROKE: colorway.singlylinkedlist["NODE_PREV_VISIT_STROKE"],
+            REF_BG: colorway.singlylinkedlist["REF_PREV_VISIT_BG"],
+            TEXT: colorway.singlylinkedlist["NODE_PREV_VISIT_TEXT"],
         }
 
         this._REF_NORMAL_STYLE = {
-            BG: colorway["NODE_REF_BG"],
+            BG: colorway.singlylinkedlist["NODE_REF_BG"],
             TEXT: "white",
         }
 
         this._REF_CURRENT_VISIT_STYLE = {
-            BG: colorway["REF_CURRENT_VISIT_BG"],
-            TEXT: colorway["NODE_CURRENT_VISIT_TEXT"]
+            BG: colorway.singlylinkedlist["REF_CURRENT_VISIT_BG"],
+            TEXT: colorway.singlylinkedlist["NODE_CURRENT_VISIT_TEXT"]
         }
 
         this._REF_PREV_VISIT_STYLE = {
-            BG: colorway["PREV_STROKE"],
-            TEXT: colorway["NODE_PREV_VISIT_TEXT"]
+            BG: colorway.singlylinkedlist["PREV_STROKE"],
+            TEXT: colorway.singlylinkedlist["NODE_PREV_VISIT_TEXT"]
         }
 
 

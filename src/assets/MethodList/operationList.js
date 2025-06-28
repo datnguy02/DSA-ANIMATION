@@ -1,5 +1,5 @@
 const operation_bar = {
-    "sll": {
+    "singlylinkedlist": {
         style: {
             BG: "#113C51",
             START_BUTTON_BG: "#477186",
@@ -27,6 +27,40 @@ const operation_bar = {
                 name: "InsertAt",
                 inputList: ["Value", "Index"],
             },
+        ]
+    },
+    "binarysearchtree": {
+        style: {
+            BG: "#529471",
+            START_BUTTON_BG: "#A3CD9E",
+            METHOD_BUTTON_BG: "#A3CD9E",
+            TEXT: "white"
+        },
+        methods: [
+            {
+                name: "InOrder",
+                inputList: []
+            },
+            {
+                name: "PostOrder",
+                inputList: []
+            },
+            {
+                name: "PreOrder",
+                inputList: []
+            },
+            {
+                name: "Search",
+                inputList: ["Value"]
+            },
+            {
+                name: "Insert",
+                inputList: ["Value"],
+            },
+            {
+                name: "Delete",
+                inputList:["Value"],
+            }
         ]
     }
 };

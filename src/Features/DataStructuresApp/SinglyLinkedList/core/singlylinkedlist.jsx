@@ -24,39 +24,39 @@ export class LinkedList {
         this._TAIL_LINE_Y_HEIGHT = 280;
 
         // styling
-        this._BG = colorway["LIST_BG"];
-        this._HEAD_BG = colorway["HEAD_BG"];
-        this._TAIL_BG = colorway["TAIL_BG"];
-        this._STROKE = colorway["NODE_BORDER"];
-        this._REF_LINE_COLOR = colorway["REF_LINE"];
-        this._HEAD_CURRENT_VISIT_COLOR = colorway["HEAD_CONTROL_BG"];
-        this._Head_CURRENT_VISIT_TEXT = colorway["HEAD_CONTROL_TEXT"];
-        this._VIRTUAL_TAIL_LINE_COLOR = colorway["HEAD_CONTROL_BG"];
-        this._VIRTUAL_TAIL_LINE_PREV_COLOR = colorway["HEAD_PREV_BG"];
+        this._BG = colorway.singlylinkedlist["LIST_BG"];
+        this._HEAD_BG = colorway.singlylinkedlist["HEAD_BG"];
+        this._TAIL_BG = colorway.singlylinkedlist["TAIL_BG"];
+        this._STROKE = colorway.singlylinkedlist["NODE_BORDER"];
+        this._REF_LINE_COLOR = colorway.singlylinkedlist["REF_LINE"];
+        this._HEAD_CURRENT_VISIT_COLOR = colorway.singlylinkedlist["HEAD_CONTROL_BG"];
+        this._Head_CURRENT_VISIT_TEXT = colorway.singlylinkedlist["HEAD_CONTROL_TEXT"];
+        this._VIRTUAL_TAIL_LINE_COLOR = colorway.singlylinkedlist["HEAD_CONTROL_BG"];
+        this._VIRTUAL_TAIL_LINE_PREV_COLOR = colorway.singlylinkedlist["HEAD_PREV_BG"];
 
         this._HEAD_NORMAL_STYLE = {
-            BG: colorway["HEAD_BG"],
+            BG: colorway.singlylinkedlist["HEAD_BG"],
             TEXT: "white"
         }
 
         this._HEAD_CURRENT_VISIT_STYLE = {
-            BG: colorway["HEAD_CONTROL_BG"],
-            TEXT: colorway["HEAD_CONTROL_TEXT"],
+            BG: colorway.singlylinkedlist["HEAD_CONTROL_BG"],
+            TEXT: colorway.singlylinkedlist["HEAD_CONTROL_TEXT"],
         }
 
         this._HEAD_PREV_VISIT_STYLE = {
-            BG: colorway["HEAD_PREV_BG"],
-            TEXT: colorway["HEAD_PREV_TEXT"],
+            BG: colorway.singlylinkedlist["HEAD_PREV_BG"],
+            TEXT: colorway.singlylinkedlist["HEAD_PREV_TEXT"],
         }
 
         this._TAIL_NORMAL_STYLE = {
-            BG: colorway["HEAD_BG"],
+            BG: colorway.singlylinkedlist["HEAD_BG"],
             TEXT: "white"
         }
 
         this._TAIL_VISIT_STYLE = {
-            BG: colorway["HEAD_CONTROL_BG"],
-            TEXT: colorway["HEAD_CONTROL_TEXT"],
+            BG: colorway.singlylinkedlist["HEAD_CONTROL_BG"],
+            TEXT: colorway.singlylinkedlist["HEAD_CONTROL_TEXT"],
         }
 
         

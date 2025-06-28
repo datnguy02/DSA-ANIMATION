@@ -65,7 +65,7 @@ const RefNode = ({node, name, domNextNull, domVirtualRefLine, domNullText, domNu
                         fontSize={26}    
                         ref={domNullText}
                     >
-                            Null
+                            NULL
                     </text>
                 </g>
         </g>

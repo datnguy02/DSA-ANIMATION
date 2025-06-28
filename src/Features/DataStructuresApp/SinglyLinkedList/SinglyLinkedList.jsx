@@ -43,14 +43,14 @@ const SinglyLinkedList = ({operation}) => {
     const domVirtualTailLineY = useRef(null);
     const currentNode = new TravelNode(
                                         list, 
-                                        colorway["CURRENT_TEXT"], 
-                                        colorway["CURRENT_STROKE"],
-                                        colorway["CURRENT_BG"]);
+                                        colorway.singlylinkedlist["CURRENT_TEXT"], 
+                                        colorway.singlylinkedlist["CURRENT_STROKE"],
+                                        colorway.singlylinkedlist["CURRENT_BG"]);
     const prevNode= new TravelNode(
                                     list,
-                                    colorway["PREV_TEXT"],
-                                    colorway["PREV_STROKE"],
-                                    colorway["PREV_BG"]
+                                    colorway.singlylinkedlist["PREV_TEXT"],
+                                    colorway.singlylinkedlist["PREV_STROKE"],
+                                    colorway.singlylinkedlist["PREV_BG"]
     );
 
     useEffect(() => {
@@ -111,11 +111,10 @@ const SinglyLinkedList = ({operation}) => {
 
     return (
         <svg 
-            viewBox="0 0 4000 1500"
-            width={1500}
+            viewBox="-200 0 4500 1500"
+            width={3000}
             height={800} 
-            overflow="scrollDown"
-            className="border-2"
+            overflow="scroll"
         >
                 <g
                     transform={`translate(${list.x}, ${list.y})`}

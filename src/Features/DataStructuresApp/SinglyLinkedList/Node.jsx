@@ -84,7 +84,7 @@ const Node = ({node}) => {
                     <NextRefTextContext value={domNextRefText}>
                         <RefNode
                                 node={node}
-                                name="Next"
+                                name="NEXT"
                                 isTop={false}
                                 isTail={false}
                                 isListEmpty={false}

@@ -50,7 +50,7 @@ const TailRef = ({list, domVirtualTailLineY}) => {
                     fontSize={28}
                     ref={domTailText}
                 >
-                    Tail
+                    TAIL
                 </text>
                 <path
                     d={`M${list.HEAD_WIDTH} ${list.HEAD_HEIGHT/2} L${list.HEAD_WIDTH + list.REF_LINE_WIDTH} ${list.HEAD_HEIGHT/2}`}

@@ -45,7 +45,7 @@ const HeadRef = ({list, domVirtualHeadLine}) => {
                     ref={domHeadText}
 
                 >
-                    Head
+                    HEAD
                 </text>
                 <g transform={`translate(${list.HEAD_WIDTH + list.REF_LINE_WIDTH}, ${list.HEAD_HEIGHT/2 - NULL_NOE_HEIGHT/2})`}
                      opacity={list.isEmpty() ? 1 : 0}
@@ -65,7 +65,7 @@ const HeadRef = ({list, domVirtualHeadLine}) => {
                         fill="white"
                         fontSize={28}    
                     >
-                            Null
+                            NULL
                     </text>
                 </g>
         </g>

@@ -3,7 +3,6 @@ import getInitalDs from "./GetInitialDs";
 import { AnimatingContext } from "../../../context/animeContext/animatingContext";
 import gsap from "gsap";
 import OperationBar from "../../Control/Operation/OperationBar";
-import Test from "../SinglyLinkedList/SinglyLinkedList";
 import colorway from "../../../assets/color-style/sllStyle";
 import Message from "../../Message/Message";
 import DataStructure from "./DataStructure";
@@ -103,7 +102,7 @@ const DataStructureApp = ({name}) => {
                         "
             style={
                     {
-                        backgroundColor: colorway["BG"],
+                        backgroundColor: colorway[name]["BG"],
                         overflow: "scroll"
                     }
             }
@@ -117,7 +116,7 @@ const DataStructureApp = ({name}) => {
                 <RevertContext value={operation.stateIndex === 0}>
                     <ForwardContext value={operation.stateIndex === operation.stateList.length - 1}>
                         <OperationBar
-                            name={name === "singlylinkedlist" ? "sll" : "no"}
+                            name={name}
                             onStart={handleStart}
                             timeLine={operation.gsapTimeLine}
                             animationSpeed={animation_speed}
