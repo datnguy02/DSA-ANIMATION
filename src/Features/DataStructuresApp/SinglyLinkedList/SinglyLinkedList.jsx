@@ -114,7 +114,6 @@ const SinglyLinkedList = ({operation}) => {
             viewBox="-200 0 4500 1500"
             width={3000}
             height={800} 
-            overflow="scroll"
         >
                 <g
                     transform={`translate(${list.x}, ${list.y})`}

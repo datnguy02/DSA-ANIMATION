@@ -45,7 +45,11 @@ const colorway = {
         PREV_TEXT: "#b9dbe6"
     },
     "binarysearchtree": {
-        BG: "#35635B"
+        BG: "#35635B",
+        NODE_BG: "#529471",
+        NODE_BORDER: "#E5F1E3",
+        NODE_TEXT: "#E5F1E3",
+        
     }
 
 };

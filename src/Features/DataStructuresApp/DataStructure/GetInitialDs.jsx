@@ -27,12 +27,22 @@ const getInitalDs = (name) => {
         tree.insert(18);
         tree.insert(13);
         tree.insert(2);
-        tree.insert(0);
-        tree.insert(4);
         tree.insert(12);
         tree.insert(7);
         tree.insert(14);
         tree.insert(17);
+        tree.insert(100);
+        tree.insert(45);
+        tree.insert(43);
+        tree.insert(48);
+        tree.insert(75);
+        tree.insert(200);
+        tree.insert(42);
+        tree.insert(44);
+        tree.insert(9);
+        tree.insert(33);
+        tree.insert(38);
+
 
         dataStructure = tree;
     }
