@@ -37,6 +37,119 @@ export class TreeNode {
         this._REF_HEIGHT = size["REF_HEIGHT"];
         this._NULL_HEIGHT=  size["NULL_HEIGHT"];
         this._NULL_WIDTH = size["NULL_WIDTH"];
+        this._NULL_TEXT_SIZE = size["NULL_TEXT_SIZE"];
+
+
+        // Dom element reference
+        this._leftLine = null;
+        this._rightLine = null;
+        this._virtualLefLine = null;
+        this._virtualRightLine = null;
+        this._leftRef = null;
+        this._rightRef = null;
+        this._container = null;
+        this._domNode = null;
+        this._rightNull = null;
+        this._leftNull = null;
+        this._leftNullContainer = null;
+        this._rightNullContainer = null;
+        
+    }
+
+    get rightNullContainer() {
+        return this._rightNullContainer;
+    }
+
+    set rightNullContainer(node) {
+        this._rightNullContainer = node;
+    }
+
+    get leftNullContainer() {
+        return this._leftNullContainer;
+    }
+
+    set leftNullContainer(node) {
+        this._leftNullContainer = node;
+    }
+
+    get leftLine() {
+        return this._leftLine;
+    }
+
+    set leftLine(line) {
+        this._leftLine = line;
+    }
+
+    get rightLine() {
+        return this._rightLine;
+    }
+
+    set rightLine(line) {
+        this._rightLine = line;
+    }
+
+    get container() {
+        return this._container;
+    }
+
+    set container(container) {
+        this._container = container;
+    }
+
+    get leftRef() {
+        return this._leftRef;
+    }
+
+    set leftRef(ref) {
+        this._leftRef = ref;
+    }
+
+    get rightRef() {
+        return this._rightRef;
+    }
+
+    set rightRef(ref) {
+        this._rightRef = ref;
+    }
+
+    get domNode() {
+        return this._domNode;
+    }
+    
+    set domNode(node) {
+        this._domNode = node;
+    }
+
+    get rightNull() {
+        return this._rightNull;
+    }
+
+    set rightNull(node) {
+        this._rightNull = node;
+    }
+
+    get leftNull() {
+        return this._leftNull;
+    }
+
+    set leftNull(node) {
+        this._leftNull = node;
+    }
+
+    get virtualLeftLine() {
+        return this._virtualLefLine;
+    }
+
+    set virtualLeftLine(line) {
+        this._virtualLefLine = line;
+    }
+
+    get virtualRightLine() {
+        return this._virtualRightLine;
+    }
+
+    set virtualRightLine(line) {
+        this._virtualRightLine = line;
     }
 
     get startX() {
@@ -113,6 +226,10 @@ export class TreeNode {
 
     get STROKE_WIDTH() {
         return this._STROKE_WIDTH;
+    }
+
+    get NULL_TEXT_SIZE() {
+        return this._NULL_TEXT_SIZE;
     }
 
     get BG() {

@@ -1,0 +1,3 @@
+const searchAnimation = (tree, value) => {
+
+}

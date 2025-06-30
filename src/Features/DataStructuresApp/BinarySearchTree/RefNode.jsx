@@ -1,9 +1,9 @@
-const RefNode = ({node, isLeft}) => {
+const RefNode = ({node, isLeft, reference, line}) => {
 
     const angle = node.getAngle();
     const rad = (90 - angle) * (Math.PI/180);
-    const y = Math.sin(rad - 0.3) * node.RADIUS;
-    const x = Math.cos(rad - 0.3) * node.RADIUS;
+    const y = Math.sin(rad - 0.4) * node.RADIUS;
+    const x = Math.cos(rad - 0.4) * node.RADIUS;
     const transform = `translate(${(isLeft ? -x : x) - node.REF_WIDTH/2}, ${y}) rotate(${isLeft ? angle : -angle})`;
     return (<g 
                 transform={transform}
@@ -14,6 +14,7 @@ const RefNode = ({node, isLeft}) => {
                     d={node.getRefLineAttr(true)}
                     stroke={node.BORDER}
                     strokeWidth={node.STROKE_WIDTH}
+                    ref={line}
                 />
                 <rect
                     width={node.REF_WIDTH}
@@ -22,6 +23,7 @@ const RefNode = ({node, isLeft}) => {
                     fill={node.BG}
                     stroke={node.BORDER}
                     strokeWidth={node.STROKE_WIDTH}
+                    ref={reference}
                 />
                 <text
                     fontWeight="bold"

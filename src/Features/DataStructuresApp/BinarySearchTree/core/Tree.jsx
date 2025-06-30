@@ -8,7 +8,7 @@ export class Tree {
         this._startX = 0;
         this._startY = 300;
         this._height = 7;
-        this._SCALE = 30;
+        this._SCALE = 36;
         this._LEVEL_HEIGHT = 300;
     }
 
@@ -94,6 +94,7 @@ export class Tree {
         newNode.x = x;
         newNode.y = y;
         this.nElement++;
+        return `Succesfull insert ${value} to the tree`
     }    
 
     search(value) {
@@ -126,7 +127,7 @@ export class Tree {
         const newTree = new Tree();
         const helper = (node) => {
             if (node !== null) {
-                const newNode = new TreeNode(node.value, node.x, node.y, node.level, node.index, node.vertical_gap);
+                const newNode = new TreeNode(node.value, node.x, node.y, node.level, node.index, node.vertical_gap, this.height, this.SCALE, this.startX);
                 newNode.left = helper(node.left);
                 newNode.right = helper(node.right);
                 return newNode;
