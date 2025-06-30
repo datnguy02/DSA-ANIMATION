@@ -3,7 +3,7 @@ import treeNode_size from "../../../../assets/size/bst_size";
 
 
 export class TreeNode {
-    constructor(value, x, y, level, index, id) {
+    constructor(value, x, y, level, index, vertical_gap, tree_height, scale, startX, id) {
         this._value = value;
         this._id = id;
         this._left = null;
@@ -13,12 +13,19 @@ export class TreeNode {
         this._y = y;
         this._level = level;
         this._index = index;
+        this._node_gap = 0;
+        this._vertical_gap = vertical_gap;
+        this._tree_height = tree_height;
+        this._SCALE = scale;
+        this._startX = startX;
 
         // style
         let color = colorway["binarysearchtree"];
         this._BG = color["NODE_BG"];
         this._BORDER = color["NODE_BORDER"];
         this._TEXT = color["NODE_TEXT"];
+        this._NULL_TEXT = color["NULL_TEXT"];
+        this._NULL_BG = color["NULL_BG"];
 
         // size
         let size = treeNode_size;
@@ -28,6 +35,52 @@ export class TreeNode {
         this._TEXT_SIZE = size["FONT_SIZE"];
         this._REF_WIDTH = size["REF_WIDTH"];
         this._REF_HEIGHT = size["REF_HEIGHT"];
+        this._NULL_HEIGHT=  size["NULL_HEIGHT"];
+        this._NULL_WIDTH = size["NULL_WIDTH"];
+    }
+
+    get startX() {
+        return this._startX;
+    }
+
+    get SCALE() {
+        return this._SCALE;
+    }
+
+    get tree_height() {
+        return this._tree_height;
+    }
+
+    get NULL_BG() {
+        return this._NULL_BG;
+    }
+
+    get NULL_TEXT() {
+        return this._NULL_TEXT;
+    }
+
+    get NULL_HEIGHT() {
+        return this._NULL_HEIGHT;
+    }
+
+    get NULL_WIDTH() {
+        return this._NULL_WIDTH;
+    }
+
+    get vertical_gap() {
+        return this._vertical_gap;
+    }
+
+    set vertical_gap(gap) {
+        this._vertical_gap = gap;
+    }
+
+    get node_gap() {
+        return this._node_gap;
+    }
+
+    set node_gap(gap) {
+        this._node_gap = gap;
     }
 
     get REF_WIDTH() {
@@ -138,35 +191,48 @@ export class TreeNode {
         this._right = right;
     }
 
-    getAngle(isLeft) {
-        let child = isLeft ? this.left : this.right;
-        if (child !== null) {
-            const y = Math.abs(this.y - child.y);
-            const x = Math.abs(this.x - child.x);
-            console.log(`node ${this.value} has angle ${Math.atan(y/x) * (180/Math.PI)}`)
-            return Math.atan(x/y) * (180/Math.PI);
-        }
-        return 0;
+    getChildPos(isLeft) {
+        const childIndex = isLeft ? this.index * 2 : this.index * 2 + 1;
+        const childLevel = this.level + 1;
+        const space = 2**(this.tree_height - childLevel - 1);
+        const child_gap = 2**(this.tree_height - childLevel);
+        return {
+            x: ((space + (child_gap * childIndex)) * this.SCALE) + this.startX,
+            y: this.y + this.vertical_gap,
+        };
+    }
+
+    getChildGap() {
+        return (2**(this.tree_height - (this.level + 1)) *this.SCALE);
+    }
+
+    getAngle() {
+        const {x, y} = this.getChildPos();
+        const disY = Math.abs(this.y - y);
+        const disX = Math.abs(this.x - x);
+        return Math.atan(disX/disY) * (180/Math.PI);
     }
 
     getVerticalDis() {
         const angle = (90 - this.getAngle(true)) * (Math.PI/180);
-        return Math.sin(angle) * this.RADIUS;
+        return Math.sin(angle - 0.3) * this.RADIUS;
     }
 
-    getLineWidth(isLeft) {
-        let child = isLeft ? this.left : this.right;
-        if (child !== null) {
-            const y = Math.abs(this.y - child.y);
-            const x = Math.abs(this.x - child.x);
-            return Math.sqrt(x**2 + y**2);
-        }
-        return 0;
+    getHorizontalDis() {
+        const angle = (90 - this.getAngle(true)) * (Math.PI/180);
+        return Math.cos(angle - 0.3) * this.RADIUS;
+    }
+
+    getLineWidth() {
+        const {x,y} = this.getChildPos();
+        const disX  = Math.abs(this.y - y);
+        const disY = Math.abs(this.x - x);
+        return Math.sqrt(disX**2 + disY**2) - this.RADIUS - this.REF_HEIGHT;
     }
 
     getRefLineAttr(isLeft) {
         if (isLeft) 
-            return `M${this.REF_WIDTH/2} ${this.REF_HEIGHT} L${this.REF_WIDTH/2} ${this.REF_HEIGHT + this.getLineWidth(true) - this.RADIUS}`
+            return `M${this.REF_WIDTH/2} ${this.REF_HEIGHT} L${this.REF_WIDTH/2} ${this.REF_HEIGHT + this.getLineWidth(true)}`
     }
     
 

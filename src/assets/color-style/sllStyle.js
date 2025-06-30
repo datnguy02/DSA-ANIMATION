@@ -49,6 +49,8 @@ const colorway = {
         NODE_BG: "#529471",
         NODE_BORDER: "#E5F1E3",
         NODE_TEXT: "#E5F1E3",
+        NULL_BG: "#E5F1E3",
+        NULL_TEXT: "#35635B"
         
     }
 

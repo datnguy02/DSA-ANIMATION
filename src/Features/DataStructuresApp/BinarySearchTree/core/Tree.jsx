@@ -54,7 +54,15 @@ export class Tree {
     }
 
     insert(value) {
-        const newNode = new TreeNode(value, this.startX, this.startY, 0, 0);
+        const newNode = new TreeNode(value, 
+                                    this.startX, 
+                                    this.startY, 
+                                    0, 
+                                    0, 
+                                    this.LEVEL_HEIGHT, 
+                                    this.height, 
+                                    this.SCALE, 
+                                    this.startX);
         if (this.isEmpty()) {
             this.root = newNode;
             this.nElement++;
@@ -82,10 +90,9 @@ export class Tree {
         newNode.parent = parent;
         newNode.level = parent.level + 1;
         newNode.index = isLeft ? parent.index * 2 : (parent.index * 2 + 1);
-        newNode.y = parent.y + this.LEVEL_HEIGHT;
-        let space = 2**(this.height - newNode.level - 1);
-        let node_gap = 2**(this.height - newNode.level);
-        newNode.x = ((space + (node_gap * newNode.index)) * this.SCALE) + this.startX;
+        const {x, y} = parent.getChildPos(isLeft);
+        newNode.x = x;
+        newNode.y = y;
         this.nElement++;
     }    
 
@@ -119,11 +126,12 @@ export class Tree {
         const newTree = new Tree();
         const helper = (node) => {
             if (node !== null) {
-                const newNode = new TreeNode(node.value, node.x, node.y);
+                const newNode = new TreeNode(node.value, node.x, node.y, node.level, node.index, node.vertical_gap);
                 newNode.left = helper(node.left);
                 newNode.right = helper(node.right);
                 return newNode;
             }
+            return null;
         };
         newTree.root = helper(this.root);
         return newTree;

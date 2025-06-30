@@ -59,6 +59,7 @@ const DataStructureApp = ({name}) => {
             &&  operationName !== "revert"
             &&  operationName !== "delete"
         ) {
+            
             message = newDataStructure[operationName](state["value"], state["index"]);
         }
         else if (operationName === "revert") {

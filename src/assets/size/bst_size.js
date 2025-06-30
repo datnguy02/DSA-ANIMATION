@@ -7,6 +7,8 @@ const treeNode_size = {
     FONT_SIZE: LENGTH/2.5,
     REF_WIDTH: LENGTH/2,
     REF_HEIGHT: LENGTH/1.4,
+    NULL_HEIGHT: LENGTH/1.5,
+    NULL_WIDTH: LENGTH,
 }
 
 export default treeNode_size;
