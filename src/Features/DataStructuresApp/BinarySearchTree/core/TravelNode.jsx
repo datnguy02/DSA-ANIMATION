@@ -17,7 +17,7 @@ export class TravelNode {
         this._ROUND = treeNode_size["ROUNDED"];
         this._STROKE_WIDTH = treeNode_size["STROKE_WIDTH"];
         this._TEXT_SIZE = treeNode_size["FONT_SIZE"];
-        this._LINE_THICKNESS = treeNode_size["LINE_THICKNESS"];
+        this._LINE_THICKNESS = treeNode_size["TRAVEL_LINE_THICKNESS"];
 
         // dom element reference
         this._container = null;

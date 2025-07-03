@@ -1,4 +1,4 @@
-const NullNode = ({node, isLeft, container, domNull}) => {
+const NullNode = ({node, isLeft, container, domNull, text}) => {
     const x = - node.NULL_WIDTH/2 + (isLeft ? -node.getChildGap()/2 :  node.getChildGap()/2);
     const y = node.vertical_gap - node.NULL_HEIGHT/2;
 
@@ -23,6 +23,7 @@ const NullNode = ({node, isLeft, container, domNull}) => {
                 x={node.NULL_WIDTH/2}
                 y={node.NULL_HEIGHT/2}
                 fill={node.NULL_TEXT}
+                ref={text}
             >Null</text>
         </g>);
 };

@@ -49,7 +49,7 @@ const BinarySearchTree = ({operation}) => {
 
     }, [operation])
     
-    return (<svg viewBox="-400 500 5200 1500" 
+    return (<svg viewBox="-400 300 5200 1500" 
                 width={3000}
                 height={800}
             >

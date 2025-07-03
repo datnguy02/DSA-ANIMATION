@@ -47,7 +47,11 @@ export class TreeNode {
         this._virtualLefLine = null;
         this._virtualRightLine = null;
         this._leftRef = null;
+        this._leftText = null;
+        this._leftContainer = null;
         this._rightRef = null;
+        this._rightText = null;
+        this._rightContainer = null;
         this._container = null;
         this._text = null;
         this._domNode = null;
@@ -70,8 +74,39 @@ export class TreeNode {
             BORDER: color["CURRENT_BORDER"],
             TEXT: color["CURRENT_TEXT"],
         };
-        
-        
+    }
+
+
+    get leftContainer() {
+        return this._leftContainer;
+    }
+
+    set leftContainer(node) {
+        this._leftContainer = node;
+    }
+
+    get leftText() {
+        this._leftText;
+    }
+
+    set leftText(node) {
+        this._leftText = node;
+    }
+
+    get rightContainer() {
+        return this._rightContainer;
+    }
+
+    set rightContainer(node) {
+        this._rightContainer = node;
+    }
+
+    get rightText() {
+        return this._rightText;
+    }
+
+    set rightText(node) {
+        this._rightText = node;
     }
 
     get wrapper() {
@@ -414,7 +449,9 @@ export class TreeNode {
         return tl;
     }
 
-    scaleUp(tl, factor, pos) {
+    
+
+    scale(tl, factor, pos) {
         tl.to(this.wrapper, {
             attr: {
                 transform:  `scale(${factor})`,
@@ -422,6 +459,7 @@ export class TreeNode {
         }, pos);
         return tl;
     }
+
 
     
     

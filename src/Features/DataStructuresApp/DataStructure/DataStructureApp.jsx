@@ -14,7 +14,6 @@ gsap.registerPlugin(DrawSVGPlugin, MorphSVGPlugin);
 const DataStructureApp = ({name}) => {
     const animation_speed = useRef(1);
     const initalDataStructure = getInitalDs(name);
-    const bar = useRef()
 
     const initialOperation = {
                                 data_structure: initalDataStructure,

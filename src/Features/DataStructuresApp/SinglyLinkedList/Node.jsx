@@ -17,11 +17,9 @@ const Node = ({node}) => {
     const domVirtualRefLine = useRef(null);
     const domNullText = useRef(null);
     const domNullBg = useRef(null);
-    const tl = useRef(null);
 
 
     useEffect(() => {
-        tl.current = gsap.timeline();
         node.domNode = domNode.current;
         node.nodeContainer = domNodeContainer.current;
         node.dataContainer = domData.current;
@@ -36,8 +34,17 @@ const Node = ({node}) => {
         
 
         return () => {
-           node.domNode = null;
-           node.domNodeContainer = null;
+        //    node.domNode = null;
+        //    node.domNodeContainer = null;
+        //    node.dataContainer = null;
+        //     node.dataText = null;
+        //     node.nextRef = null;
+        //     node.refLine = null;
+        //     node.nextRefText = null;
+        //     node.nextNull = null;
+        //     node.virtualRefLine = null;
+        //     node.nullText = null;
+        //     node.domNull = null;
         }
 
     }, [node]);

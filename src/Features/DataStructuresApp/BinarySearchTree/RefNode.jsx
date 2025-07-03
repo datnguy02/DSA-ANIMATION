@@ -1,4 +1,4 @@
-const RefNode = ({node, isLeft, reference, line}) => {
+const RefNode = ({node, isLeft, reference, container, line}) => {
 
     const angle = node.getAngle();
     const rad = (90 - angle) * (Math.PI/180);
@@ -9,6 +9,7 @@ const RefNode = ({node, isLeft, reference, line}) => {
                 transform={transform}
                 className="transform-fill"
                 transformOrigin={`${node.REF_WIDTH/2} ${0}`}
+                ref={container}
             >
                 <path
                     d={node.getRefLineAttr(isLeft)}

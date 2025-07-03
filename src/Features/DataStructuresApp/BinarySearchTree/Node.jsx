@@ -16,11 +16,22 @@ const Node = ({node}) => {
     const rightNullContainer = useRef(null);
     const text = useRef(null);
     const wrapper = useRef(null);
+    const leftNullTtext = useRef(null);
+    const rightNullText = useRef(null);
+    const leftContainer = useRef(null);
+    const rightContainer = useRef(null);
+    
 
     useEffect(() => {
         node.text = text.current;
         node.domNode = domNode.current;
         node.wrapper = wrapper.current;
+        node.leftContainer = leftContainer.current;
+        node.rightContainer = rightContainer.current;
+        node.leftRef = leftRef.current;
+        node.rightRef = rightRef.current;
+
+
     }, [node])
     return (
         <g transform={`translate(${node.x}, ${node.y})`}
@@ -50,8 +61,20 @@ const Node = ({node}) => {
             </g>
             <RefNode node={node} isLeft={true} line={leftLine} reference={leftRef}/>
             <RefNode node={node} isLeft={false} line={rightLine} reference={rightRef}/>
-            <NullNode node={node} isLeft={true}/>
-            <NullNode node={node} isLeft={false}/>
+            <NullNode 
+                    node={node} 
+                    isLeft={true} 
+                    text={leftNullTtext} 
+                    domNull={leftNull} 
+                    container={leftNullContainer}
+            />
+            <NullNode 
+                    node={node} 
+                    isLeft={false} 
+                    text={rightNullText} 
+                    domNull={rightNull} 
+                    container={rightNullContainer}
+            />
         </g>);
 
 };
