@@ -11,10 +11,11 @@ const RefNode = ({node, isLeft, reference, line}) => {
                 transformOrigin={`${node.REF_WIDTH/2} ${0}`}
             >
                 <path
-                    d={node.getRefLineAttr(true)}
+                    d={node.getRefLineAttr(isLeft)}
                     stroke={node.BORDER}
-                    strokeWidth={node.STROKE_WIDTH}
+                    strokeWidth={node.LINE_THICKNESS}
                     ref={line}
+                    fill="none"
                 />
                 <rect
                     width={node.REF_WIDTH}

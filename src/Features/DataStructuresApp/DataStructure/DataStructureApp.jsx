@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import getInitalDs from "./GetInitialDs";
 import { AnimatingContext } from "../../../context/animeContext/animatingContext";
 import gsap from "gsap";
@@ -7,11 +7,14 @@ import colorway from "../../../assets/color-style/sllStyle";
 import Message from "../../Message/Message";
 import DataStructure from "./DataStructure";
 import { ForwardContext, RevertContext} from "../../../context/stateButtonContext/StateButtonContext";
+import {DrawSVGPlugin, MorphSVGPlugin } from "gsap/all";
 
+gsap.registerPlugin(DrawSVGPlugin, MorphSVGPlugin);
 
 const DataStructureApp = ({name}) => {
     const animation_speed = useRef(1);
     const initalDataStructure = getInitalDs(name);
+    const bar = useRef()
 
     const initialOperation = {
                                 data_structure: initalDataStructure,

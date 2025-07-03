@@ -1,3 +1,5 @@
+import colorway from "../../../../assets/color-style/sllStyle";
+import treeNode_size from "../../../../assets/size/bst_size";
 import Node from "../Node";
 import { TreeNode } from "./TreeNode";
 
@@ -10,7 +12,140 @@ export class Tree {
         this._height = 7;
         this._SCALE = 36;
         this._LEVEL_HEIGHT = 300;
+
+        // style
+        let color = colorway["binarysearchtree"];
+        this._BG = color["NODE_BG"];
+        this._STROKE = color["NODE_BORDER"];
+        this._TEXT = color["NODE_TEXT"];
+        this._CURRENT_LINE_COLOR = color["CURRENT_BORDER"];
+
+
+        // sizing
+        this._WIDTH = treeNode_size["ROOT_WIDTH"];
+        this._HEIGHT = treeNode_size["ROOT_HEIGHT"];
+        this._STROKE_WIDTH = treeNode_size["ROOT_STROKE_WIDTH"];
+        this._ROUND = treeNode_size["ROUNDED"];
+        this._NODE_RADIUS  = treeNode_size["RADIUS"];
+        this._LINE_THICKNESS = treeNode_size["LINE_THICKNESS"];
+
+        // dom element reference
+        this._container = null;
+        this._domRoot = null;
+        this._text = null;
+        this._rootLine = null;
+        this._virtualRootLine = null;
+
+        this._NORMAL_STYLE = {
+            BG: color["NODE_BG"],
+            BORDER: color["NODE_BORDER"],
+            TEXT: color["NODE_TEXT"],
+        }
+
+        this._CURRENT_VISIT_STYLE = {
+            BG: color["CURRENT_BG"],
+            BORDER: color["CURRENT_BORDER"],
+            TEXT: color["CURRENT_TEXT"],
+        }
     }
+
+    get CURRENT_LINE_COLOR() {
+        return this._CURRENT_LINE_COLOR;
+    }
+
+
+    get LINE_THICKNESS() {
+        return this._LINE_THICKNESS;
+    }
+
+    get NORMAL_STYLE() {
+        return this._NORMAL_STYLE;
+    }
+
+    get CURRENT_VISIT_STYLE() {
+        return this._CURRENT_VISIT_STYLE;
+    }
+
+    get container() {
+        return this._container;
+    }
+
+    set container(node) {
+        this._container = node;
+    }
+
+    get domRoot() {
+        return this._domRoot;
+    }
+
+    set domRoot(node) {
+        this._domRoot = node;
+    }
+
+    get text() {
+        return this._text;
+    }
+
+    set text(node) {
+        this._text = node;
+    }
+
+    get rootLine() {
+        return this._rootLine;
+    }
+
+    set rootLine(line) {
+        this._rootLine = line;
+    }
+
+    get virtualRootLine() {
+        return this._virtualRootLine;
+    }
+
+    set virtualRootLine(line) {
+        this._virtualRootLine = line;
+    }
+
+    get LINE_THICKNESS() {
+        return this._LINE_THICKNESS;
+    }
+
+    get NODE_RADIUS() {
+        return this._NODE_RADIUS;
+    }
+
+    get ROOT_LINE_WIDTH() {
+        return this.NODE_RADIUS*2;
+    }
+
+    get BG() {
+        return this._BG;
+    }
+
+    get STROKE() {
+        return this._STROKE;
+    }
+
+    get TEXT() {
+        return this._TEXT;
+    }
+
+    get ROUND() {
+        return this._ROUND;
+    }
+
+    get WIDTH() {
+        return this._WIDTH;
+    }
+
+    get HEIGHT() {
+        return this._HEIGHT;
+    }
+
+    get STROKE_WIDTH() {
+        return this._STROKE_WIDTH;
+    }
+
 
     get LEVEL_HEIGHT() {
         return this._LEVEL_HEIGHT;
@@ -48,6 +183,18 @@ export class Tree {
         this._nElement = num;
     }
 
+    get root_x() {
+        return this.root.x - this.WIDTH/2
+    }
+
+    get root_y() {
+        return this.root.y - this.NODE_RADIUS - this.HEIGHT - this.ROOT_LINE_WIDTH;
+    }
+
+    getlineStartingPoint() {
+        return {x: this.WIDTH/2, y: this.HEIGHT};
+    }
+
 
     isEmpty() {
         return this._root === null;
@@ -83,6 +230,8 @@ export class Tree {
                 isLeft = false;
             }
         }
+        if (parent.level + 1 > this.height - 3)
+            return `Fail`
         if (isLeft) 
             parent.left = newNode;
         else 
@@ -151,6 +300,49 @@ export class Tree {
         helper(this.root, res);
         return res;
     }
+
+    animeRootStyle(tl, style, pos) {
+        const {BG, TEXT, BORDER} = style;
+        tl.to(this.domRoot, {
+            attr: {
+                fill: BG,
+                stroke: BORDER,
+            }
+        }, pos).to(this.text, {
+            attr: {
+                fill: TEXT,
+            }
+        }, "<");
+        return tl;
+    }
+
+    setLineColor(tl, line, color, pos) {
+        tl.set(line, {
+            attr: {
+                stroke: color,
+            }
+        }, pos);
+        return tl;
+    }
+
+    expandLine(tl, line, length, pos) {
+        const {x, y} = this.getlineStartingPoint();
+        tl.to(line, {
+            morphSVG: `M${x} ${y} L${x} ${y + length}`,
+        }, pos);
+        return tl;
+    }
+
+    shrinkLine(tl, line, isEnd,pos) {
+        tl.to(line, {
+            drawSVG: isEnd ? "100% 100%" : "0% 0%",
+        }, pos);
+        return tl;
+    }
+
+
+
+    
 
     
 }

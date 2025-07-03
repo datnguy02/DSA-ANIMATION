@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import RefNode from "./RefNode";
 import { NextRefContext, NextRefTextContext, RefLineContext } from "../../../context/sll/nodeRefContext";
 import gsap from "gsap";

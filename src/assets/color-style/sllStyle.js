@@ -50,7 +50,14 @@ const colorway = {
         NODE_BORDER: "#E5F1E3",
         NODE_TEXT: "#E5F1E3",
         NULL_BG: "#E5F1E3",
-        NULL_TEXT: "#35635B"
+        NULL_TEXT: "#35635B",
+
+
+        // Style when current visit
+        CURRENT_BG: "#fdfbda",
+        CURRENT_BORDER: "#d3d0a8",
+        CURRENT_TEXT: "#2d4659",
+
         
     }
 

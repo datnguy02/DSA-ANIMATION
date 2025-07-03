@@ -1,6 +1,6 @@
 import { gsap } from "gsap/gsap-core";
 import { useGSAP } from "@gsap/react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import Method from "./Method";
 import operation_bar from "../../../assets/MethodList/operationList";
 import SkipButton from "../Button/SkipButton";
@@ -8,13 +8,14 @@ import TimeButton from "../Button/TimeButton";
 import StateButton from "../Button/StateButton";
 import AnimationSpeedInput from "../Input/AnimationSpeedInput";
 
-
 const OperationBar = ({name, onStart, timeLine, animationSpeed}) => {
     const style = operation_bar[name].style;
     const container = useRef(null);
     const bar = useRef(null);
     const {contextSafe} = useGSAP({scope: container});
     let closed = false;
+
+   
 
     const handleClick = contextSafe(() => {
         if (!closed) {

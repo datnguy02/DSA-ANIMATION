@@ -38,6 +38,7 @@ export class TreeNode {
         this._NULL_HEIGHT=  size["NULL_HEIGHT"];
         this._NULL_WIDTH = size["NULL_WIDTH"];
         this._NULL_TEXT_SIZE = size["NULL_TEXT_SIZE"];
+        this._LINE_THICKNESS = size["LINE_THICKNESS"];
 
 
         // Dom element reference
@@ -48,12 +49,57 @@ export class TreeNode {
         this._leftRef = null;
         this._rightRef = null;
         this._container = null;
+        this._text = null;
         this._domNode = null;
         this._rightNull = null;
         this._leftNull = null;
         this._leftNullContainer = null;
         this._rightNullContainer = null;
+        this._wrapper = null;
+
+
+        this._NORMAL_STYLE = {
+            BG: color["NODE_BG"],
+            BORDER: color["NODE_BORDER"],
+            TEXT: color["NODE_TEXT"],
+        };
+
+
+        this._CURRENT_VISIT_STYLE = {
+            BG: color["CURRENT_BG"],
+            BORDER: color["CURRENT_BORDER"],
+            TEXT: color["CURRENT_TEXT"],
+        };
         
+        
+    }
+
+    get wrapper() {
+        return this._wrapper;
+    }
+
+    set wrapper(node) {
+        this._wrapper = node;
+    }
+
+    get text() {
+        return this._text;
+    }
+
+    set text(node) {
+        this._text  = node;
+    }
+
+    get NORMAL_STYLE() {
+        return this._NORMAL_STYLE;
+    }
+
+    get CURRENT_VISIT_STYLE() {
+        return this._CURRENT_VISIT_STYLE;
+    }
+
+    get LINE_THICKNESS() {
+        return this._LINE_THICKNESS;
     }
 
     get rightNullContainer() {
@@ -348,9 +394,36 @@ export class TreeNode {
     }
 
     getRefLineAttr(isLeft) {
-        if (isLeft) 
-            return `M${this.REF_WIDTH/2} ${this.REF_HEIGHT} L${this.REF_WIDTH/2} ${this.REF_HEIGHT + this.getLineWidth(true)}`
+            return `M${this.REF_WIDTH/2} ${this.REF_HEIGHT} 
+                    Q${this.REF_WIDTH/2 + (isLeft ? - 40: 40)} ${(this.REF_HEIGHT + this.getLineWidth(true))/2} 
+                    ${this.REF_WIDTH/2} ${this.REF_HEIGHT + this.getLineWidth(true)}`
     }
+
+    animeStyle(tl, style, pos) {
+        const {BG, TEXT, BORDER} = style;
+        tl.to(this.domNode, {
+            attr: {
+                fill: BG, 
+                stroke: BORDER,
+            }
+        }, pos).to(this.text, {
+            attr: {
+                fill: TEXT,
+            }
+        }, "<");
+        return tl;
+    }
+
+    scaleUp(tl, factor, pos) {
+        tl.to(this.wrapper, {
+            attr: {
+                transform:  `scale(${factor})`,
+            }
+        }, pos);
+        return tl;
+    }
+
+    
     
 
 

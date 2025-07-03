@@ -13,6 +13,8 @@ import { deleteAnimation } from "../../Animation/sll/deleteAnimation";
 import { insertAtAnimation } from "../../Animation/sll/insertAtAnimation";
 
 import colorway from "../../../assets/color-style/sllStyle";
+import { GSDevTools } from "gsap/all";
+
 
 const getNodeList = (list) => {
     let current = list.head;
@@ -70,7 +72,6 @@ const SinglyLinkedList = ({operation}) => {
             tl.current = operation.gsapTimeLine;
         }
 
-        
         
         if (operation.useAnime) {
             if (operationName === "insertfirst") {

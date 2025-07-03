@@ -1,6 +1,7 @@
 const LENGTH = 100;
 
 const treeNode_size = {
+    // Node size
     RADIUS: LENGTH/2,
     ROUNDED: LENGTH/2,
     STROKE_WIDTH: LENGTH/15,
@@ -10,6 +11,17 @@ const treeNode_size = {
     NULL_HEIGHT: LENGTH/1.5,
     NULL_WIDTH: LENGTH/1.5,
     NULL_TEXT_SIZE: LENGTH/3.3,
+    LINE_THICKNESS: LENGTH/12,
+
+    // Traveler size
+    TRAVELER_WIDTH: LENGTH*1.8,
+    TRAVELER_HEIGHT: LENGTH/1.2,
+
+    // Tree size
+    ROOT_WIDTH: LENGTH*1.8,
+    ROOT_HEIGHT: LENGTH/1.2,
+    ROOT_STROKE_WIDTH: LENGTH/15,
+
 }
 
 export default treeNode_size;
