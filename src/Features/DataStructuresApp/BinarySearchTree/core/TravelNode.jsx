@@ -19,6 +19,17 @@ export class TravelNode {
         this._TEXT_SIZE = treeNode_size["FONT_SIZE"];
         this._LINE_THICKNESS = treeNode_size["TRAVEL_LINE_THICKNESS"];
 
+        this._STYLE = {
+            BG: color["CURRENT_BG"],
+            TEXT: color["CURRENT_TEXT"],
+            BORDER: color["CURRENT_BORDER"],
+        }
+
+        this._CONTRAST_STYLE = {
+            BG: color["CURRENT_BORDER"],
+            TEXT: color["CURRENT_BG"],
+        }
+
         // dom element reference
         this._container = null;
         this._node = null;
@@ -26,6 +37,13 @@ export class TravelNode {
         this._wrapper = null;
     }
 
+    get CONTRAST_STYLE() {
+        return this._CONTRAST_STYLE;
+    }
+
+    get STYLE() {
+        return this._STYLE;
+    }
 
 
     get wrapper() {
@@ -191,10 +209,10 @@ export class TravelNode {
         return tl;
     }
 
-    setPosToNode(tl, node, isAbove, pos) {
+    setPosToNode(tl, {nodeX, nodeY}, isAbove, pos) {
         tl.set(this.container, {
             attr: {
-                transform: `translate(${node.x - this.WIDTH/2}, ${node.y + this.tree.root.RADIUS + this.getLineHeight()})`
+                transform: `translate(${nodeX- this.WIDTH/2}, ${nodeY + this.tree.root.RADIUS + this.getLineHeight()})`
             }
         }, pos);
         return tl;

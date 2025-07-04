@@ -34,17 +34,17 @@ const Node = ({node}) => {
         
 
         return () => {
-        //    node.domNode = null;
-        //    node.domNodeContainer = null;
-        //    node.dataContainer = null;
-        //     node.dataText = null;
-        //     node.nextRef = null;
-        //     node.refLine = null;
-        //     node.nextRefText = null;
-        //     node.nextNull = null;
-        //     node.virtualRefLine = null;
-        //     node.nullText = null;
-        //     node.domNull = null;
+            node.domNode = null;
+            node.domNodeContainer = null;
+            node.dataContainer = null;
+            node.dataText = null;
+            node.nextRef = null;
+            node.refLine = null;
+            node.nextRefText = null;
+            node.nextNull = null;
+            node.virtualRefLine = null;
+            node.nullText = null;
+            node.domNull = null;
         }
 
     }, [node]);

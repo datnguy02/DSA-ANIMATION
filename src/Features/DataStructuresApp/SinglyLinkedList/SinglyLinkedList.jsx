@@ -105,15 +105,15 @@ const SinglyLinkedList = ({operation}) => {
                 tl.current.revert();
                 tl.current = null;
             }
-            // list.headRef = null;
-            // list.tailRef = null;
-            // list.headLine = null;
-            // list.tailLineX = null;
-            // list.tailLineY = null;
-            // list.headRefText = null;
-            // list.tailRefText = null;
-            // list.virtualHeadLine = null;
-            // list.virtualTailLineY = null;
+            list.headRef = null;
+            list.tailRef = null;
+            list.headLine = null;
+            list.tailLineX = null;
+            list.tailLineY = null;
+            list.headRefText = null;
+            list.tailRefText = null;
+            list.virtualHeadLine = null;
+            list.virtualTailLineY = null;
         }
     }, [operation])
    

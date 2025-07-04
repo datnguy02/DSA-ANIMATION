@@ -98,7 +98,6 @@ export class LinkedList {
         this._virtualTailLineY = line;
     }
 
-
     get TAIL_NORMAL_STYLE() {
         return this._TAIL_NORMAL_STYLE;
     }

@@ -11,7 +11,7 @@ const treeNode_size = {
     NULL_HEIGHT: LENGTH/1.5,
     NULL_WIDTH: LENGTH/1.5,
     NULL_TEXT_SIZE: LENGTH/3.3,
-    LINE_THICKNESS: LENGTH/12,
+    LINE_THICKNESS: LENGTH/11,
 
     // Traveler size
     TRAVELER_WIDTH: LENGTH*1.8,

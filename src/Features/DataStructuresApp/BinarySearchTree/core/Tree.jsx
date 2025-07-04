@@ -28,6 +28,7 @@ export class Tree {
         this._ROUND = treeNode_size["ROUNDED"];
         this._NODE_RADIUS  = treeNode_size["RADIUS"];
         this._LINE_THICKNESS = treeNode_size["LINE_THICKNESS"];
+        this._TRAVEL_LINE_THICKNESS = treeNode_size["TRAVEL_LINE_THICKNESS"];
 
         // dom element reference
         this._container = null;
@@ -36,17 +37,15 @@ export class Tree {
         this._rootLine = null;
         this._virtualRootLine = null;
 
-        this._NORMAL_STYLE = {
+        this._STYLE = {
             BG: color["NODE_BG"],
             BORDER: color["NODE_BORDER"],
             TEXT: color["NODE_TEXT"],
         }
+    }
 
-        this._CURRENT_VISIT_STYLE = {
-            BG: color["CURRENT_BG"],
-            BORDER: color["CURRENT_BORDER"],
-            TEXT: color["CURRENT_TEXT"],
-        }
+    get TRAVEL_LINE_THICKNESS() {
+        return this._TRAVEL_LINE_THICKNESS;
     }
 
     get CURRENT_LINE_COLOR() {
@@ -58,12 +57,8 @@ export class Tree {
         return this._LINE_THICKNESS;
     }
 
-    get NORMAL_STYLE() {
-        return this._NORMAL_STYLE;
-    }
-
-    get CURRENT_VISIT_STYLE() {
-        return this._CURRENT_VISIT_STYLE;
+    get STYLE() {
+        return this._STYLE;
     }
 
     get container() {
@@ -274,16 +269,17 @@ export class Tree {
 
     clone() {
         const newTree = new Tree();
-        const helper = (node) => {
+        const helper = (node, parent) => {
             if (node !== null) {
                 const newNode = new TreeNode(node.value, node.x, node.y, node.level, node.index, node.vertical_gap, this.height, this.SCALE, this.startX);
-                newNode.left = helper(node.left);
-                newNode.right = helper(node.right);
+                newNode.parent = parent;
+                newNode.left = helper(node.left, newNode);
+                newNode.right = helper(node.right, newNode);
                 return newNode;
             }
             return null;
         };
-        newTree.root = helper(this.root);
+        newTree.root = helper(this.root, null);
         return newTree;
     }
 
@@ -337,6 +333,20 @@ export class Tree {
         tl.to(line, {
             drawSVG: isEnd ? "100% 100%" : "0% 0%",
         }, pos);
+        return tl;
+    }
+
+
+    blurSubTree(tl, node, opacity, pos) {
+        const helper = (the_node) => {
+            if (the_node !== null) {
+                the_node.animeContainerOpacity(tl, opacity, "<");
+                helper(the_node.left);
+                helper(the_node.right);
+            }
+        }
+
+        helper(node);
         return tl;
     }
 

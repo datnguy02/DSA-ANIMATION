@@ -60,20 +60,95 @@ export class TreeNode {
         this._leftNullContainer = null;
         this._rightNullContainer = null;
         this._wrapper = null;
+        this._leftWrapper = null;
+        this._rightWrapper = null;
+        this._virtualRightline = null;
+        this._virtualLeftLine = null;
+        this._leftNullWrapper = null;
+        this._rightNullWrapper = null;
+        this._rightNullText = null;
+        this._leftNullText = null;
 
-
-        this._NORMAL_STYLE = {
+        this._STYLE = {
             BG: color["NODE_BG"],
             BORDER: color["NODE_BORDER"],
             TEXT: color["NODE_TEXT"],
-        };
+        }
+
+        this._NULL_STYLE = {
+            BG: color["NODE_BORDER"],
+            TEXT: color["BG"],
+        }
+
+    }
+
+    get NULL_STYLE() {
+        return this._NULL_STYLE;
+    }
+
+    get leftNullText() {
+        return this._leftNullText;
+    }
+
+    set leftNullText(node) {
+        this._leftNullText = node;
+    }
+
+    get rightNullText() {
+        return this._rightNullText;
+    }
+
+    set rightNullText(node) {
+        this._rightNullText = node;
+    }
+
+    get leftNullWrapper() {
+        return this._leftNullWrapper;
+    }
+
+    set leftNullWrapper(node) {
+        this._leftNullWrapper = node;
+    }
+
+    get rightNullWrapper() {
+        return this._rightNullWrapper;
+    }
+
+    set rightNullWrapper(node) {
+        this._rightNullWrapper = node;
+    }
 
 
-        this._CURRENT_VISIT_STYLE = {
-            BG: color["CURRENT_BG"],
-            BORDER: color["CURRENT_BORDER"],
-            TEXT: color["CURRENT_TEXT"],
-        };
+    get virtualLeftLine() {
+        return this._virtualLefLine;
+    }
+
+    set virtualLeftLine(node) {
+        this._virtualLefLine = node;
+    }
+
+    get virtualRightLine() {
+        return this._virtualRightLine;
+    }
+
+    set virtualRightLine(node) {
+        this._virtualRightLine = node;
+    }
+
+    get leftWrapper() {
+        return this._leftWrapper;
+    }
+
+    set leftWrapper(node) {
+        this._leftWrapper = node;
+    }
+
+    get rightWrapper() {
+        return this._rightWrapper;
+    }
+
+    set rightWrapper(node) {
+        this._rightWrapper = node;
     }
 
 
@@ -86,19 +161,11 @@ export class TreeNode {
     }
 
     get leftText() {
-        this._leftText;
+        return this._leftText;
     }
 
     set leftText(node) {
         this._leftText = node;
-    }
-
-    get rightContainer() {
-        return this._rightContainer;
-    }
-
-    set rightContainer(node) {
-        this._rightContainer = node;
     }
 
     get rightText() {
@@ -107,6 +174,14 @@ export class TreeNode {
 
     set rightText(node) {
         this._rightText = node;
+    }
+
+    get rightContainer() {
+        return this._rightContainer;
+    }
+
+    set rightContainer(node) {
+        this._rightContainer = node;
     }
 
     get wrapper() {
@@ -125,12 +200,8 @@ export class TreeNode {
         this._text  = node;
     }
 
-    get NORMAL_STYLE() {
-        return this._NORMAL_STYLE;
-    }
-
-    get CURRENT_VISIT_STYLE() {
-        return this._CURRENT_VISIT_STYLE;
+    get STYLE() {
+        return this._STYLE;
     }
 
     get LINE_THICKNESS() {
@@ -425,13 +496,19 @@ export class TreeNode {
         const {x,y} = this.getChildPos();
         const disX  = Math.abs(this.y - y);
         const disY = Math.abs(this.x - x);
-        return Math.sqrt(disX**2 + disY**2) - this.RADIUS - this.REF_HEIGHT;
+        return Math.sqrt(disX**2 + disY**2) - this.RADIUS*1.4 - this.REF_HEIGHT;
     }
 
-    getRefLineAttr(isLeft) {
-            return `M${this.REF_WIDTH/2} ${this.REF_HEIGHT} 
-                    Q${this.REF_WIDTH/2 + (isLeft ? - 40: 40)} ${(this.REF_HEIGHT + this.getLineWidth(true))/2} 
-                    ${this.REF_WIDTH/2} ${this.REF_HEIGHT + this.getLineWidth(true)}`
+    getRefLineAttr(isLeft, length) {
+        return `M${this.REF_WIDTH/2} ${this.REF_HEIGHT} 
+                Q${this.REF_WIDTH/2 + (isLeft ? - 40: 40)} ${(this.REF_HEIGHT + length)/2} 
+                ${this.REF_WIDTH/2} ${this.REF_HEIGHT + length}`;
+    }
+
+    getLineStartingPointAttr() {
+        return `M${this.REF_WIDTH/2} ${this.REF_HEIGHT} 
+                Q${this.REF_WIDTH/2} ${this.REF_HEIGHT} 
+                ${this.REF_WIDTH/2} ${this.REF_HEIGHT}`;
     }
 
     animeStyle(tl, style, pos) {
@@ -449,7 +526,6 @@ export class TreeNode {
         return tl;
     }
 
-    
 
     scale(tl, factor, pos) {
         tl.to(this.wrapper, {
@@ -460,9 +536,107 @@ export class TreeNode {
         return tl;
     }
 
+    animeRefStyle(tl, isLeft, style, pos) {
+        const {BG, TEXT, BORDER} = style;
+        tl.to(isLeft ? this.leftRef : this.rightRef, {
+            attr: {
+                fill: BG, 
+                stroke: BORDER,
+            }
+        }, pos).to(isLeft ? this.leftText : this.rightText, {
+            attr: {
+                fill: TEXT,
+            }
+        }, "<");
+        return tl
+    }
 
+
+    scaleRef(tl, isLeft, factor, pos) {
+        tl.to(isLeft ? this.leftWrapper : this.rightWrapper, {
+            attr: {
+                transform: `scale(${factor})`,
+            }
+        }, pos);
+        return tl;
+    }
+
+    setLineColor(tl, line, color, pos) {
+        console.log(color);
+        tl.to(line, {
+            attr: {
+                stroke: color,
+            }
+        }, pos);
+        return tl;
+    }
     
-    
+    setLineAttr(tl, line, length, pos) {
+        tl.set(line, {
+            attr: {
+                d: this.getRefLineAttr(line === this.virtualLeftLine || line === this.leftLine, length),
+            }
+        }, pos);
+        return tl;
+    }
+
+    expandLine(tl, line, pos) {
+        tl.fromTo(line, {
+            drawSVG: "0% 0%",
+        }, {
+            drawSVG: "0% 100%",
+        }, pos);
+        return tl;
+    }
+
+
+    shrinkLine(tl, line, pos) {
+        tl.to(line, {
+            drawSVG: "100% 100%",
+        }, pos);
+        return tl;
+    }
+
+    scaleNull(tl, isLeft, factor, pos) {
+        tl.to(isLeft ? this.leftNullWrapper : this.rightNullWrapper, {
+            attr: {
+                transform:  `scale(${factor})`,
+            }
+        }, pos);
+        return tl;
+    }
+
+    animeNullStyle(tl, isLeft, style, pos) {
+        const {TEXT, BG} = style;
+        tl.to(isLeft ? this.leftNull : this.rightNull, {
+            attr: {
+                fill: BG,
+            }
+        }, pos).to(isLeft ? this.leftNullText: this.rightNullText, {
+            attr: {
+                fill: TEXT,
+            }
+        }, "<");
+        return tl;
+    }
+
+    animeContainerOpacity(tl, opacity, pos) {
+        tl.to(this.container, {
+            attr: {
+                opacity: opacity,
+            }
+        }, pos);
+        return tl;
+    }
+
+    animeRefOpacity(tl, isLeft, opacity, pos) {
+        tl.to(isLeft ? this.leftContainer : this.rightContainer, {
+            attr: {
+                opacity: opacity,
+            }
+        }, pos);
+        return tl;
+    }
 
 
 }
