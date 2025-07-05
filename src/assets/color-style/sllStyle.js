@@ -54,9 +54,9 @@ const colorway = {
 
 
         // Style when current visit
-        CURRENT_BG: "#FFF5E4",
-        CURRENT_BORDER: "#850E35",
-        CURRENT_TEXT: "#850E35",
+        CURRENT_BG: "#E7CBCB",
+        CURRENT_BORDER: "#643843",
+        CURRENT_TEXT: "#643843",
 
         
     }

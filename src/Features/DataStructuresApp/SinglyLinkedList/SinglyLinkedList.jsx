@@ -13,7 +13,9 @@ import { deleteAnimation } from "../../Animation/sll/deleteAnimation";
 import { insertAtAnimation } from "../../Animation/sll/insertAtAnimation";
 
 import colorway from "../../../assets/color-style/sllStyle";
-
+import { Draggable } from "gsap/all";
+import { gsap } from "gsap/all";
+gsap.registerPlugin(Draggable);
 
 const getNodeList = (list) => {
     let current = list.head;
@@ -42,6 +44,7 @@ const SinglyLinkedList = ({operation}) => {
     const domTailText = useRef(null);
     const domVirtualHeadLine = useRef(null);
     const domVirtualTailLineY = useRef(null);
+    const container = useRef(null);
     const currentNode = new TravelNode(
                                         list, 
                                         colorway.singlylinkedlist["CURRENT_TEXT"], 
@@ -55,6 +58,7 @@ const SinglyLinkedList = ({operation}) => {
     );
 
     useEffect(() => {
+        Draggable.create(container.current);
         list.headRef = domHead.current;
         list.tailRef = domTail.current;
         list.headLine = domHeadLine.current;
@@ -124,6 +128,7 @@ const SinglyLinkedList = ({operation}) => {
             width={3000}
             height={800} 
         >
+            <g ref={container}>
                 <g
                     transform={`translate(${list.x}, ${list.y})`}
                 >
@@ -170,6 +175,7 @@ const SinglyLinkedList = ({operation}) => {
                     node={prevNode}
                 />
                 {nodeList}    
+            </g>
         </svg>
     );
 };

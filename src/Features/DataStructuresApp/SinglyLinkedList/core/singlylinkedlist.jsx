@@ -1,7 +1,6 @@
 import { Node } from "./node";
 import { node_size } from "../../../../assets/size/sll_size";
 import colorway from "../../../../assets/color-style/sllStyle";
-
 export class LinkedList {
     constructor () {
         this._head = null;
